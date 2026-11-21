@@ -377,6 +377,9 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
 .frames.bob .fb{display:none}
 .frames.bob .fa{animation:bob var(--per,1.1s) ease-in-out infinite;transform-origin:50% 100%}
 @keyframes bob{50%{transform:translateY(-2.5%)}}
+.frames.an-thrust .fa{animation-name:thrust;transform-origin:30% 60%}@keyframes thrust{0%,100%{transform:translateX(0)}35%{transform:translateX(3.5%) rotate(1.2deg)}55%{transform:translateX(3.5%) rotate(1.2deg)}}
+.frames.an-rock .fa{animation-name:rock;transform-origin:85% 100%}@keyframes rock{0%,100%{transform:rotate(0)}30%{transform:rotate(-2deg)}70%{transform:rotate(1.6deg)}}
+.frames.an-lift .fa{animation-name:lift;transform-origin:50% 100%}@keyframes lift{50%{transform:translateY(-3%) scaleY(1.02)}}
 .paused .frames *{animation-play-state:paused}
 
 /* 聲音開關 */
@@ -1019,9 +1022,9 @@ const SEATED=[
 ];
 const ALL_R=[...ROUTINES,...EXTRA,...SEATED];
 /* 已有插畫的動作：img/frames/動作-a.webp、-b.webp。新增時在這裡加一行 */
-// smarch spunch stoe scircle：ChatGPT 兩格畫成一樣，重畫前先用會動的小人
+// smarch spunch stoe scircle：兩格幾乎一樣，重畫前用 anim 讓插圖本身動（bob 上下、thrust 往前、rock 前後點、lift 上抬）
 const IMGS={ankle:{},legext:{},sitstand:{},hamstring:{},march:{bob:true},heel:{},side:{},wallpush:{},calf:{},quad:{},chin:{},shoulder:{},neck:{},reach:{},palm:{},bridge:{},slr:{},
-  skneehug:{},scat:{},slean:{},stwist:{},sbend:{},sopen:{},swrist:{}};
+  smarch:{anim:'bob'},spunch:{anim:'thrust'},stoe:{anim:'rock'},skneehug:{},scat:{},slean:{},stwist:{},sbend:{},scircle:{anim:'lift'},sopen:{},swrist:{}};
 const POT=i=>`img/frames/pot-${i}.webp`;
 function potStage(c,g){if(c<=0)return 0;if(c<=2)return 1;if(c<Math.ceil(g/2)+1)return 2;if(c<g-1)return 3;if(c<g)return 4;return 5}
 const figOf=(r)=>r.fig||((r.steps.find(s=>IMGS[s[0]])||[])[0])||r.steps[r.id==='r3'?4:0][0];
@@ -1045,7 +1048,7 @@ function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const
 function makeFig(id,host){
   const m=MOVES[id];
   host.classList.toggle('photo',!!IMGS[id]);
-  if(IMGS[id]){host.innerHTML=`<div class="frames${IMGS[id].bob?' bob':''}" style="--per:${m.period*1.15}s"><img class="fa" src="img/frames/${id}-a.webp" alt="${m.name}：起始動作"><img class="fb" src="img/frames/${id}-b.webp" alt="${m.name}：結束動作"></div>`;return {paused:false}}const A={...BASE[m.base],...m.a};const B={...A,...m.b};const flat=m.base==='front'||m.base==='seatF';
+  if(IMGS[id]){host.innerHTML=`<div class="frames${IMGS[id].bob?' bob':''}${IMGS[id].anim?' bob an-'+IMGS[id].anim:''}" style="--per:${m.period*1.15}s"><img class="fa" src="img/frames/${id}-a.webp" alt="${m.name}：起始動作"><img class="fb" src="img/frames/${id}-b.webp" alt="${m.name}：結束動作"></div>`;return {paused:false}}const A={...BASE[m.base],...m.a};const B={...A,...m.b};const flat=m.base==='front'||m.base==='seatF';
   const svg=document.createElementNS(NS,'svg');svg.setAttribute('viewBox','0 0 200 200');svg.setAttribute('role','img');svg.setAttribute('aria-label',m.name+'示範');
   svg.innerHTML='<line class="floor" x1="6" y1="187" x2="194" y2="187"/>'+m.props.map(p=>PROPS[p]).join('');
   const P={};
