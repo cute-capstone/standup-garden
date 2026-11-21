@@ -1013,7 +1013,8 @@ const SEATED=[
 ];
 const ALL_R=[...ROUTINES,...EXTRA,...SEATED];
 /* 已有插畫的動作：img/frames/動作-a.webp、-b.webp。新增時在這裡加一行 */
-const IMGS={ankle:{},legext:{},sitstand:{},hamstring:{},march:{bob:true},heel:{},side:{},wallpush:{},calf:{},quad:{},chin:{},shoulder:{},neck:{},reach:{},palm:{},bridge:{},slr:{}};
+const IMGS={ankle:{},legext:{},sitstand:{},hamstring:{},march:{bob:true},heel:{},side:{},wallpush:{},calf:{},quad:{},chin:{},shoulder:{},neck:{},reach:{},palm:{},bridge:{},slr:{},
+  smarch:{},spunch:{},stoe:{},skneehug:{},scat:{},slean:{},stwist:{},sbend:{},scircle:{},sopen:{},swrist:{}};
 const POT=i=>`img/frames/pot-${i}.webp`;
 function potStage(c,g){if(c<=0)return 0;if(c<=2)return 1;if(c<Math.ceil(g/2)+1)return 2;if(c<g-1)return 3;if(c<g)return 4;return 5}
 const figOf=(r)=>r.fig||((r.steps.find(s=>IMGS[s[0]])||[])[0])||r.steps[r.id==='r3'?4:0][0];
