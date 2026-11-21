@@ -302,6 +302,28 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
 @keyframes bob{50%{transform:translateY(-2.5%)}}
 .paused .frames *{animation-play-state:paused}
 
+/* 聲音開關 */
+.sound-btn{cursor:pointer;color:var(--ink);font:inherit;font-size:13px;align-items:center}
+.sound-btn svg{width:16px;height:16px}
+.sound-btn .x{display:none}
+.sound-btn[aria-pressed="false"]{color:var(--muted);background:var(--surface-2)}
+.sound-btn[aria-pressed="false"] .w{display:none}
+.sound-btn[aria-pressed="false"] .x{display:inline}
+.pl-tools{display:flex;gap:6px;align-items:center}
+.tool{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--hair);background:var(--paper);border-radius:999px;padding:4px 11px;font-size:12.5px;color:var(--muted)}
+.tool svg{width:14px;height:14px}
+.tool[aria-pressed="true"]{background:var(--leaf-soft);color:var(--ink);border-color:transparent}
+/* 怎麼使用 */
+.howto{padding:24px 26px;display:flex;flex-direction:column;gap:16px;background:linear-gradient(135deg,var(--paper),var(--sun-soft))}
+.howto-head h2{font-size:clamp(20px,2.6vw,24px);margin-top:4px}
+.howto-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;counter-reset:hs}
+@media (max-width:860px){.howto-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.howto-steps{grid-template-columns:minmax(0,1fr)}}
+.howto-steps li{counter-increment:hs;display:flex;flex-direction:column;gap:4px;background:var(--paper);border:1px solid var(--hair);border-radius:16px;padding:16px}
+.howto-steps li::before{content:counter(hs);font-family:var(--f-latin);font-size:26px;line-height:1;color:var(--leaf)}
+.howto-steps b{font-size:15px}
+.howto-steps span{font-size:13px;color:var(--muted);line-height:1.6}
+.howto-note{font-size:12.5px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
@@ -326,6 +348,7 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
     <div class="chips">
       <span class="chip" id="chipDate">—</span>
       <span class="chip">連續活動 <b id="chipStreak">0</b> 天</span>
+      <button class="chip sound-btn" id="btnMute" aria-pressed="true" title="一鍵開關所有聲音"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 8v4h3l4 3.5v-11L6 8z" fill="currentColor"/><path class="w" d="M13 7.5a3.5 3.5 0 0 1 0 5M15.2 5.3a6.5 6.5 0 0 1 0 9.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path class="x" d="M13 7.5l5 5M18 7.5l-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>聲音開</span></button>
     </div>
   </header>
 
@@ -369,7 +392,9 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
             <label>每 <select id="setInterval"><option>20</option><option>30</option><option selected>40</option><option>45</option><option>60</option></select> 分鐘起身</label>
             <label>每日 <select id="setGoal"><option>6</option><option selected>8</option><option>10</option></select> 次</label>
             <label><input type="checkbox" id="setEye" checked> 護眼提醒</label>
-            <label><input type="checkbox" id="setSound" checked> 聲音</label>
+            <label><input type="checkbox" id="setSound" checked> 提示音</label>
+            <label><input type="checkbox" id="setMusic" checked> 運動音樂</label>
+            <label><input type="checkbox" id="setVoice" checked> 語音說明</label>
           </div>
         </div>
       </div>
@@ -399,6 +424,17 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
       <div><h2>選一組來動<span class="lt">Routines</span></h2><p>粉框是下一組輪替。每組都不跳、不深蹲，膝蓋會痛的人也能做。</p></div>
     </div>
     <div class="routines" id="routines"></div>
+
+    <div class="card howto">
+      <div class="howto-head"><p class="eyebrow"><span class="lt">How to use</span>・怎麼使用</p><h2>四個步驟，坐著也能照顧身體</h2></div>
+      <ol class="howto-steps">
+        <li><b>按「開始坐著」</b><span>開始工作時按一下。網頁要一直開著，可以放在旁邊的視窗。</span></li>
+        <li><b>時間到就起身</b><span>會響鈴並跳出提醒，按「開始運動」，跟著插圖和語音做 3 分鐘。真的很懶就選 1 分鐘版。</span></li>
+        <li><b>看盆栽長大</b><span>每完成一次就長一片葉子，達到每日目標會開出粉紅色的花。</span></li>
+        <li><b>聲音自己決定</b><span>右上角「聲音」一鍵全部開關；計時器下方可以分別勾選提示音、運動音樂、語音說明；運動中也能隨時按「音樂」「語音」切換。</span></li>
+      </ol>
+      <p class="howto-note">第一次要先按一下任何按鈕，瀏覽器才會允許播放聲音。語音使用電腦內建的中文語音，不同電腦聽起來會不太一樣。</p>
+    </div>
   </section>
 
   <section id="view-library" class="wrap" style="gap:20px" hidden>
@@ -454,7 +490,7 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
   <div class="card player" id="playerCard">
     <div class="figbox fig t-leaf" id="plFig"></div>
     <div class="pl-side">
-      <div class="pl-top"><div class="dots" id="plDots"></div><button class="close-x" id="plClose">結束</button></div>
+      <div class="pl-top"><div class="dots" id="plDots"></div><div class="pl-tools"><button class="tool" id="tMusic" aria-pressed="true" title="運動音樂"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 15.5V5l9-2v10.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="5" cy="15.5" r="2.2" fill="currentColor"/><circle cx="14" cy="13.5" r="2.2" fill="currentColor"/></svg>音樂</button><button class="tool" id="tVoice" aria-pressed="true" title="語音說明"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 8v4h3l4 3.5v-11L6 8z" fill="currentColor"/><path d="M13 7.5a3.5 3.5 0 0 1 0 5M15.2 5.3a6.5 6.5 0 0 1 0 9.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>語音</button><button class="close-x" id="plClose">結束</button></div></div>
       <p class="eyebrow" id="plRoutine">膝蓋醒來</p>
       <h2 id="plName">坐姿伸膝</h2>
       <span><span class="dose" id="plDose">每邊 8 次</span></span>
@@ -585,7 +621,7 @@ const figOf=(r)=>r.fig||((r.steps.find(s=>IMGS[s[0]])||[])[0])||r.steps[r.id==='
 
 /* ---------- 儲存 ---------- */
 const KEY='standup-garden-v1';
-let S={settings:{interval:40,goal:8,eye:true,sound:true},hist:{},next:0};
+let S={settings:{interval:40,goal:8,eye:true,sound:true,music:true,voice:true,mute:false},hist:{},next:0};
 try{const raw=localStorage.getItem(KEY);if(raw){const o=JSON.parse(raw);S={...S,...o,settings:{...S.settings,...(o.settings||{})}}}}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 const dkey=d=>{const x=new Date(d);return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')};
@@ -730,7 +766,7 @@ function triggerAlert(){
   const r=ROUTINES[S.next%ROUTINES.length];
   $('alertMin').textContent=S.settings.interval;$('alertRoutine').textContent=r.name;$('alertDur').textContent=Math.round(r.steps.reduce((a,s)=>a+s[1],0)/60);
   $('ovAlert').hidden=false;$('aGo').focus();
-  chime('alert');let n=0;clearInterval(alertBeep);alertBeep=setInterval(()=>{if(++n>4){clearInterval(alertBeep);return}chime('alert')},30000);
+  chime('alert');setTimeout(()=>say('已經坐了'+S.settings.interval+'分鐘，起來動一下吧。'),1300);let n=0;clearInterval(alertBeep);alertBeep=setInterval(()=>{if(++n>4){clearInterval(alertBeep);return}chime('alert')},30000);
   let fl=false;clearInterval(titleFlash);titleFlash=setInterval(()=>{document.title=(fl=!fl)?'⏰ 該起身了':baseTitle},1000);
   notify('該起身了','已經坐了 '+S.settings.interval+' 分鐘，起來動 3 分鐘吧。');
 }
@@ -739,7 +775,7 @@ function clearAlert(){clearInterval(alertBeep);clearInterval(titleFlash);documen
 let eyeT=null,eyeLeft=20;
 function eyeToast(){
   if(!$('ovPlayer').hidden||!$('ovAlert').hidden)return;
-  eyeLeft=20;$('toast').hidden=false;$('eyeNum').textContent=20;$('eyeProg').style.strokeDashoffset=0;chime('eye');
+  eyeLeft=20;$('toast').hidden=false;$('eyeNum').textContent=20;$('eyeProg').style.strokeDashoffset=0;chime('eye');setTimeout(()=>say('眼睛休息二十秒，看看遠方，慢慢眨眼。'),700);
   clearInterval(eyeT);eyeT=setInterval(()=>{eyeLeft--;$('eyeNum').textContent=Math.max(0,eyeLeft);$('eyeProg').style.strokeDashoffset=157*(1-eyeLeft/20);if(eyeLeft<=0)eyeFinish(true)},1000);
 }
 function eyeFinish(count){clearInterval(eyeT);$('toast').hidden=true;if(count){today().e++;save();renderStats();chime('soft')}}
@@ -759,7 +795,7 @@ let AC=null;
 function unlockAudio(){try{if(!AC)AC=new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume()}catch(e){}}
 function tone(freq,at,dur,vol){const o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.value=freq;g.gain.setValueAtTime(0,at);g.gain.linearRampToValueAtTime(vol,at+.02);g.gain.exponentialRampToValueAtTime(.0001,at+dur);o.connect(g).connect(AC.destination);o.start(at);o.stop(at+dur+.05)}
 function chime(kind){
-  if(!S.settings.sound||!AC)return;try{const t=AC.currentTime+.02;
+  if(S.settings.mute||!S.settings.sound||!AC)return;try{const t=AC.currentTime+.02;
   if(kind==='alert')[659,784,988,784,988,1319].forEach((f,i)=>tone(f,t+i*.18,.6,.18));
   else if(kind==='eye'){tone(880,t,.5,.12);tone(1175,t+.2,.7,.1)}
   else if(kind==='step'){tone(784,t,.25,.12);tone(1046,t+.12,.35,.12)}
@@ -768,6 +804,44 @@ function chime(kind){
   else tone(988,t,.4,.1)}catch(e){}
 }
 document.addEventListener('pointerdown',unlockAudio,{once:true});
+/* ---------- 背景音樂（瀏覽器即時合成，不用音樂檔）＋語音說明 ---------- */
+const mtof=m=>440*Math.pow(2,(m-69)/12);
+const Music={g:null,timer:null,next:0,i:0,noise:null,duck:1,
+  vol(){return 0.55*this.duck},
+  start(){
+    if(!AC||this.timer||S.settings.mute||!S.settings.music)return;
+    this.g=AC.createGain();this.g.gain.value=0;this.g.connect(AC.destination);
+    this.g.gain.linearRampToValueAtTime(this.vol(),AC.currentTime+1.5);
+    if(!this.noise){const b=AC.createBuffer(1,AC.sampleRate*.2,AC.sampleRate),d=b.getChannelData(0);for(let k=0;k<d.length;k++)d[k]=Math.random()*2-1;this.noise=b}
+    this.next=AC.currentTime+.15;this.i=0;this.timer=setInterval(()=>this.sched(),90);
+  },
+  stop(){if(!this.timer)return;clearInterval(this.timer);this.timer=null;const g=this.g;try{g.gain.cancelScheduledValues(AC.currentTime);g.gain.setValueAtTime(g.gain.value,AC.currentTime);g.gain.linearRampToValueAtTime(0,AC.currentTime+.8)}catch(e){}setTimeout(()=>{try{g.disconnect()}catch(e){}},1200);this.g=null},
+  setDuck(d){this.duck=d;if(this.g){this.g.gain.cancelScheduledValues(AC.currentTime);this.g.gain.setTargetAtTime(this.vol(),AC.currentTime,.25)}},
+  sched(){const spe=60/96/2;while(this.next<AC.currentTime+.35){this.note(this.i,this.next);this.next+=spe;this.i++}},
+  osc(type,f,t,dur,v,dest,a=.01){const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+a);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g).connect(dest);o.start(t);o.stop(t+dur+.05)},
+  note(i,t){
+    const CH=[[60,64,67],[55,59,62],[57,60,64],[53,57,60]];const bar=Math.floor(i/8)%4,e=i%8,c=CH[bar],out=this.g;if(!out)return;
+    if(e===0){const lp=AC.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1100;lp.connect(out);
+      c.forEach(m=>{this.osc('triangle',mtof(m),t,2.6,.035,lp,.5);this.osc('sine',mtof(m+12)*1.003,t,2.4,.02,lp,.6)})}
+    if(e===0||e===4)this.osc('sine',mtof(c[0]-24),t,.6,.09,out,.02);
+    const arp=[c[0]+12,c[2]+12,c[1]+12,c[2]+12,c[0]+24,c[2]+12,c[1]+12,c[1]+24];
+    if(e!==3&&e!==7){this.osc('sine',mtof(arp[e]),t,.7,.045,out);this.osc('triangle',mtof(arp[e])*2,t,.25,.01,out)}
+    if(e%2===1){const n=AC.createBufferSource(),bp=AC.createBiquadFilter(),g=AC.createGain();n.buffer=this.noise;bp.type='bandpass';bp.frequency.value=7000;g.gain.setValueAtTime(.025,t);g.gain.exponentialRampToValueAtTime(.0001,t+.06);n.connect(bp).connect(g).connect(out);n.start(t);n.stop(t+.08)}
+  }
+};
+let zhVoice=null;
+function pickVoice(){try{const v=speechSynthesis.getVoices();const tw=v.filter(x=>/zh[-_]TW/i.test(x.lang));
+  const pref=['Meijia','美佳','Yating','HsiaoChen','Hanhan','Sandy','Shelley','Flo'];
+  zhVoice=null;for(const n of pref){const f=tw.find(x=>x.name.includes(n));if(f){zhVoice=f;break}}
+  if(!zhVoice)zhVoice=tw.find(x=>!/Eddy|Grandpa|Reed|Rocko/.test(x.name))||tw[0]||v.find(x=>/zh/i.test(x.lang))||null}catch(e){}}
+try{pickVoice();speechSynthesis.onvoiceschanged=pickVoice}catch(e){}
+function say(text){
+  if(S.settings.mute||!S.settings.voice||!('speechSynthesis' in window))return;
+  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='zh-TW';if(zhVoice)u.voice=zhVoice;u.rate=1.02;u.pitch=1.1;
+    u.onstart=()=>Music.setDuck(.35);u.onend=u.onerror=()=>Music.setDuck(1);speechSynthesis.speak(u)}catch(e){}
+}
+function hush(){try{speechSynthesis.cancel()}catch(e){}Music.stop()}
+
 let notifyOK=false;
 function askNotify(){try{if('Notification' in window&&Notification.permission==='default')Notification.requestPermission().then(p=>notifyOK=p==='granted').catch(()=>{});else notifyOK=('Notification' in window)&&Notification.permission==='granted'}catch(e){}}
 function notify(t,b){try{if(notifyOK&&document.hidden)new Notification(t,{body:b})}catch(e){}}
@@ -781,10 +855,12 @@ function openPlayer(rid){
   PL={r,i:0,left:r.steps[0][1],paused:false,moved:0,last:Date.now(),fig:null};
   $('playerCard').hidden=false;$('doneCard').hidden=true;$('ovPlayer').hidden=false;
   if(run.on)pause();
-  showStep();$('plPause').focus();
+  showStep();$('plPause').focus();Music.start();
 }
 function showStep(){
-  const [id,,dose]=PL.r.steps[PL.i];const m=MOVES[id];
+  const [id,,dose]=PL.r.steps[PL.i];const m=MOVES[id];PL.switched=false;
+  const lead=PL.i===0?'開始囉，'+PL.r.name+'。第一個':(PL.i===PL.r.steps.length-1?'最後一個':'下一個');
+  say(lead+'，'+m.name+'，'+dose+'。'+m.cue.join('。'));
   $('plFig').className='figbox fig t-'+m.tint;
   PL.fig=makeFig(id,$('plFig'));PL.fig.paused=PL.paused;$('plFig').classList.toggle('paused',PL.paused);
   $('plRoutine').innerHTML=PL.r.name+'<span class="lt" style="margin-left:8px">step '+(PL.i+1)+' of '+PL.r.steps.length+'</span>';
@@ -808,17 +884,19 @@ setInterval(()=>{
   const now=Date.now(),dt=(now-PL.last)/1000;PL.last=now;
   if(PL.paused)return;
   PL.left-=dt;PL.moved+=dt;
+  {const st=PL.r.steps[PL.i];if(!PL.switched&&/每邊/.test(st[2])&&PL.left<=st[1]/2){PL.switched=true;say('換另一邊')}}
   if(PL.left<=3&&PL.left>0&&Math.ceil(PL.left)!==Math.ceil(PL.left+dt))chime('tick');
   if(PL.left<=0)nextStep();else renderPlayer();
 },250);
-$('plPause').onclick=()=>{PL.paused=!PL.paused;PL.last=Date.now();if(PL.fig)PL.fig.paused=PL.paused;$('plFig').classList.toggle('paused',PL.paused);renderPlayer()};
+$('plPause').onclick=()=>{PL.paused=!PL.paused;PL.last=Date.now();if(PL.paused){hush()}else{syncSound()}if(PL.fig)PL.fig.paused=PL.paused;$('plFig').classList.toggle('paused',PL.paused);renderPlayer()};
 $('plSkip').onclick=()=>nextStep();
 $('plPrev').onclick=()=>{if(PL.i>0){PL.i--;PL.left=PL.r.steps[PL.i][1];showStep()}};
-$('plClose').onclick=()=>{if(PL&&PL.moved>=45){finishPlayer();return}$('ovPlayer').hidden=true;PL=null;resetTimer(true)};
+$('plClose').onclick=()=>{if(PL&&PL.moved>=45){finishPlayer();return}hush();$('ovPlayer').hidden=true;PL=null;resetTimer(true)};
 function finishPlayer(){
   const d=today();d.b++;d.m+=Math.round(PL.moved);
   if(PL.r.id===ROUTINES[S.next%ROUTINES.length].id)S.next++;
-  save();chime('done');
+  save();Music.stop();chime('done');
+  setTimeout(()=>say(d.b>=S.settings.goal?'太棒了，今天的盆栽開花了。':'做得好，盆栽長出一片新葉子。'),500);
   $('playerCard').hidden=true;$('doneCard').hidden=false;
   $('donePot').src=POT(potStage(d.b,S.settings.goal));
   $('doneEyebrow').textContent='今天第 '+d.b+' 次';
@@ -840,6 +918,20 @@ const bindSel=(id,key)=>{const e=$(id);e.value=String(S.settings[key]);e.onchang
 bindSel('setInterval','interval');bindSel('setGoal','goal');
 $('setEye').checked=S.settings.eye;$('setEye').onchange=e=>{S.settings.eye=e.target.checked;save();renderTimer()};
 $('setSound').checked=S.settings.sound;$('setSound').onchange=e=>{S.settings.sound=e.target.checked;save()};
+$('setMusic').checked=S.settings.music;$('setMusic').onchange=e=>{S.settings.music=e.target.checked;save();syncSound()};
+$('setVoice').checked=S.settings.voice;$('setVoice').onchange=e=>{S.settings.voice=e.target.checked;save();syncSound()};
+$('btnMute').onclick=()=>{unlockAudio();S.settings.mute=!S.settings.mute;save();syncSound();if(!S.settings.mute)chime('soft')};
+$('tMusic').onclick=()=>{unlockAudio();S.settings.music=!S.settings.music;save();syncSound()};
+$('tVoice').onclick=()=>{unlockAudio();S.settings.voice=!S.settings.voice;save();syncSound();if(S.settings.voice&&PL)say(MOVES[PL.r.steps[PL.i][0]].name)};
+function syncSound(){
+  const m=S.settings.mute;$('btnMute').setAttribute('aria-pressed',String(!m));$('btnMute').querySelector('span').textContent=m?'聲音關':'聲音開';
+  $('setMusic').checked=S.settings.music;$('setVoice').checked=S.settings.voice;
+  $('tMusic').setAttribute('aria-pressed',String(S.settings.music&&!m));$('tVoice').setAttribute('aria-pressed',String(S.settings.voice&&!m));
+  const playing=PL&&!$('ovPlayer').hidden&&$('doneCard').hidden&&!PL.paused;
+  if(playing&&S.settings.music&&!m)Music.start();else Music.stop();
+  if(m||!S.settings.voice){try{speechSynthesis.cancel()}catch(e){}}
+}
+syncSound();
 
 /* ---------- 畫面 ---------- */
 function renderStats(){
