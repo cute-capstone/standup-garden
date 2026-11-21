@@ -2,6 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>起身小花園</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2060%2066%22%3E%3Cpath%20d%3D%22M8%2062V30a22%2022%200%200%201%2044%200v32z%22%20fill%3D%22%23FDEAF0%22%20stroke%3D%22%23E2728F%22%20stroke-width%3D%223%22/%3E%3Cpath%20d%3D%22M30%2062c0-9-1.6-15%200-29%22%20fill%3D%22none%22%20stroke%3D%22%236BB38E%22%20stroke-width%3D%223.4%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M29.6%2047c-1.5-6.5-6.5-9.5-13-9%201%206.5%206%209.6%2013%209z%22%20fill%3D%22%23E2728F%22/%3E%3Cpath%20d%3D%22M30.2%2041c1.3-6.6%206.2-9.8%2012.8-9.4-.8%206.6-5.8%209.8-12.8%209.4z%22%20fill%3D%22%236FA6DE%22/%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2227.5%22%20r%3D%224.4%22%20fill%3D%22%23F7B9CB%22%20stroke%3D%22%23E2728F%22%20stroke-width%3D%221.8%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Playfair+Display:wght@500;600;700&family=Shippori+Mincho+B1:wght@700;800&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@500;700;900&display=swap">
@@ -58,13 +59,16 @@ p{margin:0}
 .top{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:18px;padding-bottom:18px;border-bottom:1px solid var(--hair)}
 @media (max-width:640px){.top{grid-template-columns:minmax(0,1fr)}}
 .brand{display:flex;align-items:center;gap:16px}
-.brand .mark{width:54px;height:54px;flex:none}
-.brand h1{font-size:clamp(32px,4.8vw,50px);letter-spacing:.1em;line-height:1.05;font-family:"Shippori Mincho B1","Noto Serif TC",serif;font-weight:800}
-.logo .sm{font-size:.62em;color:var(--leaf);letter-spacing:.02em;margin:0 .06em;vertical-align:.32em;font-weight:700}
-.logo .en{position:relative}
-.logo .en::before{content:"";position:absolute;width:.24em;height:.24em;border-radius:50%;background:var(--leaf-2);top:-.12em;right:-.02em;box-shadow:.18em .06em 0 -.04em var(--sun-2)}
-.brand h1 .lt{font-family:"Playfair Display",var(--f-latin);font-style:italic;font-weight:500;font-size:.42em;color:var(--leaf);letter-spacing:0;margin-left:10px;vertical-align:.5em}
-.brand p{color:var(--muted);font-size:14px;margin-top:4px}
+.brand .mark{width:66px;height:73px;flex:none;overflow:visible}
+.brand .mark circle,.brand .mark path:nth-child(n+5){transform-origin:30px 62px;transition:transform .6s cubic-bezier(.3,1.6,.5,1)}
+.brand:hover .mark path:nth-child(n+5),.brand:hover .mark circle{transform:translateY(-2px) scaleY(1.04)}
+.brand{gap:20px}.brand>div{border-left:1px solid var(--hair);padding-left:20px}
+.logo{display:flex;flex-direction:column;gap:6px;line-height:1}
+.logo .lg-en{font-family:"Playfair Display",var(--f-latin);font-style:italic;font-weight:500;font-size:13px;letter-spacing:.22em;color:var(--leaf);display:flex;align-items:center;gap:10px;white-space:nowrap}
+.logo .lg-en::after{content:"";width:34px;height:1px;background:currentColor;opacity:.5}
+.logo .lg-zh{font-family:"Shippori Mincho B1","Noto Serif TC",serif;font-weight:800;font-size:clamp(30px,4.2vw,44px);letter-spacing:.16em;color:var(--ink);display:flex;align-items:center;white-space:nowrap}
+.logo .lg-zh i{width:.16em;height:.16em;border-radius:50%;background:var(--leaf);margin:0 .22em 0 .06em;flex:none}
+.brand p{color:var(--muted);font-size:13.5px;margin-top:10px;letter-spacing:.04em}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
 .chip{display:inline-flex;align-items:baseline;gap:6px;padding:7px 14px;border-radius:999px;background:var(--paper);border:1px solid var(--hair);font-size:13px;white-space:nowrap}
 .chip b{font-family:var(--f-latin);font-size:18px;font-weight:600;color:var(--leaf)}
@@ -73,8 +77,8 @@ p{margin:0}
 .navbar.stuck{border-bottom-color:var(--hair);box-shadow:0 10px 24px -20px rgba(120,60,90,.5)}
 nav.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;align-items:center}
 .nb-logo{font-family:"Shippori Mincho B1","Noto Serif TC",serif;font-weight:800;font-size:17px;letter-spacing:.08em;white-space:nowrap;max-width:0;opacity:0;overflow:hidden;transition:max-width .35s,opacity .25s,margin .35s;margin-right:0}
-.nb-logo span{font-size:.65em;color:var(--leaf);vertical-align:.3em}
-.navbar.stuck .nb-logo{max-width:120px;opacity:1;margin-right:10px}
+.nb-logo i{display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--leaf);margin:0 .3em 0 .1em;vertical-align:middle}
+.navbar.stuck .nb-logo{max-width:140px;opacity:1;margin-right:10px}
 nav.tabs button{display:inline-flex;align-items:center;gap:6px;border-radius:999px!important;padding:8px 14px!important}
 nav.tabs button svg{width:17px;height:17px;flex:none}
 nav.tabs button[aria-selected="true"]{background:var(--leaf-soft)}
@@ -298,7 +302,7 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
 .notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 @media (max-width:900px){.notes{grid-template-columns:minmax(0,1fr)}}
 .note-c{padding:24px;display:flex;flex-direction:column;gap:14px}
-.note-c .ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center}
+.note-c .ic{width:56px;height:56px;border-radius:16px;display:grid;place-items:center}.note-c .ic .vi{width:40px;height:40px}
 .note-c h3{font-size:21px}
 .note-c h4{margin:0;font-size:11.5px;letter-spacing:.16em;color:var(--muted);font-weight:500}
 .note-c ul{margin:0;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:6px}
@@ -472,6 +476,13 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
 .x-faces{display:flex;justify-content:space-between;gap:4px}
 .x-face{flex:1;border:2px solid transparent;background:var(--paper);border-radius:12px;padding:5px 0 3px;font-size:22px;cursor:pointer;line-height:1.1;display:flex;flex-direction:column;align-items:center;font-family:inherit;transition:transform .2s cubic-bezier(.3,1.8,.5,1)}
 .x-face small{font-size:10px;color:var(--muted)}
+.vi{display:block;overflow:visible}
+.x-face .vi{width:34px;height:34px;margin-bottom:1px;filter:drop-shadow(0 2px 2px rgba(91,65,82,.12))}
+.x-face[aria-checked=true] .vi{animation:viPop .45s cubic-bezier(.3,1.8,.5,1)}
+@keyframes viPop{0%{transform:scale(.7) rotate(-8deg)}100%{transform:none}}
+.x-week7 .c .vi{width:22px;height:22px;margin:auto}
+.x-qic,.x-tic{display:inline-block;vertical-align:middle;margin-right:6px}
+.x-qic .vi{width:34px;height:34px}.x-tic .vi{width:22px;height:22px}
 .x-face:hover{transform:translateY(-3px)}
 .x-face[aria-checked=true]{border-color:var(--leaf);background:var(--leaf-soft);transform:scale(1.08)}
 .x-week7{display:grid;grid-template-columns:auto repeat(7,minmax(0,1fr));gap:4px 6px;padding:8px 22px 22px;align-items:center;font-size:12px;color:var(--muted)}
@@ -496,7 +507,7 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
 /* 飲料 */
 .x-drinks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:14px 22px 6px}
 .x-drink-b{border:2px solid var(--hair);background:var(--paper);border-radius:16px;padding:8px 4px;font:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--ink);transition:transform .2s cubic-bezier(.3,1.8,.5,1)}
-.x-drink-b span{font-size:26px;line-height:1.1}.x-drink-b small{font-size:12px;font-weight:600}
+.x-drink-b span{line-height:1}.x-drink-b .vi{width:40px;height:40px;transition:transform .25s cubic-bezier(.3,1.8,.5,1)}.x-drink-b:hover .vi,.x-drink-b[aria-checked=true] .vi{transform:rotate(-6deg) scale(1.06)}.x-drink-b small{font-size:12px;font-weight:600}
 .x-drink-b:hover{transform:translateY(-3px)}
 .x-drink-b[aria-checked=true]{border-color:var(--sun);background:var(--sun-soft);transform:scale(1.05)}
 .x-dout{padding:8px 22px 22px}
@@ -513,7 +524,7 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
 .x-flip[aria-pressed=true] .in{transform:rotateY(180deg)}
 .x-flip .f,.x-flip .b{position:absolute;inset:0;border-radius:20px;padding:18px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow);border:1px solid var(--hair)}
 .x-flip .f{background:var(--fc,var(--leaf-soft));justify-content:space-between}
-.x-flip .f .ic{font-size:34px;display:block}
+.x-flip .f .ic{display:grid;place-items:center;width:62px;height:62px;border-radius:18px;background:rgba(255,255,255,.7);box-shadow:inset 0 0 0 1px rgba(255,255,255,.9)}.x-flip .f .ic .vi{width:46px;height:46px}
 .x-flip .f b,.x-flip .f small{display:block}
 .x-flip .f b{font-family:var(--f-display);font-size:18px;line-height:1.4}
 .x-flip .f small{font-size:11.5px;color:var(--muted)}
@@ -618,9 +629,9 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
 <div class="wrap">
   <header class="top">
     <div class="brand">
-      <svg class="mark" viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="27" fill="var(--leaf-soft)"/><path d="M27 41V24" stroke="var(--green)" stroke-width="2.6" stroke-linecap="round"/><path d="M27 30c-7 0-10.5-4.5-10.5-10 7 0 10.5 4.5 10.5 10z" fill="var(--leaf)"/><path d="M27 26c0-6 3.5-10.5 10.5-10.5 0 5.5-3.5 10.5-10.5 10.5z" fill="var(--sun)"/></svg>
+      <svg class="mark" viewBox="0 0 60 66" aria-hidden="true"><path d="M8 62V30a22 22 0 0 1 44 0v32z" fill="var(--leaf-soft)"/><path d="M8 62V30a22 22 0 0 1 44 0v32" fill="none" stroke="var(--leaf)" stroke-width="1.3"/><path d="M12.5 62V30.5a17.5 17.5 0 0 1 35 0V62" fill="none" stroke="var(--leaf)" stroke-width=".7" opacity=".45"/><path d="M3 62h54" stroke="var(--ink)" stroke-width="1.2" stroke-linecap="round"/><path d="M30 62c0-9-1.6-15 0-29" fill="none" stroke="var(--green)" stroke-width="1.8" stroke-linecap="round"/><path d="M29.6 47c-1.5-6.5-6.5-9.5-13-9 1 6.5 6 9.6 13 9z" fill="var(--leaf)"/><path d="M30.2 41c1.3-6.6 6.2-9.8 12.8-9.4-.8 6.6-5.8 9.8-12.8 9.4z" fill="var(--sun)"/><circle cx="30" cy="27.5" r="3.6" fill="var(--leaf-2)" stroke="var(--leaf)" stroke-width="1.1"/><path d="M44 13.5v5M41.5 16h5" stroke="var(--sun)" stroke-width="1.2" stroke-linecap="round"/></svg>
       <div>
-        <h1 class="logo" aria-label="起身小花園"><span aria-hidden="true">起身<span class="sm">小</span>花<span class="en">園</span></span><span class="lt">a stand-up garden</span></h1>
+        <h1 class="logo" aria-label="起身小花園"><span class="lg-en" aria-hidden="true">A Stand-up Garden</span><span class="lg-zh" aria-hidden="true"><span>起身</span><i></i><span>小花園</span></span></h1>
         <p>坐久了就起來動一下，每動一次，盆栽就長一片葉子。</p>
       </div>
     </div>
@@ -633,7 +644,7 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
 
   <div class="navbar" id="navbar">
   <nav class="tabs" role="tablist" aria-label="頁面">
-    <span class="nb-logo" aria-hidden="true">起身<span>小</span>花園</span>
+    <span class="nb-logo" aria-hidden="true">起身<i></i>小花園</span>
     <button role="tab" aria-selected="true" data-tab="today" id="tab-today"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M10 7.5V11l2.2 1.6M8 2.5h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>今天<span class="lt">Today</span></button>
     <button role="tab" aria-selected="false" data-tab="library" id="tab-library"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="4" r="2" fill="currentColor"/><path d="M10 6.5v6M10 12.5l-3 5M10 12.5l3 5M5 9l5-1.5L15 9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>運動庫<span class="lt">Moves</span></button>
     <button role="tab" aria-selected="false" data-tab="plan" id="tab-plan"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 17V3M4 3.5h10l-2 3 2 3H4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>四週計畫<span class="lt">Plan</span></button>
@@ -717,6 +728,11 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
     </div>
     <div class="routines" id="routines"></div>
 
+    <div class="sec-head" id="seatHead">
+      <div><h2>坐著就能動<span class="lt">Chair sets</span></h2><p>不用離開椅子，開會、追劇、打字的空檔都能做。動作越做越熟，也可以挑喜歡的單獨練。</p></div>
+    </div>
+    <div class="routines" id="seated"></div>
+
     <div class="card howto" id="howto">
       <div class="howto-head">
         <div><p class="eyebrow"><span class="lt">How to use</span>・怎麼使用</p><h2>四個步驟，坐著也能照顧身體</h2></div>
@@ -745,6 +761,7 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
         <button aria-pressed="false" data-f="肩頸">肩頸</button>
         <button aria-pressed="false" data-f="眼睛">眼睛</button>
         <button aria-pressed="false" data-f="燃脂">燃脂</button>
+        <button aria-pressed="false" data-f="seat">坐著做</button>
         <button aria-pressed="false" data-f="fav">♡ 收藏</button>
       </div>
     </div>
@@ -871,17 +888,53 @@ const BASE={
   stand:{h:[100,36],n:[100,54],p:[100,110],kL:[98,147],fL:[96,182],kR:[102,147],fR:[104,182],eL:[98,82],hL:[99,106],eR:[102,82],hR:[104,106],tL:[11,0],tR:[11,0]},
   seat:{h:[84,48],n:[86,65],p:[88,122],kL:[124,124],fL:[122,182],kR:[128,122],fR:[128,182],eL:[92,93],hL:[110,112],eR:[94,93],hR:[114,114],tL:[11,0],tR:[11,0]},
   front:{h:[100,36],n:[100,55],p:[100,112],kL:[92,148],fL:[90,182],kR:[108,148],fR:[110,182],eL:[85,82],hL:[82,106],eR:[115,82],hR:[118,106],tL:[-8,0],tR:[8,0]},
+  seatF:{h:[100,58],n:[100,76],p:[100,128],kL:[86,140],fL:[87,182],kR:[114,140],fR:[113,182],eL:[85,102],hL:[88,124],eR:[115,102],hR:[112,124],tL:[-6,0],tR:[6,0]},
   lie:{h:[38,168],n:[56,175],p:[110,177],kL:[138,146],fL:[156,180],kR:[142,146],fR:[160,180],eL:[78,179],hL:[100,180],eR:[80,179],hR:[102,180],tL:[11,0],tR:[11,0]}
 };
 const HEAD={stand:{hair:[-2.6,-2.8],face:[1.4,1.2],eyes:[[6.4,0]]},seat:{hair:[-2.6,-2.8],face:[1.4,1.2],eyes:[[6.4,0]]},
-  front:{hair:[0,-3.2],face:[0,1.6],eyes:[[-4.4,1],[4.4,1]]},lie:{hair:[-3.4,1.2],face:[1.2,-1.4],eyes:[[1.5,-6.5]]}};
+  front:{hair:[0,-3.2],face:[0,1.6],eyes:[[-4.4,1],[4.4,1]]},seatF:{hair:[0,-3.2],face:[0,1.6],eyes:[[-4.4,1],[4.4,1]]},lie:{hair:[-3.4,1.2],face:[1.2,-1.4],eyes:[[1.5,-6.5]]}};
 const PROPS={
   chair:'<rect x="58" y="125" width="52" height="7" rx="3.5" fill="var(--wood)"/><rect x="58" y="72" width="7" height="60" rx="3.5" fill="var(--wood-2)"/><rect x="61" y="130" width="5" height="56" rx="2.5" fill="var(--wood-2)"/><rect x="101" y="130" width="5" height="56" rx="2.5" fill="var(--wood)"/>',
   chairF:'<rect x="135" y="88" width="7" height="98" rx="3.5" fill="var(--wood)"/><rect x="135" y="133" width="44" height="7" rx="3.5" fill="var(--wood)"/><rect x="172" y="137" width="5" height="49" rx="2.5" fill="var(--wood-2)"/>',
   wall:'<rect x="175" y="10" width="25" height="178" fill="var(--paper)" opacity=".9"/><rect x="175" y="10" width="2" height="178" fill="var(--ink)" opacity=".1"/><rect x="175" y="176" width="25" height="10" fill="var(--wood)" opacity=".8"/>',
+  chairFront:'<rect x="72" y="74" width="56" height="58" rx="9" fill="var(--wood)" opacity=".55"/><rect x="66" y="129" width="68" height="8" rx="4" fill="var(--wood)"/><rect x="70" y="135" width="5" height="51" rx="2.5" fill="var(--wood-2)"/><rect x="125" y="135" width="5" height="51" rx="2.5" fill="var(--wood-2)"/>',
   mat:'<rect x="16" y="182" width="172" height="6" rx="3" fill="var(--mat)"/>'
 };
 const MOVES={
+  smarch:{name:'坐姿抬膝踏步',base:'seat',props:['chair'],tags:['燃脂','循環'],tint:'sun',period:1.2,
+    a:{kR:[124,104],fR:[132,158],eR:[98,90],hR:[114,76],eL:[84,96],hL:[78,112]},
+    b:{kR:[128,122],fR:[128,182],kL:[120,104],fL:[128,158],eL:[98,90],hL:[114,76],eR:[84,96],hR:[78,112]},
+    cue:['坐椅子前半段，背挺直','左右膝蓋輪流抬起，像坐著走路','手臂跟著前後擺，越快越燒'],knee:'腳不用落地出力，膝蓋零負擔，卻能讓心跳微微加快。'},
+  spunch:{name:'坐姿出拳',base:'seat',props:['chair'],tags:['燃脂'],tint:'sun',period:.9,
+    a:{eR:[108,80],hR:[134,78],eL:[96,90],hL:[106,80]},b:{eL:[108,80],hL:[134,78],eR:[96,90],hR:[106,80]},
+    cue:['雙手握拳放在胸前','左右手輪流往前出拳，手臂伸直','出拳時吐氣，肚子微微收緊'],knee:'上半身的有氧運動，打字打到煩的時候最紓壓。'},
+  stoe:{name:'腳尖腳跟交替',base:'seat',props:['chair'],tags:['循環','膝蓋'],tint:'sky',period:1.3,
+    a:{tL:[4,-11],tR:[4,-11]},b:{fL:[122,177],fR:[128,177],tL:[10,6],tR:[10,6]},
+    cue:['雙腳平放地面，與肩同寬','先翹起腳尖，再換踮起腳跟','一上一下有節奏地交替'],knee:'在桌子底下做也沒人發現，久坐腳麻、腳冰就做這個。'},
+  skneehug:{name:'坐姿抱膝',base:'seat',props:['chair'],tags:['膝蓋'],tint:'leaf',period:4.2,
+    a:{},b:{kR:[112,92],fR:[118,142],tR:[11,2],eR:[104,100],hR:[116,94],eL:[102,102],hL:[114,98],h:[90,50],n:[90,67]},
+    cue:['坐直，雙手抱住右膝下方','把膝蓋輕輕拉向胸口，停 10 秒','放下換左腳，背保持挺直'],knee:'伸展臀部和下背。膝蓋彎到舒服就好，痛就抱在大腿後側。'},
+  scat:{name:'坐姿貓牛式',base:'seat',props:['chair'],tags:['肩頸'],tint:'sky',period:5,
+    a:{h:[90,44],n:[90,62],eL:[104,96],hL:[122,116],eR:[106,96],hR:[124,118]},b:{h:[104,64],n:[98,77]},
+    cue:['雙手放在膝蓋上','吸氣：挺胸、抬頭，背微微往前凹','吐氣：拱背、低頭，肚臍往內收'],knee:'整條脊椎一節一節動起來，久坐腰痠背硬最需要。'},
+  slean:{name:'坐姿後傾收腹',base:'seat',props:['chair'],tags:['燃脂'],tint:'leaf',period:4,
+    a:{eL:[100,84],hL:[92,76],eR:[102,86],hR:[94,78]},b:{h:[74,52],n:[78,68],eL:[88,80],hL:[80,72],eR:[90,82],hR:[82,74]},
+    cue:['坐椅子前半段，雙手交叉放胸前','背打直，身體慢慢往後傾，停 3 秒','肚子用力撐住，再慢慢坐回來'],knee:'坐著練核心。往後傾一點點就好，不要靠到椅背。'},
+  stwist:{name:'坐姿轉體',base:'seatF',props:['chairFront'],tags:['肩頸'],tint:'sky',period:5,
+    a:{eL:[88,108],hL:[108,104],eR:[112,108],hR:[92,104]},b:{h:[106,58],eL:[94,104],hL:[116,112],eR:[124,106],hR:[128,130]},
+    cue:['坐直，雙腳踩穩地面','身體慢慢轉向右邊，手扶椅背','停 15 秒，轉回來換左邊'],knee:'從腰開始轉，不要只轉脖子。轉到有感覺就好。'},
+  sbend:{name:'坐姿側彎',base:'seatF',props:['chairFront'],tags:['肩頸'],tint:'leaf',period:5,
+    a:{},b:{h:[86,62],n:[92,78],eR:[112,56],hR:[94,36],eL:[84,108],hL:[80,138]},
+    cue:['坐直，右手往上舉高','身體慢慢往左彎，左手往下垂','停 15 秒，換邊'],knee:'伸展腰側和腋下，一整天駝背後會覺得身體被拉長。'},
+  scircle:{name:'手臂畫圈',base:'seatF',props:['chairFront'],tags:['肩頸'],tint:'sky',period:1.5,
+    a:{eL:[78,78],hL:[56,76],eR:[122,78],hR:[144,76]},b:{eL:[78,70],hL:[58,58],eR:[122,70],hR:[142,58]},
+    cue:['雙手往兩側平舉','手臂畫小圓圈，往前 10 圈','再往後 10 圈，肩膀放鬆不聳肩'],knee:'肩膀血液循環變好，打字打到肩膀僵硬時很有感。'},
+  sopen:{name:'蝴蝶開胸',base:'seatF',props:['chairFront'],tags:['肩頸'],tint:'sky',period:3.2,
+    a:{eL:[92,96],hL:[94,74],eR:[108,96],hR:[106,74]},b:{eL:[72,86],hL:[74,64],eR:[128,86],hR:[126,64]},
+    cue:['手肘彎曲，兩手肘在胸前靠攏','吸氣，手肘往兩側往後打開，夾肩胛骨','吐氣，手肘回到前面'],knee:'把縮了一整天的胸口打開，駝背、圓肩的人最推薦。'},
+  swrist:{name:'合掌壓腕',base:'seatF',props:['chairFront'],tags:['肩頸'],tint:'leaf',period:4,
+    a:{eL:[82,110],hL:[98,96],eR:[118,110],hR:[102,96]},b:{eL:[78,102],hL:[98,116],eR:[122,102],hR:[102,116]},
+    cue:['雙手在胸前合掌，手肘打開','手掌保持貼合，慢慢往下壓到肚子前','手腕內側有拉到，停 10 秒'],knee:'打字、滑滑鼠的手腕需要休息，手麻手痠時多做幾次。'},
   ankle:{name:'腳踝幫浦',base:'seat',props:['chair'],tags:['循環','膝蓋'],tint:'sky',period:1.6,
     a:{kR:[134,121],fR:[170,130],tR:[4,-11]},b:{tR:[11,6]},
     cue:['坐在椅子前半段，右腿往前伸直','腳尖用力往上勾，再往下壓','換邊做，小腿有點熱就對了'],knee:'坐著做，膝蓋完全不受力。起身前先做，能減少站起來「卡卡」的感覺。'},
@@ -951,7 +1004,14 @@ const EXTRA=[
   {id:'mini',name:'懶人 1 分鐘',desc:'真的不想動的時候。做了就算數，盆栽一樣會長。',tint:'sun',tags:['膝蓋'],steps:[['march',30,'30 秒'],['legext',30,'每邊 4 次']]},
   {id:'eve',name:'晚間膝蓋強化',desc:'下班後在地墊上做 10 分鐘，膝蓋會越來越有力。',tint:'leaf',tags:['膝蓋','燃脂'],fig:'bridge',steps:[['bridge',60,'12 次'],['slr',80,'每邊 10 次'],['sitstand',60,'12 次'],['heel',50,'15 次'],['hamstring',60,'每邊 20 秒'],['quad',60,'每邊 20 秒'],['calf',60,'每邊 20 秒'],['march',90,'90 秒']]}
 ];
-const ALL_R=[...ROUTINES,...EXTRA];
+const SEATED=[
+  {id:'s1',seat:true,name:'坐著燃脂',desc:'不用站起來也能讓心跳加快，下午想睡的時候做最提神。',tint:'sun',tags:['燃脂'],steps:[['smarch',45,'45 秒'],['spunch',40,'40 秒'],['stoe',30,'30 秒'],['slean',30,'5 次'],['smarch',30,'30 秒']]},
+  {id:'s2',seat:true,name:'坐著鬆肩背',desc:'肩膀緊、背好硬的時候，坐在原位就能整個鬆開。',tint:'sky',tags:['肩頸'],steps:[['scircle',30,'前後各 10 圈'],['sopen',30,'8 次'],['stwist',40,'每邊 15 秒'],['sbend',40,'每邊 15 秒'],['scat',30,'5 次']]},
+  {id:'s3',seat:true,name:'坐著顧膝蓋',desc:'全部坐著做，膝蓋完全不承重，痛的那天也可以做。',tint:'leaf',tags:['膝蓋'],steps:[['ankle',30,'20 下'],['legext',50,'每邊 6 次'],['skneehug',40,'每邊 10 秒'],['hamstring',40,'每邊 20 秒'],['stoe',20,'20 秒']]},
+  {id:'s4',seat:true,name:'打字族急救',desc:'手腕痠、肩頸緊、眼睛累，一次照顧到。',tint:'sky',tags:['肩頸','眼睛'],steps:[['swrist',30,'2 次'],['scircle',30,'前後各 10 圈'],['neck',40,'每邊 20 秒'],['palm',30,'30 秒']]},
+  {id:'s5',seat:true,name:'開會偷偷動',desc:'只動桌子底下的腳，開線上會議也能偷偷做。',tint:'sun',tags:['循環'],steps:[['stoe',30,'30 秒'],['ankle',30,'每邊 10 下'],['legext',30,'每邊 4 次']]}
+];
+const ALL_R=[...ROUTINES,...EXTRA,...SEATED];
 /* 已有插畫的動作：img/frames/動作-a.webp、-b.webp。新增時在這裡加一行 */
 const IMGS={ankle:{},legext:{},sitstand:{},hamstring:{},march:{bob:true},heel:{},side:{},wallpush:{},calf:{},quad:{},chin:{},shoulder:{},neck:{},reach:{},palm:{},bridge:{},slr:{}};
 const POT=i=>`img/frames/pot-${i}.webp`;
@@ -977,7 +1037,7 @@ function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const
 function makeFig(id,host){
   const m=MOVES[id];
   host.classList.toggle('photo',!!IMGS[id]);
-  if(IMGS[id]){host.innerHTML=`<div class="frames${IMGS[id].bob?' bob':''}" style="--per:${m.period*1.15}s"><img class="fa" src="img/frames/${id}-a.webp" alt="${m.name}：起始動作"><img class="fb" src="img/frames/${id}-b.webp" alt="${m.name}：結束動作"></div>`;return {paused:false}}const A={...BASE[m.base],...m.a};const B={...A,...m.b};const flat=m.base==='front';
+  if(IMGS[id]){host.innerHTML=`<div class="frames${IMGS[id].bob?' bob':''}" style="--per:${m.period*1.15}s"><img class="fa" src="img/frames/${id}-a.webp" alt="${m.name}：起始動作"><img class="fb" src="img/frames/${id}-b.webp" alt="${m.name}：結束動作"></div>`;return {paused:false}}const A={...BASE[m.base],...m.a};const B={...A,...m.b};const flat=m.base==='front'||m.base==='seatF';
   const svg=document.createElementNS(NS,'svg');svg.setAttribute('viewBox','0 0 200 200');svg.setAttribute('role','img');svg.setAttribute('aria-label',m.name+'示範');
   svg.innerHTML='<line class="floor" x1="6" y1="187" x2="194" y2="187"/>'+m.props.map(p=>PROPS[p]).join('');
   const P={};
@@ -1364,10 +1424,10 @@ function renderGarden(){
   $('chipStreak').textContent=streak();
 }
 function renderRoutines(){
-  const nx=ROUTINES[S.next%ROUTINES.length].id;const host=$('routines');host.innerHTML='';
+  const nx=ROUTINES[S.next%ROUTINES.length].id;$('routines').innerHTML='';$('seated').innerHTML='';
   ALL_R.forEach(r=>{
     const sec=r.steps.reduce((a,s)=>a+s[1],0);
-    const b=document.createElement('button');b.className='card rt'+(r.id===nx?' next':'');b.id='rt-'+r.id;
+    const b=document.createElement('button');b.className='card rt'+(r.id===nx?' next':'');b.id='rt-'+r.id;const host=r.seat?$('seated'):$('routines');
     b.innerHTML=`<div class="figbox fig t-${r.tint}">${r.id===nx?'<span class="flag">下一組</span>':''}</div>
       <div class="row1"><h3>${r.name}</h3><span class="dur num">${sec>=60?Math.round(sec/60):sec}<small>${sec>=60?'分鐘':'秒'}</small></span></div>
       <p>${r.desc}</p><div class="seq">${r.steps.map(s=>'<span>'+MOVES[s[0]].name+'</span>').join('')}</div>`;
@@ -1379,7 +1439,7 @@ function renderRoutines(){
 function renderLib(filter){
   const host=$('lib');host.innerHTML='';
   if(!S.fav)S.fav=[];
-  const list=Object.entries(MOVES).filter(([id,m])=>filter==='all'||(filter==='fav'?S.fav.includes(id):m.tags.includes(filter)));
+  const list=Object.entries(MOVES).filter(([id,m])=>filter==='all'||(filter==='fav'?S.fav.includes(id):filter==='seat'?(m.base.startsWith('seat')&&id!=='sitstand'):m.tags.includes(filter)));
   if(!list.length)host.innerHTML='<p class="x-empty">還沒有收藏的動作。在喜歡的動作卡右上角按 ♡ 就會出現在這裡。</p>';
   list.forEach(([id,m])=>{
     const c=document.createElement('article');c.className='card mv';c.id='mv-'+id;
@@ -1406,10 +1466,50 @@ function renderPlan(){
   const dow=new Date().getDay();const map={'日':0,'一':1,'二':2,'三':3,'四':4,'五':5,'六':6};
   $('weekTable').innerHTML='<thead><tr><th>星期</th><th>重點</th><th>主要運動</th><th>平日基本</th></tr></thead><tbody>'+WT.map(r=>`<tr class="${map[r[0]]===dow?'is-today':''}"><th>週${r[0]}</th><td><span class="f ${r[1]}">${r[2]}</span></td><td>${r[3]}</td><td>${r[4]}</td></tr>`).join('')+'</tbody>';
 }
+/* ===== 向量圖示（身體筆記用）===== */
+const VO='#5B4152';
+const vsv=(inner,cls='')=>`<svg class="vi ${cls}" viewBox="0 0 48 48" aria-hidden="true"><g stroke="${VO}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">${inner}</g></svg>`;
+const VHL=(d,w=2.6)=>`<path d="${d}" fill="none" stroke="#fff" stroke-width="${w}" opacity=".75"/>`;
+const VFACEBG=['#CFE0F7','#E4DDF7','#FFE6A6','#FFC9D8'];
+const VEYES={dot:'<circle cx="17.5" cy="22" r="2.3" fill="'+VO+'" stroke="none"/><circle cx="30.5" cy="22" r="2.3" fill="'+VO+'" stroke="none"/>',
+  squint:'<path d="M14 19l5 3-5 3M34 19l-5 3 5 3" fill="none"/>',
+  worry:'<circle cx="17.5" cy="23" r="2.2" fill="'+VO+'" stroke="none"/><circle cx="30.5" cy="23" r="2.2" fill="'+VO+'" stroke="none"/><path d="M13 17.5l6.5-2.5M35 17.5l-6.5-2.5" fill="none"/>',
+  happy:'<path d="M14 23.5q3.5-4.5 7 0M27 23.5q3.5-4.5 7 0" fill="none"/>',
+  dizzy:'<path d="M15 19.5l5 5M20 19.5l-5 5M28 19.5l5 5M33 19.5l-5 5" fill="none"/>',
+  sleepy:'<path d="M14 21.5q3.5 3 7 0M27 21.5q3.5 3 7 0" fill="none"/>',
+  star:'<path d="M17.5 17l1.5 3.3 3.5.4-2.6 2.4.7 3.5-3.1-1.8-3.1 1.8.7-3.5-2.6-2.4 3.5-.4zM30.5 17l1.5 3.3 3.5.4-2.6 2.4.7 3.5-3.1-1.8-3.1 1.8.7-3.5-2.6-2.4 3.5-.4z" fill="#FFC94D" stroke-width="1.4"/>',
+  heart:'<path d="M17.5 26.5s-4.5-2.8-4.5-5.6a2.3 2.3 0 0 1 4.5-.8 2.3 2.3 0 0 1 4.5.8c0 2.8-4.5 5.6-4.5 5.6zM30.5 26.5s-4.5-2.8-4.5-5.6a2.3 2.3 0 0 1 4.5-.8 2.3 2.3 0 0 1 4.5.8c0 2.8-4.5 5.6-4.5 5.6z" fill="#E2728F" stroke-width="1.4"/>'};
+const VMOUTH={frown:'<path d="M18.5 34q5.5-5 11 0" fill="none"/>',wavy:'<path d="M17 32.5q2-2 3.5 0t3.5 0 3.5 0 3.5 0" fill="none"/>',
+  smile:'<path d="M19 30.5q5 4.5 10 0" fill="none"/>',flat:'<path d="M19.5 32h9" fill="none"/>',
+  big:'<path d="M16.5 29h15q-1 8.5-7.5 8.5T16.5 29z" fill="'+VO+'"/><path d="M20.5 34.8q3.5-2.6 7 0q-1.4 1.7-3.5 1.7t-3.5-1.7z" fill="#F49AB5" stroke="none"/>',
+  yawn:'<ellipse cx="24" cy="32.5" rx="3" ry="3.6" fill="'+VO+'"/>'};
+const VEXTRA={sweat:'<path d="M37 9c0 0-3 3.6-3 5.6a3 3 0 0 0 6 0c0-2-3-5.6-3-5.6z" fill="#9CC6F0" stroke-width="1.5"/>',
+  tear:'<path d="M33 26c0 0-2.2 2.7-2.2 4.2a2.2 2.2 0 0 0 4.4 0c0-1.5-2.2-4.2-2.2-4.2z" fill="#9CC6F0" stroke-width="1.4"/>',
+  zz:'<path d="M35 6h5l-5 5h5" fill="none" stroke-width="1.7"/>',
+  spark:'<path d="M40 7v6M37 10h6" fill="none" stroke="#FFB43D" stroke-width="2"/>'};
+const vface=(lv,e,m,x='')=>vsv(`<circle cx="24" cy="24" r="18.5" fill="${VFACEBG[lv]}"/><ellipse cx="16.5" cy="14.5" rx="5.5" ry="3" fill="#fff" opacity=".6" stroke="none" transform="rotate(-28 16.5 14.5)"/>${lv>=2?'<ellipse cx="13" cy="28.5" rx="3" ry="1.9" fill="#F49AB5" opacity=".55" stroke="none"/><ellipse cx="35" cy="28.5" rx="3" ry="1.9" fill="#F49AB5" opacity=".55" stroke="none"/>':''}${VEYES[e]}${VMOUTH[m]}${x?VEXTRA[x]:''}`,'face');
+const VLEG=(c='#FFD9C7')=>`<path d="M5 16h18q4 0 4 4v17h7" fill="none" stroke-width="11"/><path d="M5 16h18q4 0 4 4v17h7" fill="none" stroke="${c}" stroke-width="7"/>`;
+const VI={
+  knee:vsv(VLEG()+'<circle cx="25" cy="18.5" r="5" fill="#F49AB5" opacity=".6" stroke="none"/><path d="M33 9l3-3M35 15h4.5M33 4.5l1-3" fill="none" stroke="#E2728F" stroke-width="2.2"/>'),
+  eye:vsv('<path d="M5 25s7-11 19-11 19 11 19 11-7 11-19 11S5 25 5 25z" fill="#fff"/><circle cx="24" cy="25" r="7.5" fill="#9CC6F0"/><circle cx="24" cy="25" r="3.4" fill="'+VO+'" stroke="none"/><circle cx="26.6" cy="22.4" r="1.7" fill="#fff" stroke="none"/><path d="M14 13.5l-2-4M24 10.5V6M34 13.5l2-4" fill="none"/>'),
+  stairs:vsv('<path d="M5 42v-8h9.5v-8H24v-8h9.5v-8H43v32z" fill="#BCD9F6"/>'+VHL('M8 37.5h4M17.5 29.5h4M27 21.5h4',2.2)+'<path d="M36 10V3.5l6 2.5-6 2.5" fill="#F49AB5" stroke-width="1.6"/>'),
+  bowl:vsv('<path d="M8 22a16 9 0 0 1 32 0z" fill="#fff"/><path d="M6 22h36a18 16 0 0 1-36 0z" fill="#F7B9CB"/><path d="M14 30q10 5 20 0" fill="none" stroke="#fff" stroke-width="2.4" opacity=".8"/><path d="M19 42h10" fill="none"/><path d="M27 4l12 14M33 3l9 15" fill="none" stroke="#C98B5E" stroke-width="2.6"/>'),
+  moon:vsv('<path d="M30 8a16 16 0 1 0 11 25A13 13 0 0 1 30 8z" fill="#FFE38A"/><circle cx="17" cy="26" r="2" fill="#F5C548" stroke="none"/><circle cx="23" cy="34" r="1.5" fill="#F5C548" stroke="none"/><path d="M33 13h6l-6 6h6" fill="none" stroke-width="1.8"/>'),
+  drop:vsv('<path d="M24 5s-13 15-13 24a13 13 0 0 0 26 0C37 20 24 5 24 5z" fill="#9CC6F0"/>'+VHL('M17.5 27a7 7 0 0 0 4 7.5',2.8)),
+  sun:vsv('<circle cx="24" cy="24" r="9" fill="#FFD27A"/><path d="M24 5v5M24 38v5M5 24h5M38 24h5M10.6 10.6l3.5 3.5M33.9 33.9l3.5 3.5M37.4 10.6l-3.5 3.5M14.1 33.9l-3.5 3.5" fill="none" stroke="#F5A94E" stroke-width="2.6"/>'+VHL('M19.5 21a5 5 0 0 1 3-3',2.2)),
+  chair:vsv('<rect x="14" y="5" width="20" height="19" rx="6" fill="#C9BEF0"/><rect x="10" y="24" width="28" height="7" rx="3.5" fill="#E4DDF7"/><path d="M24 31v6M14 41l10-4 10 4" fill="none"/><circle cx="14" cy="42" r="2" fill="#fff"/><circle cx="34" cy="42" r="2" fill="#fff"/>'+VHL('M18 10v8',2.2)),
+  scale:vsv('<rect x="6" y="9" width="36" height="31" rx="9" fill="#BCD9F6"/><path d="M14 23a10 10 0 0 1 20 0z" fill="#fff"/><path d="M24 23l4-5" fill="none"/><circle cx="24" cy="23" r="1.6" fill="'+VO+'" stroke="none"/>'+VHL('M11 16v12',2.2)),
+  boba:vsv('<path d="M12 16h24l-3 26.5a2 2 0 0 1-2 1.5H17a2 2 0 0 1-2-1.5z" fill="#F3D3B0"/><path d="M25.5 13L30 2.5h4L29.5 13" fill="#F49AB5"/><rect x="10" y="12" width="28" height="5" rx="2.5" fill="#FFF5FA"/><g stroke="none" fill="'+VO+'"><circle cx="20" cy="39" r="2.3"/><circle cx="25.5" cy="40" r="2.3"/><circle cx="30" cy="37.5" r="2.1"/><circle cx="22.5" cy="34.5" r="2.1"/><circle cx="27.5" cy="33.5" r="2"/></g>'+VHL('M17 21l1 9')),
+  cola:vsv('<rect x="13" y="8" width="22" height="35" rx="5" fill="#E2728F"/><rect x="15" y="5" width="18" height="5" rx="2.5" fill="#E6DEE8"/><path d="M13 22q5.5-4 11 0t11 0v7q-5.5-4-11 0t-11 0z" fill="#fff"/>'+VHL('M17.5 13v6M17.5 32v6')),
+  latte:vsv('<path d="M8 43h32" fill="none"/><path d="M34 21h3.5a4.5 4.5 0 0 1 0 9H34" fill="none"/><path d="M10 18h24v11a10 10 0 0 1-10 10h-4a10 10 0 0 1-10-10z" fill="#fff"/><ellipse cx="22" cy="18" rx="12" ry="3.4" fill="#E8C29A"/><path d="M22 19.8s-2.4-1.3-2.4-2.6a1.2 1.2 0 0 1 2.4-.4 1.2 1.2 0 0 1 2.4.4c0 1.3-2.4 2.6-2.4 2.6z" fill="#fff" stroke="none"/><path d="M18 5q-2 3 0 6M25 4q-2 3 0 6" fill="none" stroke="#B9A8B4"/>'+VHL('M14 24v6')),
+  fruit:vsv('<path d="M13 13h20l-2.6 28.5a2.5 2.5 0 0 1-2.5 2.5h-9.8a2.5 2.5 0 0 1-2.5-2.5z" fill="#FFB8A0"/><path d="M22 13l5-10" fill="none" stroke="#9C8EDB" stroke-width="3"/><rect x="17" y="20" width="6.5" height="6.5" rx="1.6" fill="#fff" opacity=".7" stroke="none" transform="rotate(12 20 23)"/><rect x="22.5" y="28" width="6" height="6" rx="1.6" fill="#fff" opacity=".7" stroke="none" transform="rotate(-10 25 31)"/><circle cx="34" cy="14" r="7" fill="#FFE38A"/><circle cx="34" cy="14" r="4" fill="none" stroke="#F5C548" stroke-width="1.4"/><path d="M34 10v8M30 14h8M31.2 11.2l5.6 5.6M36.8 11.2l-5.6 5.6" fill="none" stroke="#F5C548" stroke-width="1.1"/>'),
+  beer:vsv('<path d="M33 19h3.5a5 5 0 0 1 5 5v5a5 5 0 0 1-5 5H33" fill="none"/><rect x="10" y="15" width="23" height="28" rx="4" fill="#FFD27A"/><path d="M9 17a4.5 4.5 0 0 1 4-6.5 5.5 5.5 0 0 1 9.5-2.5 5.5 5.5 0 0 1 9.5 2.5 4.5 4.5 0 0 1 2 6.5z" fill="#fff"/><g stroke="none" fill="#fff" opacity=".8"><circle cx="17" cy="29" r="1.5"/><circle cx="25" cy="34" r="1.2"/><circle cx="21" cy="38" r="1.5"/></g>'+VHL('M14.5 22v15')),
+  tea:vsv('<path d="M11 17h26l-2.4 22a5 5 0 0 1-5 4.5H18.4a5 5 0 0 1-5-4.5z" fill="#BFE3C8"/><ellipse cx="24" cy="17" rx="13" ry="3.2" fill="#8FCB9F"/><path d="M21 34c0-5 4-8 9-8 0 5-4 8-9 8zM21 34l5-4" fill="#6BB38E" stroke-width="1.6"/><path d="M19 4q-2 3 0 6M27 3q-2 3 0 6" fill="none" stroke="#B9A8B4"/>'+VHL('M16 23l.8 9')),
+  trophy:vsv('<path d="M14 7h20v10a10 10 0 0 1-20 0z" fill="#FFD27A"/><path d="M14 10H9a5 5 0 0 0 6 7M34 10h5a5 5 0 0 1-6 7" fill="none"/><path d="M21 27h6l1.5 8h-9z" fill="#F5C548"/><rect x="14" y="35" width="20" height="6" rx="2" fill="#F7B9CB"/>'+VHL('M19 11v6')),
+  thumb:vsv('<path d="M15 22h-6v18h6z" fill="#BCD9F6"/><path d="M15 22l6-13c3 0 4.5 2 4 5l-1 5h10a4 4 0 0 1 4 4.5l-2 12A4 4 0 0 1 32 40H15z" fill="#FFD9C7"/>'),
+  sprout:vsv('<path d="M24 42V24" fill="none"/><path d="M24 26c0-8-6-12-14-12 0 8 6 12 14 12z" fill="#A9DDBF"/><path d="M24 22c0-7 5-11 13-11 0 7-5 11-13 11z" fill="#6BB38E"/><path d="M13 42h22" fill="none"/>'),
+  party:vsv('<path d="M8 41l7-21 13 13z" fill="#F7B9CB"/><path d="M11.5 31l6 6M14 23.5l10.5 10.5" fill="none" stroke="#fff" stroke-width="2.2"/><g stroke="none"><circle cx="30" cy="10" r="2.3" fill="#9CC6F0"/><circle cx="38" cy="20" r="2.3" fill="#FFD27A"/><circle cx="22" cy="7" r="1.8" fill="#E2728F"/></g><path d="M28 20q4-6 10-4M34 30q4-2 7 1" fill="none" stroke="#9C8EDB"/>')};
 function renderNotes(){
-  const IC={knee:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--leaf)" stroke-width="1.8" stroke-linecap="round"><path d="M9 2v7c0 2 1 3 3 3s3 1 3 3v7"/><circle cx="12" cy="12" r="2.4"/></svg>',
-    eye:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="1.8" stroke-linecap="round"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
-    scale:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--sun)" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="4"/><path d="M8.5 10a4 4 0 0 1 7 0M12 10l1.5-2"/></svg>'};
   const N=[
     {ic:'knee',bg:'var(--leaf-soft)',h:'膝蓋：站起來會痛、難彎',do:['坐著時常做「坐姿伸膝」和「腳踝幫浦」，起身前先動動腳','站起來先扶桌子停 3 秒，再走','大腿前側和臀部有力，膝蓋負擔就小；臀橋、直腿抬高最推薦','爬樓梯：上樓好腳先上，下樓痛腳先下，記得扶扶手','體重每減 1 公斤，走路時膝蓋少承受約 4 公斤的力'],
       warn:'膝蓋明顯腫、發熱、卡住無法伸直、半夜痛醒、走路腳會「軟掉」。請看骨科或復健科，物理治療師可以幫你調整動作。'},
@@ -1418,10 +1518,10 @@ function renderNotes(){
     {ic:'scale',bg:'var(--sun-soft)',h:'體重：不累也能慢慢減',do:['減重七分靠飲食：含糖飲料先換成無糖茶或水，最省力','每餐先吃菜和蛋白質，再吃飯麵','飯後走 10 分鐘，比一次運動一小時更容易持續','起身 8 次 × 3 分鐘 ≈ 24 分鐘，加上散步，一天多動 40–50 分鐘','目標每週減 0.5 公斤左右，太快反而容易復胖'],
       warn:'爬一層樓就很喘、胸悶、心悸，或腳踝水腫，請先看家醫科或心臟科，確認後再增加運動量。'}
   ];
-  $('notes').innerHTML=N.map(n=>`<div class="card note-c"><span class="ic" style="background:${n.bg}">${IC[n.ic]}</span><h3>${n.h}</h3><h4>可以這樣做</h4><ul>${n.do.map(x=>'<li>'+x+'</li>').join('')}</ul><div class="warn"><b>出現這些情況，先就醫</b>${n.warn}</div></div>`).join('');
+  $('notes').innerHTML=N.map(n=>`<div class="card note-c"><span class="ic" style="background:${n.bg}">${VI[n.ic]}</span><h3>${n.h}</h3><h4>可以這樣做</h4><ul>${n.do.map(x=>'<li>'+x+'</li>').join('')}</ul><div class="warn"><b>出現這些情況，先就醫</b>${n.warn}</div></div>`).join('');
 }
 
-const SUB={today:[['計時器','.today'],['今日統計','.stats'],['運動組合','#routines'],['怎麼使用','#howto']],
+const SUB={today:[['計時器','.today'],['今日統計','.stats'],['運動組合','#routines'],['坐著動','#seatHead'],['怎麼使用','#howto']],
   library:[['身體地圖','.x-map'],['抽一個','.x-gacha'],['全部動作','#lib']],
   plan:[['四週闖關','.x-quest'],['一天節奏','#rhythm'],['一週安排','#weekTable']],
   body:[['今天感覺','.x-diary'],['小測驗','.x-quiz'],['飲料換算','.x-drink'],['翻翻卡','#flips'],['保健筆記','#notes']]};
@@ -1530,13 +1630,13 @@ $('lib').addEventListener('click',e=>{const f=e.target.closest('[data-fav]'),t=e
 const _rl=renderLib;renderLib=function(f){libFilter=f;_rl(f)};
 const PARTS=[
   {k:'eye',n:'眼睛',x:44,y:15,c:'var(--sky)',moves:['palm'],t:'盯螢幕眨眼次數會少一半。每 20 分鐘看遠方 20 秒，再用掌心溫眼放鬆。'},
-  {k:'neck',n:'肩頸',x:68,y:24,c:'var(--sky)',moves:['chin','shoulder','neck','reach'],t:'頭往前伸 1 公分，脖子就多扛好幾公斤。縮下巴是最簡單的解藥。'},
-  {k:'arm',n:'手臂',x:18,y:48,c:'var(--sun)',moves:['wallpush','reach'],t:'推牆是膝蓋友善版的伏地挺身，手臂和胸口都會動到。'},
-  {k:'heart',n:'心肺燃脂',x:50,y:32,c:'var(--leaf)',moves:['march','sitstand','side'],t:'原地踏步和坐站最容易讓心跳微微加快，是坐辦公室最好的燃脂入門。'},
-  {k:'hip',n:'臀部',x:38,y:44,c:'var(--leaf)',moves:['bridge','side','sitstand'],t:'屁股有力，站起來和爬樓梯時膝蓋就少出力。臀橋是首選。'},
+  {k:'neck',n:'肩頸',x:68,y:24,c:'var(--sky)',moves:['chin','shoulder','neck','reach','sopen','scircle','stwist'],t:'頭往前伸 1 公分，脖子就多扛好幾公斤。縮下巴是最簡單的解藥。'},
+  {k:'arm',n:'手臂',x:18,y:48,c:'var(--sun)',moves:['wallpush','reach','spunch','swrist'],t:'推牆是膝蓋友善版的伏地挺身，手臂和胸口都會動到。'},
+  {k:'heart',n:'心肺燃脂',x:50,y:32,c:'var(--leaf)',moves:['march','sitstand','side','smarch','spunch'],t:'原地踏步和坐站最容易讓心跳微微加快，是坐辦公室最好的燃脂入門。'},
+  {k:'hip',n:'臀部',x:38,y:44,c:'var(--leaf)',moves:['bridge','side','sitstand','skneehug','slean'],t:'屁股有力，站起來和爬樓梯時膝蓋就少出力。臀橋是首選。'},
   {k:'thigh',n:'大腿',x:62,y:58,c:'var(--leaf)',moves:['legext','slr','quad','hamstring'],t:'大腿前側（股四頭肌）是膝蓋的避震器，坐著伸膝就能練。'},
   {k:'knee',n:'膝蓋',x:40,y:74,c:'var(--clay-2)',moves:['legext','sitstand','slr','bridge','hamstring'],t:'膝蓋本身不用練，要練的是它上下的肌肉。全部都是不跪、不深蹲的動作。'},
-  {k:'calf',n:'小腿腳踝',x:58,y:88,c:'var(--green)',moves:['ankle','heel','calf','march'],t:'小腿是第二顆心臟，久坐腳腫、腳冰的時候最需要它。'}];
+  {k:'calf',n:'小腿腳踝',x:58,y:88,c:'var(--green)',moves:['ankle','heel','calf','march','stoe'],t:'小腿是第二顆心臟，久坐腳腫、腳冰的時候最需要它。'}];
 function renderMap(k){$('hot').innerHTML=PARTS.map(p=>`<button class="x-hot" style="left:${p.x}%;top:${p.y}%;--hc:${p.c}" data-k="${p.k}" aria-pressed="${p.k===k}" aria-label="${p.n}"><span>${p.n}</span></button>`).join('');
   const p=PARTS.find(x=>x.k===k);
   $('mapOut').innerHTML=p?`<h4>${p.n}</h4><p>${p.t}</p><div class="x-chips">${p.moves.map(id=>`<button class="x-chip" data-go="${id}">${MOVES[id].name} →</button>`).join('')}</div>`
@@ -1571,9 +1671,9 @@ function markNowRhythm(){const els=[...document.querySelectorAll('#rhythm .rh')]
   const idx=h<9.5?0:h<12.5?1:h<14?2:h<19.5?1:h<21.5?3:4;els.forEach((e,i)=>e.classList.toggle('now',i===idx))}
 
 /* ===== 身體筆記：日記、測驗、飲料、翻翻卡 ===== */
-const DQ=[{k:'knee',n:'膝蓋今天',o:[['😣','很痛'],['😕','卡卡'],['🙂','還好'],['😄','輕鬆']]},
-  {k:'eye',n:'眼睛今天',o:[['😵','很模糊'],['🥱','乾澀'],['🙂','還好'],['🤩','清楚']]},
-  {k:'mood',n:'精神今天',o:[['😩','好累'],['😐','普通'],['😊','不錯'],['🥰','超好']]}];
+const DQ=[{k:'knee',n:'膝蓋今天',o:[[vface(0,'squint','frown','sweat'),'很痛'],[vface(1,'worry','wavy'),'卡卡'],[vface(2,'dot','smile'),'還好'],[vface(3,'happy','big','spark'),'輕鬆']]},
+  {k:'eye',n:'眼睛今天',o:[[vface(0,'dizzy','wavy'),'很模糊'],[vface(1,'sleepy','flat','tear'),'乾澀'],[vface(2,'dot','smile'),'還好'],[vface(3,'star','big'),'清楚']]},
+  {k:'mood',n:'精神今天',o:[[vface(0,'sleepy','yawn','zz'),'好累'],[vface(1,'dot','flat'),'普通'],[vface(2,'happy','smile'),'不錯'],[vface(3,'heart','big'),'超好']]}];
 function renderDiary(){const d=today();d.body=d.body||{};
   $('diary').innerHTML=DQ.map(q=>`<div class="x-dq"><b>${q.n}</b><div class="x-faces" role="radiogroup" aria-label="${q.n}">${q.o.map((o,i)=>`<button class="x-face" role="radio" aria-checked="${d.body[q.k]===i}" data-q="${q.k}" data-v="${i}">${o[0]}<small>${o[1]}</small></button>`).join('')}</div></div>`).join('');
   const days=[];for(let i=6;i>=0;i--)days.push(Date.now()-i*864e5);const wd='日一二三四五六';
@@ -1594,7 +1694,7 @@ let qz={i:0,score:0,ans:null,order:[]};
 function quizStart(){qz={i:0,score:0,ans:null,order:QZ.map((_,i)=>i).sort(()=>Math.random()-.5).slice(0,5)};renderQuiz(true)}
 function renderQuiz(anim){const host=$('quiz');$('qzScore').textContent=qz.score+' / 5';
   if(qz.i>=5){const best=Math.max(qz.score,S.qbest||0);S.qbest=best;save();
-    host.innerHTML=`<div class="x-qcard swap"><div class="q">${qz.score>=4?'🎉 太厲害了！':qz.score>=2?'👍 不錯喔！':'🌱 一起慢慢學'}</div><p class="ex" style="text-align:center">答對 ${qz.score} 題，最佳紀錄 ${best} 題</p><div class="x-row" style="padding:0"><button class="x-btn" id="qzAgain">再玩一次（換題）</button></div></div>`;
+    host.innerHTML=`<div class="x-qcard swap"><div class="q"><span class="x-qic">${qz.score>=4?VI.trophy:qz.score>=2?VI.thumb:VI.sprout}</span>${qz.score>=4?'太厲害了！':qz.score>=2?'不錯喔！':'一起慢慢學'}</div><p class="ex" style="text-align:center">答對 ${qz.score} 題，最佳紀錄 ${best} 題</p><div class="x-row" style="padding:0"><button class="x-btn" id="qzAgain">再玩一次（換題）</button></div></div>`;
     if(qz.score>=4)chime('done');return}
   const q=QZ[qz.order[qz.i]];
   host.innerHTML=`<div class="x-qcard${anim?' swap':''}"><span class="n">第 ${qz.i+1} / 5 題</span><div class="q">${q[0]}</div>
@@ -1605,23 +1705,23 @@ $('quiz').onclick=e=>{const b=e.target.closest('button');if(!b)return;unlockAudi
   if(b.id==='qzAgain'){quizStart();return}
   if(b.id==='qzNext'){qz.i++;qz.ans=null;renderQuiz(true);return}
   if(b.dataset.a!=null&&qz.ans==null){const q=QZ[qz.order[qz.i]];qz.ans=b.dataset.a==='1';if(qz.ans===q[1]){qz.score++;chime('step')}else chime('soft');renderQuiz(false)}};
-const DR=[['🧋','全糖珍奶',650,60],['🥤','可樂一罐',140,35],['☕','拿鐵中杯',190,15],['🍹','半糖果茶',220,40],['🍺','啤酒一罐',150,0],['🍵','無糖綠茶',0,0]];
+const DR=[[VI.boba,'全糖珍奶',650,60],[VI.cola,'可樂一罐',140,35],[VI.latte,'拿鐵中杯',190,15],[VI.fruit,'半糖果茶',220,40],[VI.beer,'啤酒一罐',150,0],[VI.tea,'無糖綠茶',0,0]];
 function renderDrinks(sel){$('drinks').innerHTML=DR.map((d,i)=>`<button class="x-drink-b" role="radio" aria-checked="${i===sel}" data-d="${i}"><span>${d[0]}</span><small>${d[1]}</small></button>`).join('');
   if(sel==null){$('drinkOut').innerHTML='<p class="x-dtip">選一杯常喝的飲料，看看要起身動幾次才能抵銷（數字是大約值）。</p>';return}
   const d=DR[sel],min=Math.round(d[2]/3.5),times=Math.ceil(min/3),cubes=Math.round(d[3]/4);
   $('drinkOut').innerHTML=`<div class="x-dbox"><div><b>${d[2]}</b><small>大卡（約）</small></div><div><b>${min}</b><small>分鐘輕鬆動</small></div><div><b>${times}</b><small>次起身運動</small></div>
     <div class="x-cubes" aria-label="約 ${cubes} 顆方糖">${Array.from({length:cubes},(_,k)=>`<i style="animation-delay:${k*.02}s"></i>`).join('')}</div></div>
-    <p class="x-dtip">${d[2]===0?'🎉 完全不用！換成無糖茶或白開水，是最省力的減重方法。':`含糖約 ${d[3]} 克（≈ ${cubes} 顆方糖）。換成無糖，等於省下 ${times} 次起身運動。`}</p>`}
+    <p class="x-dtip">${d[2]===0?'<span class="x-tic">'+VI.party+'</span>完全不用！換成無糖茶或白開水，是最省力的減重方法。':`含糖約 ${d[3]} 克（≈ ${cubes} 顆方糖）。換成無糖，等於省下 ${times} 次起身運動。`}</p>`}
 $('drinks').onclick=e=>{const b=e.target.closest('[data-d]');if(!b)return;unlockAudio();renderDrinks(+b.dataset.d);chime('tick')};
-const FL=[['🦵','站起來膝蓋卡卡，是關節「生鏽」了嗎？','var(--leaf-soft)','不是生鏽。久坐時關節液流動變少、肌肉變緊，所以剛起身會卡。<em>起身前先做腳踝幫浦和伸膝</em>，卡卡感會少很多。'],
-  ['👀','為什麼看螢幕久了會模糊？','var(--sky-soft)','眼睛對焦的肌肉一直看近處會疲勞，加上眨眼變少讓眼睛變乾。<em>看遠方 20 秒＋多眨眼</em>就是在讓它休息。'],
-  ['🪜','爬樓梯好喘，是不是很不健康？','var(--sun-soft)','爬樓梯本來就是中高強度運動。先從<em>一階一階、扶扶手、爬 1–2 層</em>開始，幾週後就會明顯變輕鬆。'],
-  ['🍚','晚餐不吃就會瘦？','var(--sky-soft)','餓過頭反而容易半夜亂吃、肌肉流失。<em>每餐先吃菜和蛋白質、飯減半</em>，比不吃更有效也更持久。'],
-  ['💤','睡不好也會變胖嗎？','var(--leaf-soft)','會。睡眠不足會讓控制食慾的荷爾蒙失衡，隔天特別想吃甜的。<em>睡前做伸展、少滑手機</em>對減重也有幫助。'],
-  ['💧','喝水跟減重有關係嗎？','var(--sun-soft)','有時候「餓」其實是口渴。<em>飯前喝一杯水</em>能讓你吃少一點，也能取代含糖飲料。'],
-  ['🌞','曬太陽對膝蓋有幫助？','var(--leaf-soft)','陽光幫助身體製造維生素 D，和骨骼、肌肉健康有關。<em>週末去河堤散步</em>一舉兩得。'],
-  ['🪑','每天站著工作就好了吧？','var(--sky-soft)','一直站也會累、腳會腫。重點是<em>常常換姿勢</em>：坐一下、站一下、走一下，身體最喜歡變化。']];
-function renderFlips(){$('flips').innerHTML=FL.map((f,i)=>`<button class="x-flip" aria-pressed="false" style="--fc:${f[2]}"><span class="in"><span class="f"><span class="ic">${f[0]}</span><b>${f[1]}</b><small>點我翻面 ↻</small></span><span class="b">${f[3]}</span></span></button>`).join('')}
+const FL=[['knee','站起來膝蓋卡卡，是關節「生鏽」了嗎？','var(--leaf-soft)','不是生鏽。久坐時關節液流動變少、肌肉變緊，所以剛起身會卡。<em>起身前先做腳踝幫浦和伸膝</em>，卡卡感會少很多。'],
+  ['eye','為什麼看螢幕久了會模糊？','var(--sky-soft)','眼睛對焦的肌肉一直看近處會疲勞，加上眨眼變少讓眼睛變乾。<em>看遠方 20 秒＋多眨眼</em>就是在讓它休息。'],
+  ['stairs','爬樓梯好喘，是不是很不健康？','var(--sun-soft)','爬樓梯本來就是中高強度運動。先從<em>一階一階、扶扶手、爬 1–2 層</em>開始，幾週後就會明顯變輕鬆。'],
+  ['bowl','晚餐不吃就會瘦？','var(--sky-soft)','餓過頭反而容易半夜亂吃、肌肉流失。<em>每餐先吃菜和蛋白質、飯減半</em>，比不吃更有效也更持久。'],
+  ['moon','睡不好也會變胖嗎？','var(--leaf-soft)','會。睡眠不足會讓控制食慾的荷爾蒙失衡，隔天特別想吃甜的。<em>睡前做伸展、少滑手機</em>對減重也有幫助。'],
+  ['drop','喝水跟減重有關係嗎？','var(--sun-soft)','有時候「餓」其實是口渴。<em>飯前喝一杯水</em>能讓你吃少一點，也能取代含糖飲料。'],
+  ['sun','曬太陽對膝蓋有幫助？','var(--leaf-soft)','陽光幫助身體製造維生素 D，和骨骼、肌肉健康有關。<em>週末去河堤散步</em>一舉兩得。'],
+  ['chair','每天站著工作就好了吧？','var(--sky-soft)','一直站也會累、腳會腫。重點是<em>常常換姿勢</em>：坐一下、站一下、走一下，身體最喜歡變化。']];
+function renderFlips(){$('flips').innerHTML=FL.map((f,i)=>`<button class="x-flip" aria-pressed="false" style="--fc:${f[2]}"><span class="in"><span class="f"><span class="ic">${VI[f[0]]}</span><b>${f[1]}</b><small>點我翻面 ↻</small></span><span class="b">${f[3]}</span></span></button>`).join('')}
 $('flips').onclick=e=>{const b=e.target.closest('.x-flip');if(!b)return;unlockAudio();b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')!=='true');chime('tick')};
 
 /* 小互動：杯子點擊、卡片傾斜 */
