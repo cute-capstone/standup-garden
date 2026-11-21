@@ -343,6 +343,11 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
 .pl-ring b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-num);font-variant-numeric:oldstyle-nums;font-weight:600;font-size:30px}
 .upnext{font-size:13.5px;color:var(--muted)}
 .upnext strong{display:block;color:var(--ink);font-size:16px;font-family:var(--f-display)}
+.player{position:relative}
+.pl-x{position:absolute;top:-14px;right:-14px;z-index:3;width:42px;height:42px;border-radius:50%;border:2px solid var(--paper);background:var(--leaf);color:#fff;display:grid;place-items:center;box-shadow:var(--shadow);cursor:pointer;transition:transform .2s}
+.pl-x svg{width:18px;height:18px}.pl-x:hover{transform:rotate(90deg) scale(1.06)}
+@media (max-width:780px){.pl-x{position:sticky;top:6px;right:auto;grid-column:1/-1;justify-self:end;margin:-6px -6px -40px 0;width:40px;height:40px}}
+#ovPlayer{cursor:zoom-out}#ovPlayer .player{cursor:auto}
 .close-x{border:0;background:var(--surface-2);border-radius:999px;padding:5px 14px;font-size:12.5px}
 .done-card{max-width:480px;width:100%;padding:16px 16px 30px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center}
 .scene-box{width:100%}
@@ -844,6 +849,7 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
 
 <div class="overlay" id="ovPlayer" hidden>
   <div class="card player" id="playerCard">
+    <button class="pl-x" id="plX" aria-label="關閉帶練（Esc）" title="關閉（Esc）"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
     <div class="figbox fig t-leaf" id="plFig"></div>
     <div class="pl-side">
       <div class="pl-top"><div class="dots" id="plDots"></div><div class="pl-tools"><button class="tool" id="tMusic" aria-pressed="true" title="運動音樂"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 15.5V5l9-2v10.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="5" cy="15.5" r="2.2" fill="currentColor"/><circle cx="14" cy="13.5" r="2.2" fill="currentColor"/></svg>音樂</button><button class="tool" id="tTrack" title="換一首"><span class="pre">換曲・</span><b id="tTrackName"></b></button><button class="tool" id="tVoice" aria-pressed="true" title="語音說明"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 8v4h3l4 3.5v-11L6 8z" fill="currentColor"/><path d="M13 7.5a3.5 3.5 0 0 1 0 5M15.2 5.3a6.5 6.5 0 0 1 0 9.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>語音</button><button class="close-x" id="plClose">結束</button></div></div>
@@ -1013,8 +1019,9 @@ const SEATED=[
 ];
 const ALL_R=[...ROUTINES,...EXTRA,...SEATED];
 /* 已有插畫的動作：img/frames/動作-a.webp、-b.webp。新增時在這裡加一行 */
+// smarch spunch stoe scircle：ChatGPT 兩格畫成一樣，重畫前先用會動的小人
 const IMGS={ankle:{},legext:{},sitstand:{},hamstring:{},march:{bob:true},heel:{},side:{},wallpush:{},calf:{},quad:{},chin:{},shoulder:{},neck:{},reach:{},palm:{},bridge:{},slr:{},
-  smarch:{},spunch:{},stoe:{},skneehug:{},scat:{},slean:{},stwist:{},sbend:{},scircle:{},sopen:{},swrist:{}};
+  skneehug:{},scat:{},slean:{},stwist:{},sbend:{},sopen:{},swrist:{}};
 const POT=i=>`img/frames/pot-${i}.webp`;
 function potStage(c,g){if(c<=0)return 0;if(c<=2)return 1;if(c<Math.ceil(g/2)+1)return 2;if(c<g-1)return 3;if(c<g)return 4;return 5}
 const figOf=(r)=>r.fig||((r.steps.find(s=>IMGS[s[0]])||[])[0])||r.steps[r.id==='r3'?4:0][0];
@@ -1350,7 +1357,11 @@ setInterval(()=>{
 $('plPause').onclick=()=>{PL.paused=!PL.paused;PL.last=Date.now();if(PL.paused){hush()}else{syncSound()}if(PL.fig)PL.fig.paused=PL.paused;$('plFig').classList.toggle('paused',PL.paused);renderPlayer()};
 $('plSkip').onclick=()=>nextStep();
 $('plPrev').onclick=()=>{if(PL.i>0){PL.i--;PL.left=PL.r.steps[PL.i][1];showStep()}};
-$('plClose').onclick=()=>{if(PL&&PL.moved>=45){finishPlayer();return}hush();$('ovPlayer').hidden=true;PL=null;resetTimer(true)};
+function closePl(){if($('ovPlayer').hidden)return;if(PL&&PL.moved>=45){finishPlayer();return}hush();$('ovPlayer').hidden=true;PL=null;resetTimer(true)}
+$('plClose').onclick=closePl;$('plX').onclick=closePl;
+$('ovPlayer').addEventListener('click',e=>{if(e.target===$('ovPlayer'))closePl()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('ovPlayer').hidden)closePl()});
+(()=>{let y0=null;const c=$('playerCard');c.addEventListener('touchstart',e=>{y0=c.getBoundingClientRect().top>=0&&e.touches.length===1?e.touches[0].clientY:null},{passive:true});c.addEventListener('touchend',e=>{if(y0!==null&&e.changedTouches[0].clientY-y0>120&&$('plFig').contains(e.target))closePl();y0=null},{passive:true})})();
 function finishPlayer(){
   const d=today();if(!PL.r.tryOnly)d.b++;d.m+=Math.round(PL.moved);
   if(PL.r.id===ROUTINES[S.next%ROUTINES.length].id)S.next++;
