@@ -114,7 +114,11 @@ nav.tabs button[aria-selected="true"]::after{content:"";position:absolute;left:0
 .settings label{display:inline-flex;align-items:center;gap:6px}
 .settings select{font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--hair);border-radius:8px;padding:3px 6px}
 
-.settings input[type=checkbox]{accent-color:var(--leaf);width:15px;height:15px}
+.settings input[type=checkbox]{appearance:none;-webkit-appearance:none;margin:0;width:18px;height:18px;flex:none;border-radius:6px;border:1.5px solid var(--leaf-2);background:var(--paper);display:inline-grid;place-content:center;cursor:pointer;vertical-align:-3px;transition:background .15s,border-color .15s}
+.settings input[type=checkbox]::before{content:"";width:9px;height:5px;border:solid #fff;border-width:0 0 2.2px 2.2px;transform:translateY(-1px) rotate(-45deg) scale(0);transition:transform .15s}
+.settings input[type=checkbox]:checked{background:var(--leaf);border-color:var(--leaf)}
+.settings input[type=checkbox]:checked::before{transform:translateY(-1px) rotate(-45deg) scale(1)}
+.settings input[type=checkbox]:focus-visible{outline:2px solid var(--sun);outline-offset:2px}
 
 .garden{padding:22px;display:flex;flex-direction:column;gap:14px}
 .garden-head{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
