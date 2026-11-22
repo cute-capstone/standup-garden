@@ -328,7 +328,9 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
 .player{max-width:1000px;width:100%;padding:14px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:30px;align-items:stretch}
 @media (max-width:780px){.player{grid-template-columns:minmax(0,1fr);gap:14px}}
 .player .figbox{aspect-ratio:auto;min-height:420px;border-radius:20px}
-@media (max-width:780px){.player .figbox{min-height:0;aspect-ratio:1.35;max-height:40vh}}
+@media (max-width:780px){.player .figbox{min-height:0;aspect-ratio:auto;align-self:start;width:100%;
+  /* iPhone Safari：只靠 aspect-ratio＋max-height 在 grid 內會被算成 0 高，所以給明確高度 */
+  height:min(40vh,calc((100vw - 56px)/1.35));height:min(40svh,calc((100vw - 56px)/1.35))}}
 .pl-side{display:flex;flex-direction:column;gap:14px;min-width:0;padding:14px 10px 10px 0}
 @media (max-width:780px){.pl-side{padding:4px 6px 8px}}
 .pl-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
