@@ -78,6 +78,11 @@ p{margin:0}
 .dose.kc{margin-left:6px;background:var(--sun-soft);color:var(--ink)}
 .chip b{font-family:var(--f-latin);font-size:18px;font-weight:600;color:var(--leaf)}
 #chipDate{align-items:center;justify-content:center}
+/* 訪客計數器（abacus.jasoncameron.dev，https；課程網站的 mepopedia 計數器只有 http，GitHub Pages 會擋） */
+.sitefoot{display:flex;align-items:baseline;justify-content:center;gap:10px;margin:40px auto 8px;padding-top:22px;border-top:1px solid var(--hair);color:var(--muted);font-size:13px}
+.sitefoot[hidden]{display:none}
+.sitefoot .sf-en{font-family:var(--f-latin);font-style:italic;font-size:14px}
+.sitefoot .sf-n{font-family:var(--f-latin);font-size:26px;font-weight:600;color:var(--leaf);letter-spacing:.04em;font-variant-numeric:oldstyle-nums}
 
 .navbar{position:sticky;top:0;z-index:40;margin:-12px -16px 0;padding:8px 16px 6px;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);border-bottom:1px solid transparent;transition:border-color .2s,box-shadow .2s}
 .navbar.stuck{border-bottom-color:var(--hair);box-shadow:0 10px 24px -20px rgba(120,60,90,.5)}
@@ -944,6 +949,11 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
     <div class="notes" id="notes"></div>
     <p class="disclaimer">這裡的內容是一般保健建議，不能取代醫師診斷。運動時如果不只是「有點痠」而是會痛，就停下來；有下面任何警訊，請先就醫再開始運動。</p>
   </section>
+  <footer class="sitefoot" id="siteFoot" hidden>
+    <span class="sf-en">Visitors</span>
+    <span class="sf-n" id="visitN">—</span>
+    <span class="sf-zh">次拜訪小花園</span>
+  </footer>
 </div>
 
 <div class="overlay" id="ovAlert" hidden>
@@ -1695,6 +1705,10 @@ addEventListener('scroll',()=>{const nb=$('navbar'),y=window.scrollY;nb.classLis
 $('toTop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
 buildSub('today');
 function renderAll(){renderStats();renderGarden();renderRoutines();renderTimer()}
+/* 訪客計數器：每次開網站 +1（本機預覽不計） */
+(()=>{const local=/^(localhost|127\.|\[::1\])/.test(location.hostname)||location.protocol==='file:';
+  fetch('https://abacus.jasoncameron.dev/'+(local?'get':'hit')+'/cute-capstone-standup-garden/visits')
+  .then(r=>r.ok?r.json():Promise.reject()).then(j=>{if(typeof j.value!=='number')return;$('visitN').textContent=j.value.toLocaleString('zh-TW');$('siteFoot').hidden=false}).catch(()=>{})})();
 const d=new Date();$('chipDate').textContent=(d.getMonth()+1)+' 月 '+d.getDate()+' 日・週'+'日一二三四五六'[d.getDay()];
 /* ===== 外觀：角色＋背景配色 ===== */
 const AV={girl:'<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#FDEAF0"/><path d="M7 30c0-9 3-17 9-17s9 8 9 17z" fill="#6B4A3A"/><circle cx="16" cy="15" r="7.5" fill="#F6CDB2"/><path d="M8.5 14c0-5 3.5-8 7.5-8s7.5 3 7.5 8c-3-1-6-3-7.5-5-1.5 2-4.5 4-7.5 5z" fill="#6B4A3A"/><circle cx="22.5" cy="9.5" r="2.2" fill="#E2728F"/><path d="M10 32c1-4 3.5-6 6-6s5 2 6 6z" fill="#F3B3C4"/><circle cx="13.3" cy="16" r=".9" fill="#4A3442"/><circle cx="18.7" cy="16" r=".9" fill="#4A3442"/><path d="M14.5 18.6q1.5 1.2 3 0" stroke="#4A3442" stroke-width=".8" fill="none" stroke-linecap="round"/></svg>',
