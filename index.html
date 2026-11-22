@@ -190,12 +190,22 @@ nav.tabs button[aria-selected="true"]::after{content:"";position:absolute;left:1
 .garden-head h2{font-size:22px}
 .garden-head .count{font-size:40px;font-weight:600;line-height:1;color:var(--leaf)}
 .garden-head .count span{font-size:14px;color:var(--muted);font-family:var(--f-body);font-weight:400}
-.window{position:relative;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,var(--sky-soft) 0%,var(--paper) 78%);display:grid;place-items:center;padding-top:8px;border:1px solid var(--hair)}
-.window::before{content:"";position:absolute;inset:0;background:
-  linear-gradient(90deg,transparent calc(50% - 1.5px),var(--hair) calc(50% - 1.5px),var(--hair) calc(50% + 1.5px),transparent calc(50% + 1.5px)),
-  linear-gradient(180deg,transparent 44%,var(--hair) 44%,var(--hair) calc(44% + 3px),transparent calc(44% + 3px));opacity:.7;pointer-events:none}
-.window::after{content:"";position:absolute;left:0;right:0;bottom:0;height:22%;background:linear-gradient(180deg,var(--wood),var(--wood-2));opacity:.55}
-.window img.pot{width:100%;max-width:250px;height:auto;display:block;position:relative;z-index:1;mix-blend-mode:multiply;margin-top:4px}
+/* 盆栽場景：牆＋窗（上）＋窗台（下），盆栽坐在窗台上；盆栽圖已去背，不再用 multiply */
+.window{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/10;min-height:220px;border:1px solid var(--hair);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--paper) 88%,var(--sky-soft)),var(--paper))}
+.window::before{content:"";position:absolute;left:14%;right:14%;top:9%;bottom:27%;border-radius:10px 10px 4px 4px;
+  border:7px solid var(--paper);box-shadow:0 0 0 1px var(--hair),inset 0 0 0 1px var(--hair);
+  background:
+    linear-gradient(90deg,transparent calc(50% - 3px),var(--paper) calc(50% - 3px),var(--paper) calc(50% + 3px),transparent calc(50% + 3px)),
+    linear-gradient(180deg,transparent calc(48% - 3px),var(--paper) calc(48% - 3px),var(--paper) calc(48% + 3px),transparent calc(48% + 3px)),
+    linear-gradient(180deg,var(--sky-soft),color-mix(in srgb,var(--sky-soft) 40%,var(--paper)))}
+.window::after{content:"";position:absolute;left:0;right:0;bottom:0;height:27%;
+  background:linear-gradient(180deg,
+    color-mix(in srgb,var(--wood) 70%,var(--paper)) 0,color-mix(in srgb,var(--wood) 85%,var(--paper)) 38%,
+    var(--wood-2) 38%,var(--wood-2) calc(38% + 2px),
+    color-mix(in srgb,var(--wood) 55%,var(--paper)) calc(38% + 2px),color-mix(in srgb,var(--wood) 40%,var(--paper)) 100%)}
+.window img.pot{position:absolute;z-index:1;left:50%;bottom:14%;height:80%;width:auto;max-width:none;transform:translateX(-50%);
+  filter:drop-shadow(0 5px 4px rgba(90,60,40,.16))}
 .stage-name{position:absolute;top:12px;left:12px;z-index:2;font-size:12px;background:var(--paper);padding:3px 11px;border-radius:999px;border:1px solid var(--hair)}
 .garden .hint{font-size:13.5px;color:var(--muted);text-align:center}
 .week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;padding-top:12px;border-top:1px solid var(--hair)}
@@ -753,7 +763,7 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
         </div>
         <div class="window">
           <span class="stage-name" id="stageName">種子</span>
-          <img class="pot" id="plantBig" src="img/frames/pot-0.webp" alt="今日盆栽">
+          <img class="pot" id="plantBig" src="img/frames/pot-0.webp?v=2" alt="今日盆栽">
         </div>
         <p class="hint" id="gHint">完成第一次起身運動，種子就會發芽。</p>
         <div class="week" id="week"></div>
@@ -1062,7 +1072,7 @@ const ALL_R=[...ROUTINES,...EXTRA,...SEATED];
 // smarch／stoe 起始格借用 skneehug-a、spunch 起始格由 smarch 上半身合成（原檔在 備份/_backup_20261121_起身小花園坐姿圖）；scircle 兩格太像，暫用 anim lift
 const IMGS={ankle:{},legext:{},sitstand:{},hamstring:{},march:{bob:true},heel:{},side:{},wallpush:{},calf:{},quad:{},chin:{},shoulder:{},neck:{},reach:{},palm:{},bridge:{},slr:{},
   smarch:{},spunch:{},stoe:{},skneehug:{},scat:{},slean:{},stwist:{},sbend:{},scircle:{anim:'lift'},sopen:{},swrist:{}};
-const POT=i=>`img/frames/pot-${i}.webp`;
+const POT=i=>`img/frames/pot-${i}.webp?v=2`;
 /* 角色：女生插圖在 img/frames/，男生在 img/frames/boy/（清單 manifest.js 由 處理新圖.py 自動產生）。沒插圖的動作用小人動畫 */
 const BOY=window.SG_BOY||{moves:{},scenes:[]};
 const CHARS={girl:{n:'女生',nick:'小莓',dir:'img/frames/',imgs:IMGS,scenes:['alert','done','neck-a'],pal:'pink'},
