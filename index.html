@@ -623,6 +623,37 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
 @media (prefers-reduced-motion:reduce){.hw-stage.swap,.hw-pot.grow,.hw-confetti i,.hw-spark,.hw-drop{animation:none}}
 .howto-note{font-size:12.5px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ===== 配色切換 data-palette（預設 pink＝:root）＋角色 data-char ===== */
+:root[data-palette="mint"]{--bg:#F2FAF8; --surface-2:#E6F3F1; --ink:#20403E; --muted:#6B8A87; --hair:rgba(32,64,62,.10); --panel-a:#DCF3EE; --panel-b:#E1EEFA; --on-deep:#20403E; --on-deep-mute:#5F7F7C; --on-primary:#1D3B39; --leaf:#22A196; --leaf-2:#8ED7CD; --leaf-soft:#DFF4F1; --sun:#4C8FD6; --sun-2:#B3D4F5; --sun-soft:#E5F0FB; --sky:#6FA7C9; --sky-soft:#E4F0F6; --mat:#BDE6DF; --clay-2:#3E9C92;}
+@media (prefers-color-scheme:dark){:root[data-palette="mint"]:not([data-theme="light"]){--leaf:#5CCFC2; --leaf-2:#8ED7CD; --leaf-soft:#1F3A38; --panel-a:#203A38; --panel-b:#1F3046; --sun:#8DBDF0; --sun-soft:#1F3047; --sky:#8CC0DE; --sky-soft:#1E3240; --mat:#3E6A65; --bg:#16201F; --paper:#1F2A29; --surface-2:#273534;}}
+:root[data-palette="mint"][data-theme="dark"]{--leaf:#5CCFC2; --leaf-2:#8ED7CD; --leaf-soft:#1F3A38; --panel-a:#203A38; --panel-b:#1F3046; --sun:#8DBDF0; --sun-soft:#1F3047; --sky:#8CC0DE; --sky-soft:#1E3240; --mat:#3E6A65; --bg:#16201F; --paper:#1F2A29; --surface-2:#273534;}
+:root[data-palette="sky"]{--bg:#F4F8FD; --surface-2:#EAF1F9; --ink:#2C3A52; --muted:#7A879B; --hair:rgba(44,58,82,.10); --panel-a:#E1EDFB; --panel-b:#EDE8FA; --on-deep:#2C3A52; --on-deep-mute:#6C7A90; --on-primary:#26344A; --leaf:#4A8AD4; --leaf-2:#A8CBF2; --leaf-soft:#E5F0FC; --sun:#8E7FD8; --sun-2:#CFC6F3; --sun-soft:#EFEBFA; --mat:#C3DAF5; --clay-2:#5C86C2;}
+@media (prefers-color-scheme:dark){:root[data-palette="sky"]:not([data-theme="light"]){--leaf:#86B6F0; --leaf-2:#A8CBF2; --leaf-soft:#22324A; --panel-a:#22324A; --panel-b:#2D2840; --sun:#BDB0F0; --sun-soft:#2D2840; --mat:#3D5577; --bg:#171C26; --paper:#202633; --surface-2:#2A3242;}}
+:root[data-palette="sky"][data-theme="dark"]{--leaf:#86B6F0; --leaf-2:#A8CBF2; --leaf-soft:#22324A; --panel-a:#22324A; --panel-b:#2D2840; --sun:#BDB0F0; --sun-soft:#2D2840; --mat:#3D5577; --bg:#171C26; --paper:#202633; --surface-2:#2A3242;}
+:root[data-palette="lemon"]{--bg:#FFFAF0; --surface-2:#F8F0DE; --ink:#4A3A28; --muted:#97836A; --hair:rgba(74,58,40,.10); --panel-a:#FDF0CF; --panel-b:#E6F2E4; --on-deep:#4A3A28; --on-deep-mute:#8A765E; --on-primary:#4A3A28; --leaf:#D9962B; --leaf-2:#F5D185; --leaf-soft:#FCF1D8; --sun:#5FA58A; --sun-2:#B9DFCD; --sun-soft:#E5F3EC; --mat:#F3DCA6; --clay-2:#C98A3A;}
+@media (prefers-color-scheme:dark){:root[data-palette="lemon"]:not([data-theme="light"]){--leaf:#F0BE5E; --leaf-2:#F5D185; --leaf-soft:#3A3020; --panel-a:#3A3020; --panel-b:#223329; --sun:#8ED0B3; --sun-soft:#223329; --mat:#6E5A33; --bg:#1E1A14; --paper:#29241C; --surface-2:#342D22;}}
+:root[data-palette="lemon"][data-theme="dark"]{--leaf:#F0BE5E; --leaf-2:#F5D185; --leaf-soft:#3A3020; --panel-a:#3A3020; --panel-b:#223329; --sun:#8ED0B3; --sun-soft:#223329; --mat:#6E5A33; --bg:#1E1A14; --paper:#29241C; --surface-2:#342D22;}
+:root[data-palette="lavender"]{--bg:#F8F6FD; --surface-2:#F0ECF9; --ink:#3B3352; --muted:#857D9B; --hair:rgba(59,51,82,.10); --panel-a:#ECE6FB; --panel-b:#FCE6EE; --on-deep:#3B3352; --on-deep-mute:#776F8E; --on-primary:#352D4A; --leaf:#8C76D4; --leaf-2:#CDC1F2; --leaf-soft:#EFEAFB; --sun:#E07A98; --sun-2:#F6BFD0; --sun-soft:#FCE9EF; --mat:#D9CFF4; --clay-2:#8C76D4;}
+@media (prefers-color-scheme:dark){:root[data-palette="lavender"]:not([data-theme="light"]){--leaf:#B9A8F2; --leaf-2:#CDC1F2; --leaf-soft:#2E2842; --panel-a:#2E2842; --panel-b:#3E2A36; --sun:#F49AB5; --sun-soft:#3E2A36; --mat:#584C7E; --bg:#1B1824; --paper:#25212F; --surface-2:#302A3C;}}
+:root[data-palette="lavender"][data-theme="dark"]{--leaf:#B9A8F2; --leaf-2:#CDC1F2; --leaf-soft:#2E2842; --panel-a:#2E2842; --panel-b:#3E2A36; --sun:#F49AB5; --sun-soft:#3E2A36; --mat:#584C7E; --bg:#1B1824; --paper:#25212F; --surface-2:#302A3C;}
+:root[data-char="boy"]{--hairc:#3A2C27;--shirt:#6CC6BB;--shirt-b:#4FAEA3;--pants:#3F7C93;--pants-b:#33677C;--shoe:#FFFFFF;--sole:#9FC9C4}
+:root[data-char="boy"] .fig svg circle[r="13.6"]{r:12.6}
+.look{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;font-size:13px;color:var(--on-deep-mute)}
+.look .lk{display:flex;align-items:center;gap:8px}
+.look .lk>b{font-weight:500}
+.ch-b{display:inline-flex;align-items:center;gap:6px;padding:3px 12px 3px 4px;border-radius:999px;border:1.5px solid var(--hair);background:var(--paper);font:inherit;color:var(--ink);cursor:pointer;transition:transform .2s cubic-bezier(.3,1.8,.5,1),border-color .2s}
+.ch-b svg{width:28px;height:28px;display:block}
+.ch-b:hover{transform:translateY(-2px)}
+.ch-b[aria-checked=true]{border-color:var(--leaf);background:var(--leaf-soft);font-weight:700}
+.pal-b{width:26px;height:26px;border-radius:50%;border:2px solid var(--paper);box-shadow:0 0 0 1.5px var(--hair);cursor:pointer;padding:0;background:linear-gradient(135deg,var(--c1) 0 50%,var(--c2) 50% 100%);transition:transform .2s cubic-bezier(.3,1.8,.5,1)}
+.pal-b:hover{transform:scale(1.12)}
+.pal-b[aria-checked=true]{box-shadow:0 0 0 2px var(--ink);transform:scale(1.08)}
+:root[data-palette] .figbox{--pb:var(--sun-soft);--pp:var(--leaf-soft)}
+:root[data-palette] .t-sky{background:linear-gradient(170deg,var(--sun-soft) 0%,var(--sky-soft) 75%)}
+:root[data-palette] .t-sun{background:linear-gradient(170deg,var(--pp) 0%,var(--sun-soft) 80%)}
+.from-claude{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink);background:var(--leaf-soft);border-radius:12px;padding:8px 12px;margin-top:8px}
+.from-claude button{margin-left:auto;border:0;background:none;color:var(--muted);cursor:pointer;font:inherit}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -707,6 +738,10 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
             <label>曲風 <select id="setTrack"></select></label><button type="button" class="tool" id="btnPreview">試聽</button>
             <label><input type="checkbox" id="setVoice" checked> 語音說明</label>
           </div>
+          <div class="look" id="look">
+            <div class="lk" role="radiogroup" aria-label="示範角色"><b>示範角色</b><span id="charRow"></span></div>
+            <div class="lk" role="radiogroup" aria-label="背景配色"><b>背景配色</b><span id="palRow" style="display:flex;gap:8px"></span></div>
+          </div>
         </div>
       </div>
 
@@ -777,7 +812,7 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
       <div class="card x-map">
         <div class="x-h"><p class="eyebrow"><span class="lt">Body map</span>・身體地圖</p><h3>哪裡卡卡？點一下找動作</h3></div>
         <div class="x-map-in">
-          <div class="x-body"><img src="img/frames/neck-a.webp" alt="站立的女孩，身上有可以點的部位">
+          <div class="x-body"><img data-fr="neck-a" src="img/frames/neck-a.webp" alt="站立的女孩，身上有可以點的部位">
             <div id="hot"></div></div>
           <div class="x-map-r" id="mapOut" aria-live="polite"></div>
         </div>
@@ -838,7 +873,7 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
 
 <div class="overlay" id="ovAlert" hidden>
   <div class="card alert-card">
-    <div class="figbox t-sun scene-box"><img class="scene" src="img/frames/alert.webp" alt="從椅子起身伸懶腰的女孩"></div>
+    <div class="figbox t-sun scene-box"><img class="scene" data-fr="alert" src="img/frames/alert.webp" alt="從椅子起身伸懶腰的女孩"></div>
     <p class="eyebrow">已經坐了 <span id="alertMin">40</span> 分鐘</p>
     <h2>起來動一下吧</h2>
     <p>下一組是「<b id="alertRoutine">膝蓋醒來</b>」，大約 <span id="alertDur">3</span> 分鐘。真的很懶，就做 1 分鐘懶人版，一樣算數。</p>
@@ -872,7 +907,7 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
     </div>
   </div>
   <div class="card done-card" id="doneCard" hidden>
-    <div class="figbox t-leaf scene-box done-art"><img class="scene" src="img/frames/done.webp" alt="幫盆栽澆水的女孩"></div>
+    <div class="figbox t-leaf scene-box done-art"><img class="scene" data-fr="done" src="img/frames/done.webp" alt="幫盆栽澆水的女孩"></div>
     <img class="done-pot" id="donePot" src="img/frames/pot-1.webp" alt="目前的盆栽">
     <p class="eyebrow" id="doneEyebrow">今天第 1 次</p>
     <h2 id="doneTitle">長出一片新葉子</h2>
@@ -890,6 +925,7 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
   </div>
 </div>
 
+<script src="img/frames/boy/manifest.js"></script>
 <script>
 (()=>{
 /* ---------- 動作資料 ---------- */
@@ -1026,8 +1062,16 @@ const ALL_R=[...ROUTINES,...EXTRA,...SEATED];
 const IMGS={ankle:{},legext:{},sitstand:{},hamstring:{},march:{bob:true},heel:{},side:{},wallpush:{},calf:{},quad:{},chin:{},shoulder:{},neck:{},reach:{},palm:{},bridge:{},slr:{},
   smarch:{},spunch:{},stoe:{},skneehug:{},scat:{},slean:{},stwist:{},sbend:{},scircle:{anim:'lift'},sopen:{},swrist:{}};
 const POT=i=>`img/frames/pot-${i}.webp`;
+/* 角色：女生插圖在 img/frames/，男生在 img/frames/boy/（清單 manifest.js 由 處理新圖.py 自動產生）。沒插圖的動作用小人動畫 */
+const BOY=window.SG_BOY||{moves:{},scenes:[]};
+const CHARS={girl:{n:'女生',nick:'小莓',dir:'img/frames/',imgs:IMGS,scenes:['alert','done','neck-a'],pal:'pink'},
+  boy:{n:'男生',nick:'小樹',dir:'img/frames/boy/',imgs:BOY.moves||{},scenes:BOY.scenes||[],pal:'mint'}};
+const PALS=[['pink','粉紅花園','#F7B9CB','#BCD9F6'],['mint','薄荷海風','#8ED7CD','#B3D4F5'],['sky','晴空藍','#A8CBF2','#CFC6F3'],['lemon','檸檬奶油','#F5D185','#B9DFCD'],['lavender','薰衣草','#CDC1F2','#F6BFD0']];
+const CH=()=>CHARS[S.settings.char]||CHARS.girl;
+const curImgs=()=>CH().imgs;
+const frSrc=n=>CH().scenes.includes(n)?CH().dir+n+'.webp':'img/frames/'+n+'.webp';
 function potStage(c,g){if(c<=0)return 0;if(c<=2)return 1;if(c<Math.ceil(g/2)+1)return 2;if(c<g-1)return 3;if(c<g)return 4;return 5}
-const figOf=(r)=>r.fig||((r.steps.find(s=>IMGS[s[0]])||[])[0])||r.steps[r.id==='r3'?4:0][0];
+const figOf=(r)=>{const I=curImgs();return (r.fig&&(I[r.fig]||!Object.keys(I).length)?r.fig:0)||((r.steps.find(s=>I[s[0]])||[])[0])||r.fig||r.steps[r.id==='r3'?4:0][0]};
 
 /* ---------- 儲存 ---------- */
 const KEY='standup-garden-v1';
@@ -1047,8 +1091,9 @@ const figs=new Set();
 function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);parent.appendChild(e);return e}
 function makeFig(id,host){
   const m=MOVES[id];
-  host.classList.toggle('photo',!!IMGS[id]);
-  if(IMGS[id]){host.innerHTML=`<div class="frames${IMGS[id].bob?' bob':''}${IMGS[id].anim?' bob an-'+IMGS[id].anim:''}" style="--per:${m.period*1.15}s"><img class="fa" src="img/frames/${id}-a.webp" alt="${m.name}：起始動作"><img class="fb" src="img/frames/${id}-b.webp" alt="${m.name}：結束動作"></div>`;return {paused:false}}const A={...BASE[m.base],...m.a};const B={...A,...m.b};const flat=m.base==='front'||m.base==='seatF';
+  const IM=curImgs()[id],dir=CH().dir;
+  host.classList.toggle('photo',!!IM);
+  if(IM){host.innerHTML=`<div class="frames${IM.bob?' bob':''}${IM.anim?' bob an-'+IM.anim:''}" style="--per:${m.period*1.15}s"><img class="fa" src="${dir}${id}-a.webp" alt="${m.name}：起始動作"><img class="fb" src="${dir}${id}-b.webp" alt="${m.name}：結束動作"></div>`;return {paused:false}}const A={...BASE[m.base],...m.a};const B={...A,...m.b};const flat=m.base==='front'||m.base==='seatF';
   const svg=document.createElementNS(NS,'svg');svg.setAttribute('viewBox','0 0 200 200');svg.setAttribute('role','img');svg.setAttribute('aria-label',m.name+'示範');
   svg.innerHTML='<line class="floor" x1="6" y1="187" x2="194" y2="187"/>'+m.props.map(p=>PROPS[p]).join('');
   const P={};
@@ -1556,7 +1601,20 @@ $('toTop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
 buildSub('today');
 function renderAll(){renderStats();renderGarden();renderRoutines();renderTimer()}
 const d=new Date();$('chipDate').textContent=(d.getMonth()+1)+' 月 '+d.getDate()+' 日・週'+'日一二三四五六'[d.getDay()];
+/* ===== 外觀：角色＋背景配色 ===== */
+const AV={girl:'<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#FDEAF0"/><path d="M7 30c0-9 3-17 9-17s9 8 9 17z" fill="#6B4A3A"/><circle cx="16" cy="15" r="7.5" fill="#F6CDB2"/><path d="M8.5 14c0-5 3.5-8 7.5-8s7.5 3 7.5 8c-3-1-6-3-7.5-5-1.5 2-4.5 4-7.5 5z" fill="#6B4A3A"/><circle cx="22.5" cy="9.5" r="2.2" fill="#E2728F"/><path d="M10 32c1-4 3.5-6 6-6s5 2 6 6z" fill="#F3B3C4"/><circle cx="13.3" cy="16" r=".9" fill="#4A3442"/><circle cx="18.7" cy="16" r=".9" fill="#4A3442"/><path d="M14.5 18.6q1.5 1.2 3 0" stroke="#4A3442" stroke-width=".8" fill="none" stroke-linecap="round"/></svg>',
+  boy:'<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#DFF4F1"/><circle cx="16" cy="15" r="7.5" fill="#F6CDB2"/><path d="M8.3 14.5c-.6-5.5 3-9 7.7-9 4.8 0 8.3 3.2 7.7 9-1.3-2.4-3.2-3.6-5.6-3.9 1 .9 1.4 1.8 1.4 2.7-2.4-.8-5-2.4-6.3-4-1.3 2-3 3.6-4.9 5.2z" fill="#3A2C27"/><path d="M10 32c1-4 3.5-6 6-6s5 2 6 6z" fill="#6CC6BB"/><circle cx="13.3" cy="16" r=".9" fill="#20403E"/><circle cx="18.7" cy="16" r=".9" fill="#20403E"/><path d="M14.3 18.4q1.7 1.5 3.4 0" stroke="#20403E" stroke-width=".8" fill="none" stroke-linecap="round"/></svg>'};
+function applyLook(){const r=document.documentElement;r.dataset.char=S.settings.char||'girl';const pal=S.settings.pal||CH().pal;if(pal==='pink')delete r.dataset.palette;else r.dataset.palette=pal;
+  document.querySelectorAll('[data-fr]').forEach(im=>{im.src=frSrc(im.dataset.fr)});
+  $('charRow').innerHTML=Object.entries(CHARS).map(([k,c])=>`<button class="ch-b" role="radio" aria-checked="${(S.settings.char||'girl')===k}" data-ch="${k}">${AV[k]}${c.n}<small style="color:var(--muted);font-weight:400">${c.nick}</small></button>`).join(' ');
+  $('palRow').innerHTML=PALS.map(([k,n,c1,c2])=>`<button class="pal-b" role="radio" aria-checked="${pal===k}" data-pal="${k}" title="${n}" aria-label="${n}" style="--c1:${c1};--c2:${c2}"></button>`).join('')}
+$('look').onclick=e=>{const b=e.target.closest('button');if(!b)return;unlockAudio();
+  if(b.dataset.ch){S.settings.char=b.dataset.ch;S.settings.pal=CH().pal}else if(b.dataset.pal)S.settings.pal=b.dataset.pal;else return;
+  save();applyLook();renderRoutines();renderLib(typeof libFilter==='string'?libFilter:'all');chime('step')};
+applyLook();
 renderAll();renderLib('all');renderPlan();renderNotes();
+/* 從 Claude 自動打開（網址帶 ?from=claude）：只提示，不自動開始計時 */
+if(/[?&]from=claude/.test(location.search)&&!run.on){const n=document.createElement('div');n.className='from-claude';n.innerHTML='準備好了再按「開始坐著」，計時才會開始。<button aria-label="關閉提示">✕</button>';n.querySelector('button').onclick=()=>n.remove();$('btnStart').closest('.btns').after(n);try{history.replaceState(null,'',location.pathname)}catch(e){}}
 try{const t=sessionStorage.getItem(KEY+'-tab');if(t&&t!=='today')$('tab-'+t).click()}catch(e){}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('toast').hidden)eyeFinish(false)});
 
@@ -1582,7 +1640,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('toast').hidden)
       <div class="hw-vis"><div class="hw-ring" id="hwRing"><svg viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="44"/><circle class="fg" id="hwArc" cx="50" cy="50" r="44"/></svg><div class="mid"><b id="hwMin">${S.settings.interval}</b><small>分鐘</small></div></div></div>`,
     ()=>`<div class="hw-txt"><span class="tag">STEP 2</span><h3>叮！起來動一動</h3><p>響鈴後按「開始運動」，跟著插圖和語音做 3 分鐘，不會喘。真的很懶就選 1 分鐘版。先來試一個踮腳跟吧！</p>
       <div class="hw-act"><button class="hw-btn" data-a="try">跟著做 5 下 🦶</button>${nextBtn(1)}</div></div>
-      <div class="hw-vis" id="hwVis2"><img src="img/frames/alert.webp" alt="起身提醒插圖"></div>`,
+      <div class="hw-vis" id="hwVis2"><img data-fr="alert" src="img/frames/alert.webp" alt="起身提醒插圖"></div>`,
     ()=>`<div class="hw-txt"><span class="tag">STEP 3</span><h3>每動一次，盆栽就長大</h3><p>完成一次運動就長一片葉子，達到每日目標會開出粉紅陸蓮花和勿忘我。點盆栽幫它澆水試試！</p>
       <div class="hw-act"><button class="hw-btn" data-a="water">澆水 💧</button>${nextBtn(2)}</div></div>
       <div class="hw-vis" id="hwVis3"><div><img class="hw-pot" id="hwPot" src="${POT(0)}" alt="盆栽：種子"><div class="hw-stg" id="hwStg">${'<i></i>'.repeat(6)}</div></div></div>`,
@@ -1661,8 +1719,8 @@ $('hot').onclick=$('mapOut').onclick=e=>{const b=e.target.closest('button');if(!
   if(b.dataset.go){const id=b.dataset.go;if(libFilter!=='all'){$('filters').querySelector('[data-f=all]').click()}const c=$('mv-'+id);if(c){c.scrollIntoView({behavior:'smooth',block:'center'});c.classList.remove('flash');void c.offsetWidth;c.classList.add('flash')}}};
 renderMap('');
 let drawn=null;
-$('btnDraw').onclick=()=>{unlockAudio();const ids=Object.keys(MOVES).filter(id=>IMGS[id]),slot=$('slot'),b=$('btnDraw');b.disabled=true;$('btnDrawTry').hidden=true;slot.classList.remove('win');slot.classList.add('spin');
-  let n=0,delay=70;const step=()=>{const id=ids[Math.floor(Math.random()*ids.length)];$('slotFig').innerHTML=`<img src="img/frames/${id}-a.webp" alt="" style="position:absolute;inset:6%;width:88%;height:88%;object-fit:contain;mix-blend-mode:multiply">`;$('slotName').textContent=MOVES[id].name;chime('tick');n++;
+$('btnDraw').onclick=()=>{unlockAudio();const ids=(()=>{const I=curImgs(),a=Object.keys(MOVES).filter(id=>I[id]);return a.length>=6?a:Object.keys(MOVES)})(),slot=$('slot'),b=$('btnDraw');b.disabled=true;$('btnDrawTry').hidden=true;slot.classList.remove('win');slot.classList.add('spin');
+  let n=0,delay=70;const step=()=>{const id=ids[Math.floor(Math.random()*ids.length)];if(curImgs()[id])$('slotFig').innerHTML=`<img src="${CH().dir}${id}-a.webp" alt="" style="position:absolute;inset:6%;width:88%;height:88%;object-fit:contain;mix-blend-mode:multiply">`;else makeFig(id,$('slotFig'));$('slotName').textContent=MOVES[id].name;chime('tick');n++;
     if(n<14){delay*=1.16;setTimeout(step,delay)}else{drawn=id;slot.classList.remove('spin');void slot.offsetWidth;slot.classList.add('win');makeFig(id,$('slotFig'));$('slotTag').textContent=MOVES[id].tags.join('・')+'｜'+MOVES[id].cue[0];chime('done');b.disabled=false;b.textContent='再抽一次 🎲';$('btnDrawTry').hidden=false}};step()};
 $('btnDrawTry').onclick=()=>{if(drawn)tryMove(drawn)};
 

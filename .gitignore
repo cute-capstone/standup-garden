@@ -4,3 +4,6 @@ img/*.png
 切圖.py
 _語音工具/
 _字體比較.html
+img/**/*.png
+img/boy/README.txt
+處理新圖.py
