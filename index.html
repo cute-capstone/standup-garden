@@ -813,7 +813,7 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
       <div class="card x-map">
         <div class="x-h"><p class="eyebrow"><span class="lt">Body map</span>・身體地圖</p><h3>哪裡卡卡？點一下找動作</h3></div>
         <div class="x-map-in">
-          <div class="x-body"><img data-fr="neck-a" src="img/frames/neck-a.webp" alt="站立的女孩，身上有可以點的部位">
+          <div class="x-body"><img data-fr="neck-a" src="img/frames/neck-a.webp" alt="站立的人物，身上有可以點的部位">
             <div id="hot"></div></div>
           <div class="x-map-r" id="mapOut" aria-live="polite"></div>
         </div>
@@ -1611,7 +1611,7 @@ function applyLook(){const r=document.documentElement;r.dataset.char=S.settings.
   $('palRow').innerHTML=PALS.map(([k,n,c1,c2])=>`<button class="pal-b" role="radio" aria-checked="${pal===k}" data-pal="${k}" title="${n}" aria-label="${n}" style="--c1:${c1};--c2:${c2}"></button>`).join('')}
 $('look').onclick=e=>{const b=e.target.closest('button');if(!b)return;unlockAudio();
   if(b.dataset.ch){S.settings.char=b.dataset.ch;S.settings.pal=CH().pal}else if(b.dataset.pal)S.settings.pal=b.dataset.pal;else return;
-  save();applyLook();renderRoutines();renderLib(typeof libFilter==='string'?libFilter:'all');chime('step')};
+  save();applyLook();renderRoutines();renderLib(typeof libFilter==='string'?libFilter:'all');if(typeof renderMap==='function')renderMap('');chime('step')};
 applyLook();
 renderAll();renderLib('all');renderPlan();renderNotes();
 /* 從 Claude 自動打開（網址帶 ?from=claude）：只提示，不自動開始計時 */
@@ -1711,7 +1711,10 @@ const PARTS=[
   {k:'thigh',n:'大腿',x:62,y:58,c:'var(--leaf)',moves:['legext','slr','quad','hamstring'],t:'大腿前側（股四頭肌）是膝蓋的避震器，坐著伸膝就能練。'},
   {k:'knee',n:'膝蓋',x:40,y:74,c:'var(--clay-2)',moves:['legext','sitstand','slr','bridge','hamstring'],t:'膝蓋本身不用練，要練的是它上下的肌肉。全部都是不跪、不深蹲的動作。'},
   {k:'calf',n:'小腿腳踝',x:58,y:88,c:'var(--green)',moves:['ankle','heel','calf','march','stoe'],t:'小腿是第二顆心臟，久坐腳腫、腳冰的時候最需要它。'}];
-function renderMap(k){$('hot').innerHTML=PARTS.map(p=>`<button class="x-hot" style="left:${p.x}%;top:${p.y}%;--hc:${p.c}" data-k="${p.k}" aria-pressed="${p.k===k}" aria-label="${p.n}"><span>${p.n}</span></button>`).join('');
+/* 男生圖的部位座標（女生用 PARTS 內的 x,y） */
+const PARTS_BOY={eye:[50,15],neck:[71,25],arm:[31,45],heart:[54,31],hip:[42,54],thigh:[70,62],knee:[43,74],calf:[71,82]};
+const pxy=p=>S.settings.char==='boy'&&PARTS_BOY[p.k]?PARTS_BOY[p.k]:[p.x,p.y];
+function renderMap(k){$('hot').innerHTML=PARTS.map(p=>`<button class="x-hot" style="left:${pxy(p)[0]}%;top:${pxy(p)[1]}%;--hc:${p.c}" data-k="${p.k}" aria-pressed="${p.k===k}" aria-label="${p.n}"><span>${p.n}</span></button>`).join('');
   const p=PARTS.find(x=>x.k===k);
   $('mapOut').innerHTML=p?`<h4>${p.n}</h4><p>${p.t}</p><div class="x-chips">${p.moves.map(id=>`<button class="x-chip" data-go="${id}">${MOVES[id].name} →</button>`).join('')}</div>`
     :`<h4>點身上的圓點</h4><p>膝蓋、肩頸、眼睛……點一個你今天覺得卡卡的地方，看看可以做哪些動作。</p><div class="x-parts">${PARTS.map(p=>`<button class="x-chip" data-k="${p.k}">${p.n}</button>`).join('')}</div>`}
