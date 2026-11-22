@@ -1066,11 +1066,11 @@ const POT=i=>`img/frames/pot-${i}.webp`;
 /* 角色：女生插圖在 img/frames/，男生在 img/frames/boy/（清單 manifest.js 由 處理新圖.py 自動產生）。沒插圖的動作用小人動畫 */
 const BOY=window.SG_BOY||{moves:{},scenes:[]};
 const CHARS={girl:{n:'女生',nick:'小莓',dir:'img/frames/',imgs:IMGS,scenes:['alert','done','neck-a'],pal:'pink'},
-  boy:{n:'男生',nick:'小樹',dir:'img/frames/boy/',imgs:Object.fromEntries(Object.entries(BOY.moves||{}).map(([k,v])=>[k,{...(IMGS[k]||{}),...v}])),scenes:BOY.scenes||[],pal:'mint'}};
+  boy:{n:'男生',nick:'小樹',dir:'img/frames/boy/',imgs:Object.fromEntries(Object.entries(BOY.moves||{}).map(([k,v])=>[k,{...(IMGS[k]&&IMGS[k].bob?{bob:true}:{}),...v}])),scenes:BOY.scenes||[],pal:'mint'}};
 const PALS=[['pink','粉紅花園','#F7B9CB','#BCD9F6'],['mint','薄荷海風','#8ED7CD','#B3D4F5'],['sky','晴空藍','#A8CBF2','#CFC6F3'],['lemon','檸檬奶油','#F5D185','#B9DFCD'],['lavender','薰衣草','#CDC1F2','#F6BFD0']];
 const CH=()=>CHARS[S.settings.char]||CHARS.girl;
 const curImgs=()=>CH().imgs;
-const frSrc=n=>CH().scenes.includes(n)?CH().dir+n+'.webp':'img/frames/'+n+'.webp';
+const frSrc=n=>(CH().scenes.includes(n)||(/-[ab]$/.test(n)&&CH()!==CHARS.girl&&CH().imgs[n.slice(0,-2)]))?CH().dir+n+'.webp':'img/frames/'+n+'.webp';
 function potStage(c,g){if(c<=0)return 0;if(c<=2)return 1;if(c<Math.ceil(g/2)+1)return 2;if(c<g-1)return 3;if(c<g)return 4;return 5}
 const figOf=(r)=>{const I=curImgs();return (r.fig&&(I[r.fig]||!Object.keys(I).length)?r.fig:0)||((r.steps.find(s=>I[s[0]])||[])[0])||r.fig||r.steps[r.id==='r3'?4:0][0]};
 
