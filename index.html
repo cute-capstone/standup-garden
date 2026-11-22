@@ -424,6 +424,27 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
 .x-map-r h4{font-family:var(--f-display);font-size:19px;margin:0 0 4px}
 .x-map-r p{font-size:13.5px;color:var(--muted);line-height:1.65;margin:0 0 10px}
 .x-chips{display:flex;flex-wrap:wrap;gap:6px}
+.kc-bars{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;height:150px;align-items:end;margin:10px 0 14px}
+.kb{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px}
+.kb i{width:100%;max-width:34px;border-radius:9px 9px 4px 4px;background:var(--leaf-2);transition:height .5s}
+.kb.now i{background:var(--leaf)}.kb .kv{font-size:13px;color:var(--ink)}.kb .kd{font-size:11.5px;color:var(--muted)}.kb.now .kd{color:var(--ink);font-weight:700}
+.kc-today h4{font-size:13px;margin:0 0 6px;color:var(--muted);font-weight:600}
+.kc-today ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.kc-today li{display:grid;grid-template-columns:minmax(0,8.5em) 1fr auto auto;gap:8px;align-items:center;font-size:13px}
+.kc-mv{border:0;background:none;padding:0;font:inherit;color:var(--ink);text-align:left;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kc-bar{height:8px;border-radius:9px;background:var(--surface-2);overflow:hidden}.kc-bar i{display:block;height:100%;background:var(--leaf-2);border-radius:9px}
+.kc-today b{color:var(--leaf);font-size:15px}
+.kc-foot{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.6}
+.x-tiles-wrap{padding:0 22px 22px}.x-tiles-wrap:empty{display:none}@media (max-width:420px){.x-tiles-wrap{padding:0 14px 18px}}
+.x-tap{font-size:12px;color:var(--leaf);font-weight:600;margin:4px 0 8px}
+.x-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.x-tile{border:1.5px solid var(--hair);background:var(--paper);border-radius:16px;padding:6px 6px 8px;display:flex;flex-direction:column;gap:2px;align-items:center;cursor:pointer;font:inherit;color:var(--ink);transition:transform .2s cubic-bezier(.3,1.8,.5,1),border-color .2s}
+.x-tile:hover,.x-tile:focus-visible{transform:translateY(-3px);border-color:var(--leaf)}
+.x-tile .tf{width:100%;aspect-ratio:1;border-radius:12px;pointer-events:none}
+.x-tile b{font-size:12.5px;line-height:1.3;text-align:center;margin-top:3px}.x-tile small{font-size:10.5px;color:var(--muted)}
+.mv .figbox,#slotFig{cursor:pointer}
+.play-badge{position:absolute;right:10px;bottom:10px;z-index:3;background:color-mix(in srgb,var(--paper) 90%,transparent);color:var(--leaf);font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:999px;box-shadow:0 2px 8px -3px rgba(0,0,0,.2);pointer-events:none;transition:transform .2s}
+.mv .figbox:hover .play-badge{transform:scale(1.08)}
 .x-chip{border:1.5px solid var(--hair);background:var(--paper);border-radius:999px;padding:5px 12px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink);transition:transform .2s cubic-bezier(.3,1.8,.5,1)}
 .x-chip:hover{transform:translateY(-2px);border-color:var(--leaf)}
 .x-parts{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
@@ -855,10 +876,11 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
             <div id="hot"></div></div>
           <div class="x-map-r" id="mapOut" aria-live="polite"></div>
         </div>
+        <div class="x-tiles-wrap" id="mapTiles"></div>
       </div>
       <div class="card x-gacha">
         <div class="x-h"><p class="eyebrow"><span class="lt">Lucky draw</span>・今天練什麼</p><h3>不知道做什麼？抽一個！</h3></div>
-        <div class="x-slot" id="slot"><div class="x-slot-fig figbox fig t-leaf" id="slotFig"></div><b id="slotName">？？？</b><small id="slotTag">按下面的按鈕抽籤</small></div>
+        <div class="x-slot" id="slot"><div class="x-slot-fig figbox fig t-leaf" id="slotFig" title="抽到後點圖就開始做"></div><b id="slotName">？？？</b><small id="slotTag">按下面的按鈕抽籤</small></div>
         <div class="x-row"><button class="x-btn" id="btnDraw">抽一個動作 🎲</button><button class="x-btn ghost" id="btnDrawTry" hidden>試做 30 秒 ▶</button></div>
       </div>
     </div>
@@ -889,6 +911,12 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
       <div class="x-h x-h-row"><div><p class="eyebrow"><span class="lt">Daily check-in</span>・今天身體感覺</p><h3>花 5 秒記一下</h3></div><span class="x-saved" id="diarySaved"></span></div>
       <div class="x-dgrid" id="diary"></div>
       <div class="x-week7" id="diary7"></div>
+    </div>
+    <div class="card x-kcal">
+      <div class="x-h x-h-row"><div><p class="eyebrow"><span class="lt">Calories</span>・熱量紀錄</p><h3>這 7 天動掉多少大卡</h3></div><span class="x-score num" id="kcWeek"></span></div>
+      <div class="kc-bars" id="kcBars"></div>
+      <div class="kc-today" id="kcToday"></div>
+      <p class="kc-foot">依每個動作的強度（MET）× 體重 <b id="kcKg">60</b> kg 估算，體重可在「今日統計」修改。一杯全糖珍奶約 500 大卡，起身運動是幫忙，不是全部。</p>
     </div>
     <div class="x-two">
       <div class="card x-quiz">
@@ -1127,6 +1155,14 @@ const MET={march:3.5,sitstand:3.8,side:3.0,heel:2.8,wallpush:3.0,bridge:3.0,slr:
 const KG=()=>+(S.settings&&S.settings.kg)||60;
 const kpm=id=>(MET[id]||2)*3.5*KG()/200;
 const dayKcal=d=>d.k!=null?d.k:d.m/60*3.5;
+function renderKcalLog(){if(!$('kcBars'))return;const wd='日一二三四五六',days=[];for(let i=6;i>=0;i--)days.push(Date.now()-i*864e5);
+  const v=days.map(t=>{const h=S.hist[dkey(t)];return h?dayKcal(h):0}),mx=Math.max(20,...v),sum=v.reduce((a,b)=>a+b,0);
+  $('kcWeek').innerHTML=Math.round(sum)+'<small style="font-size:12px;color:var(--muted);margin-left:3px">大卡／7 天</small>';$('kcKg').textContent=KG();
+  $('kcBars').innerHTML=days.map((t,i)=>`<div class="kb${i===6?' now':''}"><span class="kv num">${Math.round(v[i])}</span><i style="height:${Math.max(3,v[i]/mx*100)}%"></i><span class="kd">${i===6?'今天':'週'+wd[new Date(t).getDay()]}</span></div>`).join('');
+  const d=today(),L=Object.entries(d.km||{}).filter(x=>x[1]>=.1).sort((a,b)=>b[1]-a[1]);
+  $('kcToday').innerHTML=L.length?'<h4>今天每個動作</h4><ul>'+L.map(([k,x])=>`<li><button class="kc-mv" data-play="${k}" title="再做一次">${MOVES[k]?MOVES[k].name:k}</button><span class="kc-bar"><i style="width:${x/L[0][1]*100}%"></i></span><b class="num">${Math.round(x*10)/10}</b> 大卡</li>`).join('')+'</ul>'
+    :'<p class="x-empty">今天還沒有帶練紀錄。做完一組起身運動，這裡會列出每個動作消耗多少。</p>'}
+document.addEventListener('click',e=>{const b=e.target.closest('.kc-mv');if(b){unlockAudio();tryMove(b.dataset.play)}});
 document.addEventListener('change',e=>{if(e.target.id!=='inKg')return;const v=Math.round(+e.target.value);if(v>=30&&v<=200){S.settings.kg=v;save();renderStats();renderLib(typeof libFilter==='string'?libFilter:'all')}else e.target.value=KG()});
 
 const $=id=>document.getElementById(id);
@@ -1513,7 +1549,7 @@ syncSound();
 function renderStats(){
   const d=today();const prev=['sMin','sKcal','sEye'].map(id=>$(id).textContent);
   $('sMin').innerHTML=Math.round(d.m/60)+'<small>分鐘</small>';
-  $('sKcal').innerHTML=Math.round(dayKcal(d))+'<small>大卡</small>';
+  $('sKcal').innerHTML=Math.round(dayKcal(d))+'<small>大卡</small>';renderKcalLog();
   {const top=Object.entries(d.km||{}).sort((a,b)=>b[1]-a[1]).slice(0,3).filter(x=>x[1]>=.5);
    $('kcalTop').innerHTML=top.length?'今天最多：'+top.map(([k,v])=>`${MOVES[k]?MOVES[k].name:k} ${Math.round(v)}`).join('、'):'依每個動作強度計算';
    if(document.activeElement!==$('inKg'))$('inKg').value=KG()}
@@ -1554,8 +1590,8 @@ function renderLib(filter){
   if(!list.length)host.innerHTML='<p class="x-empty">還沒有收藏的動作。在喜歡的動作卡右上角按 ♡ 就會出現在這裡。</p>';
   list.forEach(([id,m])=>{
     const c=document.createElement('article');c.className='card mv';c.id='mv-'+id;
-    c.innerHTML=`<button class="x-fav" data-fav="${id}" aria-pressed="${S.fav.includes(id)}" aria-label="收藏${m.name}">${S.fav.includes(id)?'♥':'♡'}</button><div class="figbox fig t-${m.tint}"></div><div class="tags">${m.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div><h3>${m.name}</h3><p class="kc-line"><b>${Math.round(kpm(id)*10)/10}</b> 大卡／分鐘<span>強度 ${MET[id]||2} MET</span></p><ol>${m.cue.map(x=>'<li>'+x+'</li>').join('')}</ol><p class="knee">${m.knee}</p><button class="x-try" data-try="${id}">試做 30 秒 ▶</button>`;
-    host.appendChild(c);makeFig(id,c.querySelector('.figbox'));
+    c.innerHTML=`<button class="x-fav" data-fav="${id}" aria-pressed="${S.fav.includes(id)}" aria-label="收藏${m.name}">${S.fav.includes(id)?'♥':'♡'}</button><div class="figbox fig t-${m.tint}" title="點圖開始做 30 秒"></div><div class="tags">${m.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div><h3>${m.name}</h3><p class="kc-line"><b>${Math.round(kpm(id)*10)/10}</b> 大卡／分鐘<span>強度 ${MET[id]||2} MET</span></p><ol>${m.cue.map(x=>'<li>'+x+'</li>').join('')}</ol><p class="knee">${m.knee}</p><button class="x-try" data-try="${id}">試做 30 秒 ▶</button>`;
+    host.appendChild(c);makeFig(id,c.querySelector('.figbox'));c.querySelector('.figbox').insertAdjacentHTML('beforeend','<span class="play-badge" aria-hidden="true">▶ 點圖開始</span>');
   });
 }
 $('filters').onclick=e=>{const b=e.target.closest('button');if(!b)return;$('filters').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderLib(b.dataset.f)};
@@ -1635,7 +1671,7 @@ function renderNotes(){
 const SUB={today:[['計時器','.today'],['今日統計','.stats'],['運動組合','#routines'],['坐著動','#seatHead'],['怎麼使用','#howto']],
   library:[['身體地圖','.x-map'],['抽一個','.x-gacha'],['全部動作','#lib']],
   plan:[['四週闖關','.x-quest'],['一天節奏','#rhythm'],['一週安排','#weekTable']],
-  body:[['今天感覺','.x-diary'],['小測驗','.x-quiz'],['飲料換算','.x-drink'],['翻翻卡','#flips'],['保健筆記','#notes']]};
+  body:[['今天感覺','.x-diary'],['熱量紀錄','.x-kcal'],['小測驗','.x-quiz'],['飲料換算','.x-drink'],['翻翻卡','#flips'],['保健筆記','#notes']]};
 let curTab='today',subObs=null;
 function buildSub(tab){const L=SUB[tab]||[];$('subnav').innerHTML='<span class="here">本頁 ›</span>'+L.map(([n,sel],i)=>`<a href="#" data-sel="${sel}" class="${i===0?'on':''}">${n}</a>`).join('');
   if(subObs)subObs.disconnect();if(!('IntersectionObserver' in window))return;
@@ -1747,7 +1783,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('toast').hidden)
 let libFilter='all';
 function tryMove(id){unlockAudio();const m=MOVES[id];const r={id:'try-'+id,name:'試做・'+m.name,tint:m.tint,desc:'',steps:[[id,30,'30 秒']],tryOnly:true};
   const k=ALL_R.findIndex(x=>x.id===r.id);if(k>=0)ALL_R.splice(k,1);ALL_R.push(r);openPlayer(r.id)}
-$('lib').addEventListener('click',e=>{const f=e.target.closest('[data-fav]'),t=e.target.closest('[data-try]');
+$('lib').addEventListener('click',e=>{const f=e.target.closest('[data-fav]'),t=e.target.closest('[data-try]')||(!f&&e.target.closest('.mv .figbox')&&{dataset:{try:e.target.closest('.mv').id.slice(3)}});
   if(f){unlockAudio();const id=f.dataset.fav;S.fav=S.fav||[];const on=!S.fav.includes(id);S.fav=on?[...S.fav,id]:S.fav.filter(x=>x!==id);save();
     f.setAttribute('aria-pressed',on);f.textContent=on?'♥':'♡';f.classList.remove('beat');void f.offsetWidth;f.classList.add('beat');chime(on?'step':'tick');if(libFilter==='fav'&&!on)renderLib('fav')}
   if(t)tryMove(t.dataset.try)});
@@ -1766,13 +1802,17 @@ const PARTS_BOY={eye:[50,15],neck:[71,25],arm:[31,45],heart:[54,31],hip:[42,54],
 const pxy=p=>S.settings.char==='boy'&&PARTS_BOY[p.k]?PARTS_BOY[p.k]:[p.x,p.y];
 function renderMap(k){$('hot').innerHTML=PARTS.map(p=>`<button class="x-hot" style="left:${pxy(p)[0]}%;top:${pxy(p)[1]}%;--hc:${p.c}" data-k="${p.k}" aria-pressed="${p.k===k}" aria-label="${p.n}"><span>${p.n}</span></button>`).join('');
   const p=PARTS.find(x=>x.k===k);
-  $('mapOut').innerHTML=p?`<h4>${p.n}</h4><p>${p.t}</p><div class="x-chips">${p.moves.map(id=>`<button class="x-chip" data-go="${id}">${MOVES[id].name} →</button>`).join('')}</div>`
-    :`<h4>點身上的圓點</h4><p>膝蓋、肩頸、眼睛……點一個你今天覺得卡卡的地方，看看可以做哪些動作。</p><div class="x-parts">${PARTS.map(p=>`<button class="x-chip" data-k="${p.k}">${p.n}</button>`).join('')}</div>`}
-$('hot').onclick=$('mapOut').onclick=e=>{const b=e.target.closest('button');if(!b)return;unlockAudio();
+  $('mapTiles').innerHTML=p?`<p class="x-tap">點圖片就開始做 30 秒 ▶</p><div class="x-tiles">${p.moves.map(id=>`<button class="x-tile" data-play="${id}" aria-label="開始做${MOVES[id].name}"><span class="tf figbox fig t-${MOVES[id].tint}" data-thumb="${id}"></span><b>${MOVES[id].name}</b><small>${Math.round(kpm(id)*10)/10} 大卡／分</small></button>`).join('')}</div>`:'';
+  $('mapOut').innerHTML=p?`<h4>${p.n}</h4><p>${p.t}</p><p class="x-tap">↓ 下面挑一個動作</p>`
+    :`<h4>點身上的圓點</h4><p>膝蓋、肩頸、眼睛……點一個你今天覺得卡卡的地方，看看可以做哪些動作。</p><div class="x-parts">${PARTS.map(p=>`<button class="x-chip" data-k="${p.k}">${p.n}</button>`).join('')}</div>`;
+  $('mapTiles').querySelectorAll('[data-thumb]').forEach(h=>makeFig(h.dataset.thumb,h))}
+$('hot').onclick=$('mapOut').onclick=$('mapTiles').onclick=e=>{const b=e.target.closest('button');if(!b)return;unlockAudio();
   if(b.dataset.k){renderMap(b.dataset.k);chime('tick');return}
+  if(b.dataset.play){tryMove(b.dataset.play);return}
   if(b.dataset.go){const id=b.dataset.go;if(libFilter!=='all'){$('filters').querySelector('[data-f=all]').click()}const c=$('mv-'+id);if(c){c.scrollIntoView({behavior:'smooth',block:'center'});c.classList.remove('flash');void c.offsetWidth;c.classList.add('flash')}}};
 renderMap('');
 let drawn=null;
+$('slotFig').addEventListener('click',()=>{if(drawn&&!$('btnDraw').disabled){unlockAudio();tryMove(drawn)}});
 $('btnDraw').onclick=()=>{unlockAudio();const ids=(()=>{const I=curImgs(),a=Object.keys(MOVES).filter(id=>I[id]);return a.length>=6?a:Object.keys(MOVES)})(),slot=$('slot'),b=$('btnDraw');b.disabled=true;$('btnDrawTry').hidden=true;slot.classList.remove('win');slot.classList.add('spin');
   let n=0,delay=70;const step=()=>{const id=ids[Math.floor(Math.random()*ids.length)];if(curImgs()[id])$('slotFig').innerHTML=`<img src="${CH().dir}${id}-a.webp" alt="" style="position:absolute;inset:6%;width:88%;height:88%;object-fit:contain;mix-blend-mode:multiply">`;else makeFig(id,$('slotFig'));$('slotName').textContent=MOVES[id].name;chime('tick');n++;
     if(n<14){delay*=1.16;setTimeout(step,delay)}else{drawn=id;slot.classList.remove('spin');void slot.offsetWidth;slot.classList.add('win');makeFig(id,$('slotFig'));$('slotTag').textContent=MOVES[id].tags.join('・')+'｜'+MOVES[id].cue[0];chime('done');b.disabled=false;b.textContent='再抽一次 🎲';$('btnDrawTry').hidden=false}};step()};
