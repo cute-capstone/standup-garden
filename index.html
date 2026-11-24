@@ -1145,7 +1145,7 @@ const SEATED=[
 const ALL_R=[...ROUTINES,...EXTRA,...SEATED];
 /* 已有插畫的動作：img/frames/動作-a.webp、-b.webp。新增時在這裡加一行 */
 // smarch／stoe 起始格借用 skneehug-a、spunch 起始格由 smarch 上半身合成（原檔在 備份/_backup_20261121_起身小花園坐姿圖）；scircle 兩格太像，暫用 anim lift
-const IMGS={ankle:{},legext:{},sitstand:{},hamstring:{},march:{bob:true},heel:{},side:{},wallpush:{},calf:{},quad:{},chin:{},shoulder:{},neck:{},reach:{},palm:{},bridge:{},slr:{},
+const IMGS={ankle:{},legext:{},sitstand:{},hamstring:{},march:{},heel:{},side:{},wallpush:{},calf:{},quad:{},chin:{},shoulder:{},neck:{},reach:{},palm:{},bridge:{},slr:{},
   smarch:{},spunch:{},stoe:{},skneehug:{},scat:{},slean:{},stwist:{},sbend:{},scircle:{anim:'lift'},sopen:{},swrist:{}};
 const POT=i=>`img/frames/pot-${i}.webp?v=2`;
 /* 角色：女生插圖在 img/frames/，男生在 img/frames/boy/（清單 manifest.js 由 處理新圖.py 自動產生）。沒插圖的動作用小人動畫 */
@@ -1196,7 +1196,7 @@ function makeFig(id,host){
   const m=MOVES[id];
   const IM=curImgs()[id],dir=CH().dir;
   host.classList.toggle('photo',!!IM);
-  if(IM){host.innerHTML=`<div class="frames${IM.bob?' bob':''}${IM.anim?' bob an-'+IM.anim:''}" style="--per:${m.period*1.15}s"><img class="fa" src="${dir}${id}-a.webp" alt="${m.name}：起始動作"><img class="fb" src="${dir}${id}-b.webp" alt="${m.name}：結束動作"></div>`;return {paused:false}}const A={...BASE[m.base],...m.a};const B={...A,...m.b};const flat=m.base==='front'||m.base==='seatF';
+  if(IM){host.innerHTML=`<div class="frames${IM.bob?' bob':''}${IM.anim?' bob an-'+IM.anim:''}" style="--per:${m.period*1.15}s"><img class="fa" src="${dir}${id}-a.webp?v=1124" alt="${m.name}：起始動作"><img class="fb" src="${dir}${id}-b.webp?v=1124" alt="${m.name}：結束動作"></div>`;return {paused:false}}const A={...BASE[m.base],...m.a};const B={...A,...m.b};const flat=m.base==='front'||m.base==='seatF';
   const svg=document.createElementNS(NS,'svg');svg.setAttribute('viewBox','0 0 200 200');svg.setAttribute('role','img');svg.setAttribute('aria-label',m.name+'示範');
   svg.innerHTML='<line class="floor" x1="6" y1="187" x2="194" y2="187"/>'+m.props.map(p=>PROPS[p]).join('');
   const P={};
