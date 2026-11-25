@@ -389,7 +389,9 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
 .wk-art{position:relative;border-radius:18px;background:linear-gradient(160deg,var(--sun-soft),var(--leaf-soft));height:260px;overflow:hidden}
 @media (max-width:760px){.wk-art{height:200px}}
 .wk-art svg{position:absolute;inset:0;width:100%;height:100%}
-.wk-art.has-img{background:#FFF8F5}.wk-art.has-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.walk:has(.wk-art.has-img){grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}
+@media (max-width:760px){.walk:has(.wk-art.has-img){grid-template-columns:minmax(0,1fr)}}
+.wk-art.has-img{background:#FEF5F1;height:auto}.wk-art.has-img img{display:block;width:100%;height:auto}
 .wk-art .fp{opacity:0;animation:fpStep var(--wkcy,4.8s) linear infinite;animation-delay:calc(var(--d)*var(--wkcy,4.8s)/16)}
 @keyframes fpStep{0%{opacity:0}4%{opacity:.85}38%{opacity:.85}55%{opacity:0}100%{opacity:0}}
 .wk-art .stop{transition:transform .3s}
