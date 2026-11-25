@@ -391,6 +391,17 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
 .wk-art svg{position:absolute;inset:0;width:100%;height:100%}
 .walk:has(.wk-art.has-img){grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}
 @media (max-width:760px){.walk:has(.wk-art.has-img){grid-template-columns:minmax(0,1fr)}}
+.wm-lay{position:absolute;inset:0;pointer-events:none}
+.wk-art.has-img{position:relative}
+.wm-who{position:absolute;height:23%;width:5.75%;mix-blend-mode:multiply;transform:translate(-50%,-96%) scaleX(var(--dir,1));transition:opacity .5s}
+.wk-art.has-img .wm-who img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;object-position:50% 100%}
+.wm-who .b{opacity:0}
+.wm-who:not(.stop) .a{animation:wkA .56s steps(1) infinite}
+.wm-who:not(.stop) .b{animation:wkA .56s steps(1) infinite reverse}
+.wm-who.fade{opacity:0}
+.wm-pin{position:absolute;width:5.5%;height:0;padding-bottom:5.5%;border-radius:50%;transform:translate(-50%,-50%)}
+.wm-pin.hit{animation:pinHit 1.3s ease-out}
+@keyframes pinHit{0%{box-shadow:0 0 0 0 rgba(232,114,143,.6);transform:translate(-50%,-50%) scale(.6)}30%{transform:translate(-50%,-75%) scale(1.15)}60%{transform:translate(-50%,-50%) scale(1)}100%{box-shadow:0 0 0 18px rgba(232,114,143,0);transform:translate(-50%,-50%) scale(1)}}
 .wk-art.has-img{background:#FEF5F1;height:auto}.wk-art.has-img img{display:block;width:100%;height:auto}
 .wk-art .fp{opacity:0;animation:fpStep var(--wkcy,4.8s) linear infinite;animation-delay:calc(var(--d)*var(--wkcy,4.8s)/16)}
 @keyframes fpStep{0%{opacity:0}4%{opacity:.85}38%{opacity:.85}55%{opacity:0}100%{opacity:0}}
@@ -1780,7 +1791,32 @@ $('nextBrk').onclick=()=>{unlockAudio();const m=brkMode();S.settings.brk=m==='mi
 $('btnWalkNow').onclick=()=>openWalk();
 renderBrk();window.SG_brkOK=true;
 /* 路線小地圖：有 img/frames/walkmap.webp（ChatGPT 指令第 30 段）就換成插畫，沒有就用上面的 SVG */
-(()=>{const im=new Image();im.onload=()=>{const box=document.querySelector('#walkCard .wk-art');if(!box)return;box.classList.add('has-img');box.innerHTML='';im.alt='從座位出發，經過飲水機、窗邊到樓梯的散步路線';box.append(im)};im.src='img/frames/walkmap.webp?v=1125'})();
+(()=>{const im=new Image();im.onload=()=>{const box=document.querySelector('#walkCard .wk-art');if(!box)return;box.classList.add('has-img');box.innerHTML='';im.alt='從座位出發，經過飲水機、窗邊到樓梯的散步路線';box.append(im);wkMapAnim(box)};im.src='img/frames/walkmap.webp?v=1125'})();
+/* 地圖小動畫：角色沿著腳印走，到站時圖釘彈一下（座標以地圖 1000×500 為準） */
+function wkMapAnim(box){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const R=[[265,388],[300,362],[318,318],[332,268],[360,228],[398,205],[430,198,'water'],[474,200],[486,232],[468,266],[440,292],[428,338],[458,374],[508,384],[560,384],[604,376,'window'],[660,352],[702,326],[722,292],[742,250],[768,222],[800,186],[828,150],[846,120,'stairs']];
+  const PIN={water:[465,112],window:[638,318],stairs:[830,72]};
+  const lay=document.createElement('div');lay.className='wm-lay';lay.setAttribute('aria-hidden','true');
+  lay.innerHTML=Object.entries(PIN).map(([k,[x,y]])=>`<i class="wm-pin" data-k="${k}" style="left:${x/10}%;top:${y/5}%"></i>`).join('')+'<div class="wm-who"><img class="a" alt=""><img class="b" alt=""></div>';
+  box.append(lay);const who=lay.querySelector('.wm-who'),ia=who.querySelector('.a'),ib=who.querySelector('.b');
+  const setChar=()=>{const boy=S.settings.char==='boy'&&window.SG_BOY&&SG_BOY.moves&&SG_BOY.moves.walk,d=boy?'img/frames/boy/':'img/frames/';ia.src=d+'walk-a.webp?v=1125';ib.src=d+'walk-b.webp?v=1125'};setChar();
+  const seg=[];for(let i=1;i<R.length;i++)seg.push(Math.hypot(R[i][0]-R[i-1][0],(R[i][1]-R[i-1][1])*1.2));
+  const SPEED=95,STOP=1300,END=1600;let t0=performance.now(),run=true,raf=0,lastChar=S.settings.char;
+  function frame(now){if(!run){raf=0;return}
+    if(S.settings.char!==lastChar){lastChar=S.settings.char;setChar()}
+    let el=now-t0,pos=null,dir=1,pausedAt=null;
+    for(let i=1;i<R.length;i++){const d=seg[i-1]/SPEED*1000;
+      if(el<d){const f=el/d;pos=[R[i-1][0]+(R[i][0]-R[i-1][0])*f,R[i-1][1]+(R[i][1]-R[i-1][1])*f];dir=R[i][0]>=R[i-1][0]?1:-1;break}
+      el-=d;if(R[i][2]){if(el<STOP){pos=[R[i][0],R[i][1]];pausedAt=R[i][2];break}el-=STOP}}
+    if(!pos){if(el<END){pos=[R[R.length-1][0],R[R.length-1][1]];pausedAt='end'}else{t0=now;pos=[R[0][0],R[0][1]]}}
+    who.style.left=pos[0]/10+'%';who.style.top=pos[1]/5+'%';who.style.setProperty('--dir',dir);
+    who.classList.toggle('stop',!!pausedAt);who.classList.toggle('fade',pausedAt==='end');
+    lay.querySelectorAll('.wm-pin').forEach(p=>p.classList.toggle('hit',p.dataset.k===pausedAt));
+    raf=requestAnimationFrame(frame)}
+  const go=()=>{if(!raf&&run)raf=requestAnimationFrame(frame)};
+  new IntersectionObserver(es=>{const v=es[0].isIntersecting&&!document.hidden;if(v&&!run)t0=performance.now();run=v;go()}).observe(box);
+  document.addEventListener('visibilitychange',()=>{run=!document.hidden;if(run)t0=performance.now();go()});go()}
 
 $('aGo').onclick=()=>{if($('ovAlert').dataset.brk==='walk'){clearAlert();openWalk()}else openPlayer(ROUTINES[S.next%ROUTINES.length].id)};
 $('aMini').onclick=()=>openPlayer('mini');
