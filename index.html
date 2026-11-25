@@ -188,6 +188,22 @@ nav.tabs button[aria-selected="true"]::after{content:"";position:absolute;left:1
 .iv-c small{font-size:11.5px;white-space:nowrap;color:var(--muted)}
 .iv-c[aria-checked=true]{background:var(--leaf-2);border-color:var(--leaf);transform:translateY(-3px) rotate(-3deg);box-shadow:0 8px 16px -10px var(--leaf)}
 .iv-c[aria-checked=true] small{color:var(--ink)}
+.nb-pill{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;border:1px dashed var(--leaf-2);background:color-mix(in srgb,var(--paper) 70%,transparent);border-radius:999px;padding:6px 14px 6px 8px;font:inherit;font-size:13.5px;color:var(--ink);cursor:pointer;transition:background .2s,transform .2s}
+.nb-pill:hover{background:var(--paper);transform:translateY(-1px)}
+.nb-pill .nb-ic{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--leaf-2)}
+.nb-pill.walk .nb-ic{background:var(--sun-2)}
+.nb-pill .nb-ic svg{width:16px;height:16px}
+.nb-pill small{color:var(--muted);font-size:12px}
+.brk-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.brk-c{border:1.5px solid var(--hair);background:color-mix(in srgb,var(--paper) 75%,transparent);border-radius:16px;padding:9px 10px;display:flex;align-items:center;gap:10px;cursor:pointer;font:inherit;color:var(--ink);text-align:left;transition:transform .25s cubic-bezier(.3,1.8,.5,1),background .2s,border-color .2s}
+.brk-c:hover{transform:translateY(-3px)}
+.brk-c .bi{flex:0 0 34px;height:34px;border-radius:50%;background:var(--paper);display:grid;place-items:center}
+.brk-c .bi svg{width:20px;height:20px}
+.brk-c b{display:block;font-size:14.5px}
+.brk-c small{display:block;font-size:11.5px;color:var(--muted);line-height:1.35}
+.brk-c[aria-checked=true]{background:var(--leaf-2);border-color:var(--leaf);transform:translateY(-3px) rotate(-1.5deg);box-shadow:0 8px 16px -10px var(--leaf)}
+.brk-c[aria-checked=true] small{color:var(--ink)}
+@media (max-width:560px){.brk-c{flex-direction:column;text-align:center;gap:4px;padding:8px 4px}.brk-c small{display:none}}
 .iv-c .rec{position:absolute;top:-8px;right:-4px;background:var(--sun);color:#fff;font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:99px;letter-spacing:.05em}
 .settings{display:flex;gap:8px 18px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--on-deep-mute);padding-top:16px;border-top:1px solid var(--hair)}
 .settings label{display:inline-flex;align-items:center;gap:6px}
@@ -819,10 +835,12 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
             <p class="eyebrow"><span class="lt">Sitting timer</span>・久坐計時器</p>
             <h2 id="timerTitle">準備好了就開始</h2>
           </div>
-          <p class="lead">時間到會響鈴並跳出提醒，帶你做 3 分鐘、不會喘的膝蓋友善運動。每 20 分鐘也會提醒眼睛看遠方 20 秒。</p>
+          <button type="button" class="nb-pill" id="nextBrk" title="點一下切換時間到要做什麼"></button>
+          <p class="lead">時間到會響鈴並跳出提醒，帶你做 3 分鐘膝蓋友善運動，或離開座位走一走（下方可以選）。每 20 分鐘也會提醒眼睛看遠方 20 秒。</p>
           <div class="btns">
             <button class="btn sun big" id="btnStart">開始坐著</button>
             <button class="btn on-deep" id="btnNow">現在就動</button>
+            <button class="btn on-deep" id="btnWalkNow">現在去走走</button>
             <button class="btn on-deep" id="btnReset">重新計時</button>
           </div>
           
@@ -831,6 +849,10 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
           <div class="iv" role="radiogroup" aria-label="多久起身一次">
             <div class="iv-head"><b>多久起身一次？</b><span id="ivTip"></span></div>
             <div class="iv-row" id="ivRow"></div>
+          </div>
+          <div class="iv brk" role="radiogroup" aria-label="時間到要做什麼">
+            <div class="iv-head"><b>時間到，我想…</b><span id="brkTip"></span></div>
+            <div class="brk-row" id="brkRow"></div>
           </div>
           <div class="settings">
                         <label>每日 <select id="setGoal"><option>6</option><option selected>8</option><option>10</option></select> 次</label>
@@ -903,14 +925,8 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
       <div class="stat"><span class="eyebrow" style="display:flex;align-items:center">喝水 <button class="mini" id="btnWater">＋1 杯</button></span><span class="cups" id="cups"></span><span class="note"><span id="sWater">0</span> / 8 杯，一杯約 250 ml</span></div>
     </div>
 
-    <div class="sec-head">
-      <div><h2>選一組來動<span class="lt">Routines</span></h2><p>粉框是下一組輪替。每組都不跳、不深蹲，膝蓋會痛的人也能做。</p></div>
-    </div>
-    <div class="routines" id="routines"></div>
-
-
     <div class="sec-head" id="walkHead">
-      <div><h2>離開座位走走<span class="lt">Walk break</span></h2><p>真的站起來、離開桌子走一圈。順路完成一兩個小任務，回到座位就算一次，盆栽一樣長葉子。</p></div>
+      <div><h2>離開座位走走<span class="lt">Walk break</span></h2><p>真的站起來、離開桌子走一圈。順路完成一兩個小任務，回到座位就算一次，盆栽一樣長葉子。也可以在計時器設定「時間到就走走」或「運動、走走輪流」。</p></div>
     </div>
     <div class="card walk" id="walkCard">
       <div class="wk-art" aria-hidden="false"><svg viewBox="0 0 600 260" preserveAspectRatio="xMidYMid meet" role="img" aria-label="從座位出發，經過水杯、窗邊到樓梯的散步路線">
@@ -930,6 +946,12 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
         <div class="wk-go-row"><button class="btn primary big" id="wkGo" type="button">出發走走</button><span class="wk-est" id="wkEst"></span></div>
       </div>
     </div>
+
+    <div class="sec-head">
+      <div><h2>選一組來動<span class="lt">Routines</span></h2><p>粉框是下一組輪替。每組都不跳、不深蹲，膝蓋會痛的人也能做。</p></div>
+    </div>
+    <div class="routines" id="routines"></div>
+
 
     <div class="sec-head" id="seatHead">
       <div><h2>坐著就能動<span class="lt">Chair sets</span></h2><p>不用離開椅子，開會、追劇、打字的空檔都能做。動作越做越熟，也可以挑喜歡的單獨練。</p></div>
@@ -1048,8 +1070,8 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
   <div class="card alert-card">
     <div class="figbox t-sun scene-box"><img class="scene" data-fr="alert" src="img/frames/alert.webp" alt="從椅子起身伸懶腰的女孩"></div>
     <p class="eyebrow">已經坐了 <span id="alertMin">40</span> 分鐘</p>
-    <h2>起來動一下吧</h2>
-    <p>下一組是「<b id="alertRoutine">膝蓋醒來</b>」，大約 <span id="alertDur">3</span> 分鐘。真的很懶，就做 1 分鐘懶人版，一樣算數。</p>
+    <h2 id="alertH">起來動一下吧</h2>
+    <p id="alertP">下一組是「<b id="alertRoutine">膝蓋醒來</b>」，大約 <span id="alertDur">3</span> 分鐘。真的很懶，就做 1 分鐘懶人版，一樣算數。</p>
     <div class="btns">
       <button class="btn primary big pulse" id="aGo">開始運動</button>
       <button class="btn" id="aMini">只做 1 分鐘</button>
@@ -1448,7 +1470,10 @@ let alertBeep=null,titleFlash=null;const baseTitle=document.title;
 function triggerAlert(){
   run.on=false;run.left=0;renderTimer();
   const r=ROUTINES[S.next%ROUTINES.length];
-  $('alertMin').textContent=S.settings.interval;$('alertRoutine').textContent=r.name;$('alertDur').textContent=Math.round(r.steps.reduce((a,s)=>a+s[1],0)/60);
+  $('alertMin').textContent=S.settings.interval;
+  const nb=nextBreak(),wm=wkMin();$('ovAlert').dataset.brk=nb;$('aMini').hidden=nb==='walk';
+  if(nb==='walk'){$('alertH').textContent='起來走一走吧';$('alertP').innerHTML='這次換<b>離開座位走走 '+wm+' 分鐘</b>：'+(wkPick.length?wkPick:[0,1,5]).slice(0,2).map(i=>WALK_IDEAS[i][1]).join('、')+'。走不遠也沒關係，站起來就算數。';$('aGo').textContent='出發走走';$('aWalk').textContent='改做運動'}
+  else{$('alertH').textContent='起來動一下吧';$('alertP').innerHTML='下一組是「<b>'+r.name+'</b>」，大約 '+Math.round(r.steps.reduce((a,s)=>a+s[1],0)/60)+' 分鐘。真的很懶，就做 1 分鐘懶人版，一樣算數。';$('aGo').textContent='開始運動';$('aWalk').textContent='改去走走'}
   $('ovAlert').hidden=false;$('aGo').focus();
   chime('alert');setTimeout(()=>say('已經坐了'+S.settings.interval+'分鐘，起來動一下吧。'),1300);let n=0;clearInterval(alertBeep);alertBeep=setInterval(()=>{if(++n>4){clearInterval(alertBeep);return}chime('alert')},30000);
   let fl=false;clearInterval(titleFlash);titleFlash=setInterval(()=>{document.title=(fl=!fl)?'⏰ 該起身了':baseTitle},1000);
@@ -1626,6 +1651,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('ovPlayer').hidd
 function finishPlayer(){
   const d=today();if(!PL.r.tryOnly)d.b++;if(d.k==null)d.k=d.m/60*3.5;d.m+=Math.round(PL.moved);d.k+=PL.kcal||0;d.km=d.km||{};for(const[k,v]of Object.entries(PL.km||{}))d.km[k]=(d.km[k]||0)+v;
   if(PL.r.id===ROUTINES[S.next%ROUTINES.length].id)S.next++;
+  if(!PL.r.tryOnly)S.lastBrk='move';
   save();Music.stop();chime('done');
   setTimeout(()=>say(d.b>=S.settings.goal?'太棒了，今天的盆栽開花了。':'做得好，盆栽長出一片新葉子。'),500);
   $('playerCard').hidden=true;$('doneCard').hidden=false;
@@ -1680,7 +1706,7 @@ function renderWalk(){if(!$('wkDur'))return;const v=wkMin();
 $('wkDur').onclick=e=>{const b=e.target.closest('.wk-c');if(!b)return;unlockAudio();S.settings.walkMin=+b.dataset.v;save();renderWalk();chime('tick')};
 $('wkShuffle').onclick=()=>{unlockAudio();wkShuffle();chime('tick')};
 $('wkGo').onclick=()=>openWalk();
-$('aWalk').onclick=()=>{clearAlert();openWalk()};
+$('aWalk').onclick=()=>{clearAlert();if($('ovAlert').dataset.brk==='walk')openPlayer(ROUTINES[S.next%ROUTINES.length].id);else openWalk()};
 const wkFmt=s=>{s=Math.max(0,Math.ceil(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
 function wkElapsed(){if(!WK)return 0;return WK.acc+(WK.paused?0:(Date.now()-WK.t0)/1000)}
 function wkMotion(e){const a=e.accelerationIncludingGravity;if(!a||a.x==null)return;const m=Math.hypot(a.x,a.y,a.z);WK.lp=WK.lp==null?m:WK.lp*.8+m*.2;const now=Date.now();
@@ -1717,7 +1743,7 @@ $('wkPause').onclick=()=>{if(!WK)return;if(WK.paused){WK.paused=false;WK.t0=Date
 function wkStop(){if(!WK)return;clearInterval(WK.timer);try{removeEventListener('devicemotion',wkMotion)}catch(e){}$('wkBack').classList.remove('pulse');hush()}
 function finishWalk(){if(!WK)return;const sec=Math.min(wkElapsed(),WK.total+15*60);wkStop();
   if(sec<45){closeWalkNow();return}
-  const d=today();if(d.k==null)d.k=d.m/60*3.5;d.b++;d.m+=Math.round(sec);const kc=kpm('walk')*sec/60;d.k+=kc;d.km=d.km||{};d.km.walk=(d.km.walk||0)+kc;d.wk=(d.wk||0)+1;
+  const d=today();if(d.k==null)d.k=d.m/60*3.5;d.b++;d.m+=Math.round(sec);const kc=kpm('walk')*sec/60;d.k+=kc;d.km=d.km||{};d.km.walk=(d.km.walk||0)+kc;d.wk=(d.wk||0)+1;S.lastBrk='walk';
   let extra=[];WK.done.forEach(i=>{const t=WALK_IDEAS[i][3];if(t==='w'){d.w++;extra.push('喝水 +1 杯')}if(t==='e'){d.e++;extra.push('護眼 +1 次')}});
   if(WK.steps>20)d.st=(d.st||0)+WK.steps;
   save();chime('done');setTimeout(()=>say(d.b>=S.settings.goal?'太棒了，今天的盆栽開花了。':WALK_LINES[3]),500);
@@ -1734,10 +1760,27 @@ $('ovWalk').addEventListener('click',e=>{if(e.target===$('ovWalk'))closeWalk()})
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('ovWalk').hidden)closeWalk()});
 document.addEventListener('visibilitychange',()=>{if(WK&&!document.hidden)wkTick()});
 renderWalk();
+
+/* ===== 時間到要做什麼：運動／走走／輪流 ===== */
+const BI={move:'<svg viewBox="0 0 20 20"><circle cx="10" cy="4" r="2.2" fill="var(--leaf)"/><path d="M10 7v5M5 9.5l5-1.5 5 1.5M10 12l-3 5M10 12l3 5" fill="none" stroke="var(--leaf)" stroke-width="2" stroke-linecap="round"/></svg>',
+  walk:'<svg viewBox="0 0 20 20"><g fill="var(--sun)"><ellipse cx="7" cy="13" rx="2.4" ry="3.6" transform="rotate(-12 7 13)"/><ellipse cx="13" cy="6.5" rx="2.4" ry="3.6" transform="rotate(12 13 6.5)"/></g></svg>',
+  mix:'<svg viewBox="0 0 20 20"><path d="M4 7h10l-3-3M16 13H6l3 3" fill="none" stroke="var(--sky)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'};
+const BRK=[['move','做運動','跟著插圖動 3 分鐘'],['walk','離開座位走走','起身去倒水、看遠方'],['mix','輪流','一次運動、一次走走']];
+const brkMode=()=>['move','walk','mix'].includes(S.settings.brk)?S.settings.brk:'mix';
+function nextBreak(){const m=brkMode();if(m!=='mix')return m;return S.lastBrk==='move'?'walk':'move'}
+function renderBrk(){if(!$('brkRow'))return;const m=brkMode();
+  $('brkRow').innerHTML=BRK.map(([k,n,d])=>`<button type="button" class="brk-c" role="radio" aria-checked="${k===m}" data-v="${k}"><span class="bi">${BI[k]}</span><span><b>${n}</b><small>${d}</small></span></button>`).join('');
+  $('brkTip').textContent=m==='mix'?'・久坐的空檔換換花樣，比較不會膩':m==='walk'?'・真的離開椅子，對血液循環最好':'・不方便離開座位時最適合';
+  const nb=nextBreak(),r=ROUTINES[S.next%ROUTINES.length],el=$('nextBrk');el.className='nb-pill'+(nb==='walk'?' walk':'');
+  el.innerHTML=`<span class="nb-ic">${BI[nb]}</span><span>下一次：<b>${nb==='walk'?'離開座位走走 '+wkMin()+' 分鐘':'運動「'+r.name+'」'}</b></span><small>${m==='mix'?'輪流中':'點我換'}</small>`}
+$('brkRow').onclick=e=>{const b=e.target.closest('.brk-c');if(!b)return;unlockAudio();S.settings.brk=b.dataset.v;save();renderBrk();chime('tick')};
+$('nextBrk').onclick=()=>{unlockAudio();const m=brkMode();S.settings.brk=m==='mix'?'move':m==='move'?'walk':'mix';save();renderBrk();chime('tick')};
+$('btnWalkNow').onclick=()=>openWalk();
+renderBrk();window.SG_brkOK=true;
 /* 路線小地圖：有 img/frames/walkmap.webp（ChatGPT 指令第 30 段）就換成插畫，沒有就用上面的 SVG */
 (()=>{const im=new Image();im.onload=()=>{const box=document.querySelector('#walkCard .wk-art');if(!box)return;box.classList.add('has-img');box.innerHTML='';im.alt='從座位出發，經過飲水機、窗邊到樓梯的散步路線';box.append(im)};im.src='img/frames/walkmap.webp?v=1125'})();
 
-$('aGo').onclick=()=>openPlayer(ROUTINES[S.next%ROUTINES.length].id);
+$('aGo').onclick=()=>{if($('ovAlert').dataset.brk==='walk'){clearAlert();openWalk()}else openPlayer(ROUTINES[S.next%ROUTINES.length].id)};
 $('aMini').onclick=()=>openPlayer('mini');
 $('aSnooze').onclick=()=>{clearAlert();run.left=5*60000;start()};
 $('btnStart').onclick=()=>run.on?pause():start();
@@ -1897,7 +1940,7 @@ function renderNotes(){
   $('notes').innerHTML=N.map(n=>`<div class="card note-c"><span class="ic" style="background:${n.bg}">${VI[n.ic]}</span><h3>${n.h}</h3><h4>可以這樣做</h4><ul>${n.do.map(x=>'<li>'+x+'</li>').join('')}</ul><div class="warn"><b>出現這些情況，先就醫</b>${n.warn}</div></div>`).join('');
 }
 
-const SUB={today:[['計時器','.today'],['今日統計','.stats'],['運動組合','#routines'],['走走','#walkHead'],['坐著動','#seatHead'],['怎麼使用','#howto']],
+const SUB={today:[['計時器','.today'],['今日統計','.stats'],['走走','#walkHead'],['運動組合','#routines'],['坐著動','#seatHead'],['怎麼使用','#howto']],
   library:[['身體地圖','.x-map'],['抽一個','.x-gacha'],['全部動作','#lib']],
   plan:[['四週闖關','.x-quest'],['一天節奏','#rhythm'],['一週安排','#weekTable']],
   body:[['今天感覺','.x-diary'],['熱量紀錄','.x-kcal'],['小測驗','.x-quiz'],['飲料換算','.x-drink'],['翻翻卡','#flips'],['保健筆記','#notes']]};
@@ -1920,7 +1963,7 @@ document.querySelector('.tabs').onclick=e=>{const b=e.target.closest('button');i
 addEventListener('scroll',()=>{const nb=$('navbar'),y=window.scrollY;nb.classList.toggle('stuck',y>nb.offsetTop+4||nb.getBoundingClientRect().top<=0&&y>40);$('toTop').hidden=y<700},{passive:true});
 $('toTop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
 buildSub('today');
-function renderAll(){renderStats();renderGarden();renderRoutines();renderTimer()}
+function renderAll(){renderStats();renderGarden();renderRoutines();renderTimer();if(window.SG_brkOK)renderBrk()}
 /* 訪客計數器：每次開網站 +1（本機預覽不計）。服務常常很慢或沒回應，
    所以先顯示上次存下的數字，讀到新數字再更新；讀不到就維持原數字，不會消失 */
 (()=>{const local=/^(localhost|127\.|\[::1\])/.test(location.hostname)||location.protocol==='file:',CK=KEY+'-visits';
