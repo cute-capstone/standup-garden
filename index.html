@@ -373,6 +373,7 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
 .wk-art{position:relative;border-radius:18px;background:linear-gradient(160deg,var(--sun-soft),var(--leaf-soft));height:260px;overflow:hidden}
 @media (max-width:760px){.wk-art{height:200px}}
 .wk-art svg{position:absolute;inset:0;width:100%;height:100%}
+.wk-art.has-img{background:#FFF8F5}.wk-art.has-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
 .wk-art .fp{opacity:0;animation:fpStep var(--wkcy,4.8s) linear infinite;animation-delay:calc(var(--d)*var(--wkcy,4.8s)/16)}
 @keyframes fpStep{0%{opacity:0}4%{opacity:.85}38%{opacity:.85}55%{opacity:0}100%{opacity:0}}
 .wk-art .stop{transition:transform .3s}
@@ -408,6 +409,7 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
 .wk-in{position:absolute;inset:14%;border-radius:50%;background:linear-gradient(160deg,var(--sun-soft),var(--leaf-soft));overflow:hidden;display:grid;place-items:center}
 .wk-in img{position:absolute;inset:6% 10% 0;width:80%;height:94%;object-fit:contain;object-position:50% 100%}
 .wk-in img.fb{opacity:0}
+.wk-in img{mix-blend-mode:multiply}
 .wk-in.anim img.fa{animation:wkA var(--per,1s) steps(1) infinite}
 .wk-in.anim img.fb{animation:wkA var(--per,1s) steps(1) infinite reverse}
 @keyframes wkA{0%{opacity:1}50%{opacity:0}}
@@ -1732,6 +1734,8 @@ $('ovWalk').addEventListener('click',e=>{if(e.target===$('ovWalk'))closeWalk()})
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('ovWalk').hidden)closeWalk()});
 document.addEventListener('visibilitychange',()=>{if(WK&&!document.hidden)wkTick()});
 renderWalk();
+/* 路線小地圖：有 img/frames/walkmap.webp（ChatGPT 指令第 30 段）就換成插畫，沒有就用上面的 SVG */
+(()=>{const im=new Image();im.onload=()=>{const box=document.querySelector('#walkCard .wk-art');if(!box)return;box.classList.add('has-img');box.innerHTML='';im.alt='從座位出發，經過飲水機、窗邊到樓梯的散步路線';box.append(im)};im.src='img/frames/walkmap.webp?v=1125'})();
 
 $('aGo').onclick=()=>openPlayer(ROUTINES[S.next%ROUTINES.length].id);
 $('aMini').onclick=()=>openPlayer('mini');
