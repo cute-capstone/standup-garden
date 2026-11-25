@@ -82,6 +82,9 @@ p{margin:0}
 /* 訪客計數器（abacus.jasoncameron.dev，https；課程網站的 mepopedia 計數器只有 http，GitHub Pages 會擋） */
 .sitefoot{display:flex;align-items:baseline;justify-content:center;gap:10px;margin:40px auto 8px;padding-top:22px;border-top:1px solid var(--hair);color:var(--muted);font-size:13px}
 .sitefoot[hidden]{display:none}
+.sitefoot{flex-wrap:wrap;row-gap:6px}.sf-visit{display:inline-flex;align-items:baseline;gap:10px}.sf-visit[hidden]{display:none}
+.sf-visit:not([hidden])+.sf-by{border-left:1px solid var(--hair);padding-left:14px;margin-left:4px}
+.sf-by a{font-family:var(--f-latin);font-size:15px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--leaf-2);transition:color .2s,border-color .2s}.sf-by a:hover{color:var(--leaf);border-color:var(--leaf)}
 .sitefoot .sf-en{font-family:var(--f-latin);font-style:italic;font-size:14px}
 .sitefoot .sf-n{font-family:var(--f-latin);font-size:26px;font-weight:600;color:var(--leaf);letter-spacing:.04em;font-variant-numeric:oldstyle-nums}
 
@@ -363,6 +366,64 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
 .pl-x svg{width:18px;height:18px}.pl-x:hover{transform:rotate(90deg) scale(1.06)}
 @media (max-width:780px){.pl-x{position:sticky;top:6px;right:auto;grid-column:1/-1;justify-self:end;margin:-6px -6px -40px 0;width:40px;height:40px}}
 #ovPlayer{cursor:zoom-out}#ovPlayer .player{cursor:auto}
+
+/* ===== 離開座位走走 ===== */
+.walk{padding:22px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:26px;align-items:center;position:relative;overflow:hidden}
+@media (max-width:760px){.walk{grid-template-columns:minmax(0,1fr);gap:16px;padding:16px}}
+.wk-art{position:relative;border-radius:18px;background:linear-gradient(160deg,var(--sun-soft),var(--leaf-soft));height:260px;overflow:hidden}
+@media (max-width:760px){.wk-art{height:200px}}
+.wk-art svg{position:absolute;inset:0;width:100%;height:100%}
+.wk-art .fp{opacity:0;animation:fpStep var(--wkcy,4.8s) linear infinite;animation-delay:calc(var(--d)*var(--wkcy,4.8s)/16)}
+@keyframes fpStep{0%{opacity:0}4%{opacity:.85}38%{opacity:.85}55%{opacity:0}100%{opacity:0}}
+.wk-art .stop{transition:transform .3s}
+.wk-art .stop circle{fill:var(--paper);stroke:var(--leaf-2);stroke-width:2}
+.wk-art .stop.on circle{stroke:var(--leaf);stroke-width:3}
+.wk-art .lbl{font:600 11px var(--f-body);fill:var(--ink)}
+.wk-main{display:flex;flex-direction:column;gap:12px}
+.wk-main .eyebrow{display:flex;align-items:center;gap:8px}
+.wk-chips{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.wk-c{border:1.5px solid var(--hair);background:var(--paper);border-radius:14px;padding:9px 4px 8px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;transition:transform .15s,border-color .15s,background .15s}
+.wk-c b{font:500 26px/1 var(--f-num);font-variant-numeric:oldstyle-nums}
+.wk-c b small{font:500 11px var(--f-body);margin-left:2px;color:var(--muted)}
+.wk-c span{font-size:11.5px;color:var(--muted)}
+.wk-c:hover{transform:translateY(-2px)}
+.wk-c[aria-checked="true"]{border-color:var(--leaf);background:var(--leaf-soft)}
+.wk-ideas{list-style:none;display:flex;flex-direction:column;gap:6px;margin:0;padding:0}
+.wk-ideas li{display:flex;gap:10px;align-items:center;background:var(--surface-2);border-radius:12px;padding:8px 12px;font-size:14px;animation:wkIn .35s ease both}
+.wk-ideas li:nth-child(2){animation-delay:.06s}.wk-ideas li:nth-child(3){animation-delay:.12s}
+@keyframes wkIn{from{opacity:0;transform:translateX(-6px)}}
+.wk-ideas .ic{flex:0 0 30px;height:30px;border-radius:50%;background:var(--paper);display:grid;place-items:center}
+.wk-ideas .ic svg{width:18px;height:18px}
+.wk-ideas small{display:block;color:var(--muted);font-size:12px}
+.wk-go-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.wk-est{font-size:13px;color:var(--muted)}
+.wk-est b{font:500 18px var(--f-num);color:var(--ink)}
+/* 走動畫面 */
+.walk-run{max-width:560px;width:100%;padding:24px 22px 22px;display:flex;flex-direction:column;gap:16px;align-items:center;text-align:center;position:relative}
+.walk-run h2{font-size:clamp(24px,5vw,32px)}
+.wk-stage{position:relative;width:min(300px,72vw);aspect-ratio:1}
+.wk-stage svg.ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.wk-stage .rbg{fill:none;stroke:var(--surface-2);stroke-width:10}
+.wk-stage .rfg{fill:none;stroke:var(--leaf);stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset .3s linear}
+.wk-in{position:absolute;inset:14%;border-radius:50%;background:linear-gradient(160deg,var(--sun-soft),var(--leaf-soft));overflow:hidden;display:grid;place-items:center}
+.wk-in img{position:absolute;inset:6% 10% 0;width:80%;height:94%;object-fit:contain;object-position:50% 100%}
+.wk-in img.fb{opacity:0}
+.wk-in.anim img.fa{animation:wkA var(--per,1s) steps(1) infinite}
+.wk-in.anim img.fb{animation:wkA var(--per,1s) steps(1) infinite reverse}
+@keyframes wkA{0%{opacity:1}50%{opacity:0}}
+.wk-feet{position:absolute;inset:0}
+.wk-feet i{position:absolute;width:16px;height:24px;border-radius:50% 50% 45% 45%;background:var(--leaf-2);opacity:0;animation:fpStep 2.4s linear infinite}
+.wk-time{position:absolute;left:0;right:0;bottom:-6px;display:flex;flex-direction:column;align-items:center;gap:0}
+.wk-time b{font:500 46px/1 var(--f-num);font-variant-numeric:oldstyle-nums lining-nums;background:var(--paper);padding:2px 14px;border-radius:999px;box-shadow:var(--shadow)}
+.wk-steps{font-size:12.5px;color:var(--muted);margin-top:6px}
+.wk-todo{list-style:none;margin:0;padding:0;width:100%;display:flex;flex-direction:column;gap:8px;text-align:left}
+.wk-todo button{width:100%;display:flex;gap:12px;align-items:center;border:1.5px solid var(--hair);background:var(--paper);border-radius:14px;padding:10px 14px;font-size:14.5px;text-align:left;cursor:pointer;transition:background .2s,border-color .2s}
+.wk-todo .bx{flex:0 0 24px;height:24px;border-radius:8px;border:2px solid var(--leaf-2);display:grid;place-items:center;color:#fff;transition:background .2s}
+.wk-todo button[aria-pressed="true"]{background:var(--leaf-soft);border-color:var(--leaf-2)}
+.wk-todo button[aria-pressed="true"] .bx{background:var(--leaf);border-color:var(--leaf)}
+.wk-todo button[aria-pressed="true"] .tx{text-decoration:line-through;text-decoration-color:var(--leaf);color:var(--muted)}
+.walk-run.timeup .wk-time b{color:var(--leaf)}
+.walk-run.paused .wk-in *{animation-play-state:paused!important}
 .close-x{border:0;background:var(--surface-2);border-radius:999px;padding:5px 14px;font-size:12.5px}
 .done-card{max-width:480px;width:100%;padding:16px 16px 30px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center}
 .scene-box{width:100%}
@@ -845,6 +906,29 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
     </div>
     <div class="routines" id="routines"></div>
 
+
+    <div class="sec-head" id="walkHead">
+      <div><h2>離開座位走走<span class="lt">Walk break</span></h2><p>真的站起來、離開桌子走一圈。順路完成一兩個小任務，回到座位就算一次，盆栽一樣長葉子。</p></div>
+    </div>
+    <div class="card walk" id="walkCard">
+      <div class="wk-art" aria-hidden="false"><svg viewBox="0 0 600 260" preserveAspectRatio="xMidYMid meet" role="img" aria-label="從座位出發，經過水杯、窗邊到樓梯的散步路線">
+<path d="M70 200 C150 175 200 110 300 110 S420 175 470 150 S525 80 530 50" fill="none" stroke="var(--sun-2)" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
+<g transform="translate(40 168)"><rect x="0" y="22" width="62" height="8" rx="3" fill="var(--wood)"/><rect x="6" y="30" width="5" height="26" fill="var(--wood-2)"/><rect x="51" y="30" width="5" height="26" fill="var(--wood-2)"/><rect x="14" y="4" width="26" height="18" rx="3" fill="var(--sun-2)"/><rect x="24" y="22" width="6" height="3" fill="var(--sun)"/></g>
+<text class="lbl" x="40" y="252">我的座位</text>
+<g class="stop" data-k="water" transform="translate(300 74)"><circle r="24"/><path d="M-8 -11h16l-2 22h-12z" fill="var(--sun-2)"/><path d="M-6.5 -2h13l-1.2 13h-10.6z" fill="var(--sun)"/><text class="lbl" y="44" text-anchor="middle">倒杯水</text></g>
+<g class="stop" data-k="window" transform="translate(436 206)"><circle r="24"/><rect x="-11" y="-12" width="22" height="24" rx="10" fill="var(--sun-soft)" stroke="var(--sun)" stroke-width="2"/><path d="M0 -12v24M-11 2h22" stroke="var(--sun)" stroke-width="2"/><text class="lbl" y="-32" text-anchor="middle">窗邊看遠方</text></g>
+<g class="stop" data-k="stairs" transform="translate(548 40)"><circle r="24"/><path d="M-12 10h7v-7h7v-7h7v-7h3v21z" fill="var(--leaf-2)"/><text class="lbl" x="-34" y="4" text-anchor="end">樓梯</text></g>
+<g class="fp" style="--d:0" transform="translate(68 193) rotate(73)"><ellipse rx="5" ry="8" fill="var(--leaf-2)"/><ellipse cy="-11" rx="3.4" ry="3" fill="var(--leaf-2)"/></g><g class="fp" style="--d:1" transform="translate(112 195) rotate(69)"><ellipse rx="5" ry="8" fill="var(--leaf-2)"/><ellipse cy="-11" rx="3.4" ry="3" fill="var(--leaf-2)"/></g><g class="fp" style="--d:2" transform="translate(147 164) rotate(61)"><ellipse rx="5" ry="8" fill="var(--leaf-2)"/><ellipse cy="-11" rx="3.4" ry="3" fill="var(--leaf-2)"/></g><g class="fp" style="--d:3" transform="translate(189 152) rotate(57)"><ellipse rx="5" ry="8" fill="var(--leaf-2)"/><ellipse cy="-11" rx="3.4" ry="3" fill="var(--leaf-2)"/></g><g class="fp" style="--d:4" transform="translate(217 119) rotate(65)"><ellipse rx="5" ry="8" fill="var(--leaf-2)"/><ellipse cy="-11" rx="3.4" ry="3" fill="var(--leaf-2)"/></g><g class="fp" style="--d:5" transform="translate(259 119) rotate(79)"><ellipse rx="5" ry="8" fill="var(--leaf-2)"/><ellipse cy="-11" rx="3.4" ry="3" fill="var(--leaf-2)"/></g><g class="fp" style="--d:6" transform="translate(299 103) rotate(94)"><ellipse rx="5" ry="8" fill="var(--leaf-2)"/><ellipse cy="-11" rx="3.4" ry="3" fill="var(--leaf-2)"/></g><g class="fp" style="--d:7" transform="translate(334 125) rotate(107)"><ellipse rx="5" ry="8" fill="var(--leaf-2)"/><ellipse cy="-11" rx="3.4" ry="3" fill="var(--leaf-2)"/></g><g class="fp" style="--d:8" transform="translate(373 126) rotate(116)"><ellipse rx="5" ry="8" fill="var(--leaf-2)"/><ellipse cy="-11" rx="3.4" ry="3" fill="var(--leaf-2)"/></g><g class="fp" style="--d:9" transform="translate(399 156) rotate(114)"><ellipse rx="5" ry="8" fill="var(--leaf-2)"/><ellipse cy="-11" rx="3.4" ry="3" fill="var(--leaf-2)"/></g><g class="fp" style="--d:10" transform="translate(432 153) rotate(92)"><ellipse rx="5" ry="8" fill="var(--leaf-2)"/><ellipse cy="-11" rx="3.4" ry="3" fill="var(--leaf-2)"/></g><g class="fp" style="--d:11" transform="translate(465 158) rotate(65)"><ellipse rx="5" ry="8" fill="var(--leaf-2)"/><ellipse cy="-11" rx="3.4" ry="3" fill="var(--leaf-2)"/></g><g class="fp" style="--d:12" transform="translate(483 129) rotate(48)"><ellipse rx="5" ry="8" fill="var(--leaf-2)"/><ellipse cy="-11" rx="3.4" ry="3" fill="var(--leaf-2)"/></g><g class="fp" style="--d:13" transform="translate(514 114) rotate(34)"><ellipse rx="5" ry="8" fill="var(--leaf-2)"/><ellipse cy="-11" rx="3.4" ry="3" fill="var(--leaf-2)"/></g><g class="fp" style="--d:14" transform="translate(516 81) rotate(23)"><ellipse rx="5" ry="8" fill="var(--leaf-2)"/><ellipse cy="-11" rx="3.4" ry="3" fill="var(--leaf-2)"/></g><g class="fp" style="--d:15" transform="translate(537 60) rotate(17)"><ellipse rx="5" ry="8" fill="var(--leaf-2)"/><ellipse cy="-11" rx="3.4" ry="3" fill="var(--leaf-2)"/></g>
+</svg></div>
+      <div class="wk-main">
+        <p class="eyebrow">要走多久</p>
+        <div class="wk-chips" id="wkDur" role="radiogroup" aria-label="走動時間"></div>
+        <p class="eyebrow">順路小任務 <button class="mini" id="wkShuffle" type="button">換一批</button></p>
+        <ul class="wk-ideas" id="wkIdeas"></ul>
+        <div class="wk-go-row"><button class="btn primary big" id="wkGo" type="button">出發走走</button><span class="wk-est" id="wkEst"></span></div>
+      </div>
+    </div>
+
     <div class="sec-head" id="seatHead">
       <div><h2>坐著就能動<span class="lt">Chair sets</span></h2><p>不用離開椅子，開會、追劇、打字的空檔都能做。動作越做越熟，也可以挑喜歡的單獨練。</p></div>
     </div>
@@ -950,10 +1034,11 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
     <div class="notes" id="notes"></div>
     <p class="disclaimer">這裡的內容是一般保健建議，不能取代醫師診斷。運動時如果不只是「有點痠」而是會痛，就停下來；有下面任何警訊，請先就醫再開始運動。</p>
   </section>
-  <footer class="sitefoot" id="siteFoot" hidden>
-    <span class="sf-en">Visitors</span>
+  <footer class="sitefoot" id="siteFoot">
+    <span class="sf-visit" id="sfVisit" hidden><span class="sf-en">Visitors</span>
     <span class="sf-n" id="visitN">—</span>
-    <span class="sf-zh">次拜訪小花園</span>
+    <span class="sf-zh">次拜訪小花園</span></span>
+    <span class="sf-by"><span class="sf-en">Designed by</span> <a href="http://mepopedia.com/~jinjin/" target="_blank" rel="noopener">JinJinWang</a></span>
   </footer>
 </div>
 
@@ -966,8 +1051,31 @@ table.week-t{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
     <div class="btns">
       <button class="btn primary big pulse" id="aGo">開始運動</button>
       <button class="btn" id="aMini">只做 1 分鐘</button>
+      <button class="btn" id="aWalk">離開座位走走</button>
       <button class="btn ghost" id="aSnooze">再坐 5 分鐘</button>
     </div>
+  </div>
+</div>
+
+<div class="overlay" id="ovWalk" hidden>
+  <div class="card walk-run" id="wkRun">
+    <button class="pl-x" id="wkX" aria-label="結束走動（Esc）" title="結束（Esc）"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+    <div><p class="eyebrow">離開座位・Walk break</p><h2 id="wkTitle">出發囉，慢慢走</h2></div>
+    <div class="wk-stage">
+      <svg class="ring" viewBox="0 0 120 120" aria-hidden="true"><circle class="rbg" cx="60" cy="60" r="54"/><circle class="rfg" id="wkRing" cx="60" cy="60" r="54" stroke-dasharray="339.3" stroke-dashoffset="0"/></svg>
+      <div class="wk-in" id="wkIn"><div class="wk-feet" id="wkFeet"></div></div>
+      <div class="wk-time"><b class="num" id="wkClock">5:00</b></div>
+    </div>
+    <p class="wk-steps" id="wkSteps">把手機帶在身上，會幫你數大概走了幾步</p>
+    <ul class="wk-todo" id="wkTodo"></ul>
+    <div class="btns" style="justify-content:center"><button class="btn" id="wkPause" type="button">暫停</button><button class="btn primary big" id="wkBack" type="button">我回到座位了</button></div>
+  </div>
+  <div class="card alert-card" id="wkDone" hidden>
+    <img class="done-pot" id="wkPot" src="img/frames/pot-1.webp" alt="目前的盆栽">
+    <p class="eyebrow" id="wkDoneEy">今天第 1 次</p>
+    <h2 id="wkDoneTitle">走完一圈，長出新葉子</h2>
+    <p id="wkDoneText"></p>
+    <div class="btns"><button class="btn primary big" id="wkOk" type="button">回去工作</button></div>
   </div>
 </div>
 
@@ -1170,7 +1278,7 @@ const today=()=>{const k=dkey(Date.now());return S.hist[k]||(S.hist[k]={b:0,m:0,
    每分鐘大卡 = MET × 3.5 × 體重(kg) ÷ 200；體重在「今日統計」卡可改，預設 60 kg */
 const MET={march:3.5,sitstand:3.8,side:3.0,heel:2.8,wallpush:3.0,bridge:3.0,slr:2.8,legext:2.3,ankle:1.8,calf:2.3,quad:2.3,hamstring:2.3,
   chin:1.5,shoulder:1.8,neck:1.5,reach:2.0,palm:1.3,
-  smarch:3.0,spunch:3.0,stoe:1.8,skneehug:2.0,scat:2.0,slean:2.5,stwist:2.0,sbend:2.0,scircle:2.3,sopen:2.0,swrist:1.5};
+  walk:3.0,smarch:3.0,spunch:3.0,stoe:1.8,skneehug:2.0,scat:2.0,slean:2.5,stwist:2.0,sbend:2.0,scircle:2.3,sopen:2.0,swrist:1.5};
 const KG=()=>+(S.settings&&S.settings.kg)||60;
 const kpm=id=>(MET[id]||2)*3.5*KG()/200;
 const dayKcal=d=>d.k!=null?d.k:d.m/60*3.5;
@@ -1179,9 +1287,9 @@ function renderKcalLog(){if(!$('kcBars'))return;const wd='日一二三四五六'
   $('kcWeek').innerHTML=Math.round(sum)+'<small style="font-size:12px;color:var(--muted);margin-left:3px">大卡／7 天</small>';$('kcKg').textContent=KG();
   $('kcBars').innerHTML=days.map((t,i)=>`<div class="kb${i===6?' now':''}"><span class="kv num">${Math.round(v[i])}</span><i style="height:${Math.max(3,v[i]/mx*100)}%"></i><span class="kd">${i===6?'今天':'週'+wd[new Date(t).getDay()]}</span></div>`).join('');
   const d=today(),L=Object.entries(d.km||{}).filter(x=>x[1]>=.1).sort((a,b)=>b[1]-a[1]);
-  $('kcToday').innerHTML=L.length?'<h4>今天每個動作</h4><ul>'+L.map(([k,x])=>`<li><button class="kc-mv" data-play="${k}" title="再做一次">${MOVES[k]?MOVES[k].name:k}</button><span class="kc-bar"><i style="width:${x/L[0][1]*100}%"></i></span><b class="num">${Math.round(x*10)/10}</b> 大卡</li>`).join('')+'</ul>'
+  $('kcToday').innerHTML=L.length?'<h4>今天每個動作</h4><ul>'+L.map(([k,x])=>`<li><button class="kc-mv" data-play="${k}" title="再做一次">${MOVES[k]?MOVES[k].name:k==='walk'?'離開座位走走':k}</button><span class="kc-bar"><i style="width:${x/L[0][1]*100}%"></i></span><b class="num">${Math.round(x*10)/10}</b> 大卡</li>`).join('')+'</ul>'
     :'<p class="x-empty">今天還沒有帶練紀錄。做完一組起身運動，這裡會列出每個動作消耗多少。</p>'}
-document.addEventListener('click',e=>{const b=e.target.closest('.kc-mv');if(b){unlockAudio();tryMove(b.dataset.play)}});
+document.addEventListener('click',e=>{const b=e.target.closest('.kc-mv');if(b){unlockAudio();b.dataset.play==='walk'?openWalk():tryMove(b.dataset.play)}});
 document.addEventListener('change',e=>{if(e.target.id!=='inKg')return;const v=Math.round(+e.target.value);if(v>=30&&v<=200){S.settings.kg=v;save();renderStats();renderLib(typeof libFilter==='string'?libFilter:'all')}else e.target.value=KG()});
 
 const $=id=>document.getElementById(id);
@@ -1456,7 +1564,7 @@ function allLines(){const L=new Set();
   ALL_R.forEach(r=>r.steps.forEach((st,i)=>{const m=MOVES[st[0]];const lead=i===0?'開始囉，'+r.name+'。第一個':(i===r.steps.length-1?'最後一個':'下一個');L.add(lead+'，'+m.name+'，'+st[2]+'。'+m.cue.join('。'))}));
   Object.values(MOVES).forEach(m=>L.add(m.name));L.add('換另一邊');
   [20,25,30,40,45,60].forEach(n=>L.add('已經坐了'+n+'分鐘，起來動一下吧。'));
-  L.add('眼睛休息二十秒，看看遠方，慢慢眨眼。');L.add('太棒了，今天的盆栽開花了。');L.add('做得好，盆栽長出一片新葉子。');
+  L.add('眼睛休息二十秒，看看遠方，慢慢眨眼。');WALK_LINES.forEach(t=>L.add(t));WALK_IDEAS.forEach(x=>L.add(x[1]));L.add('太棒了，今天的盆栽開花了。');L.add('做得好，盆栽長出一片新葉子。');
   return [...L].map(t=>({h:vhash(t),t}))}
 
 let notifyOK=false;
@@ -1527,6 +1635,104 @@ function finishPlayer(){
 }
 $('doneOk').onclick=()=>{$('ovPlayer').hidden=true;PL=null;resetTimer(true)};
 
+
+/* ===== 離開座位走走 ===== */
+const WALK_DUR=[[2,'倒杯水'],[3,'繞一圈'],[5,'走遠一點'],[10,'散個步']];
+const WI={
+  water:'<svg viewBox="0 0 20 20"><path d="M5 3h10l-1.3 14H6.3z" fill="var(--sun-2)"/><path d="M6.2 9h7.6l-.7 7H6.9z" fill="var(--sun)"/></svg>',
+  window:'<svg viewBox="0 0 20 20"><rect x="4" y="3" width="12" height="14" rx="6" fill="var(--sun-soft)" stroke="var(--sun)" stroke-width="1.6"/><path d="M10 3v14M4 11h12" stroke="var(--sun)" stroke-width="1.4"/></svg>',
+  stairs:'<svg viewBox="0 0 20 20"><path d="M3 16h4v-4h4V8h4V4h2v12z" fill="var(--leaf-2)"/></svg>',
+  hand:'<svg viewBox="0 0 20 20"><path d="M10 3c3 4 5 6.3 5 9a5 5 0 0 1-10 0c0-2.7 2-5 5-9z" fill="var(--sun-2)"/></svg>',
+  cup:'<svg viewBox="0 0 20 20"><path d="M4 7h10v5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z" fill="var(--leaf-2)"/><path d="M14 9h1.5a2 2 0 0 1 0 4H14" fill="none" stroke="var(--leaf)" stroke-width="1.6"/></svg>',
+  hall:'<svg viewBox="0 0 20 20"><path d="M3 10h12M11 6l4 4-4 4" fill="none" stroke="var(--leaf)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  hi:'<svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7" fill="var(--leaf-soft)" stroke="var(--leaf-2)" stroke-width="1.6"/><circle cx="7.6" cy="9" r="1" fill="var(--ink)"/><circle cx="12.4" cy="9" r="1" fill="var(--ink)"/><path d="M7.2 12a3.3 3.3 0 0 0 5.6 0" fill="none" stroke="var(--ink)" stroke-width="1.3" stroke-linecap="round"/></svg>',
+  sky:'<svg viewBox="0 0 20 20"><circle cx="10" cy="9" r="4" fill="var(--sun-2)"/><path d="M3 16h14" stroke="var(--sun)" stroke-width="1.8" stroke-linecap="round"/></svg>',
+  bin:'<svg viewBox="0 0 20 20"><path d="M5 6h10l-1 11H6z" fill="var(--leaf-2)"/><path d="M4 6h12M8 4h4" stroke="var(--leaf)" stroke-width="1.6" stroke-linecap="round"/></svg>',
+  shoulder:'<svg viewBox="0 0 20 20"><path d="M10 4a6 6 0 1 1-5.6 3.8" fill="none" stroke="var(--sky)" stroke-width="2" stroke-linecap="round"/><path d="M2.6 5.6l1.8 2.4 2.6-1.4" fill="none" stroke="var(--sky)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  tall:'<svg viewBox="0 0 20 20"><path d="M10 17V4M6 8l4-4 4 4" fill="none" stroke="var(--sky)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  mail:'<svg viewBox="0 0 20 20"><rect x="3" y="5" width="14" height="10" rx="2" fill="var(--sun-soft)" stroke="var(--sun)" stroke-width="1.5"/><path d="M3.5 6l6.5 5 6.5-5" fill="none" stroke="var(--sun)" stroke-width="1.5"/></svg>'};
+/* [圖示, 任務, 小提醒, 完成時額外記錄] */
+const WALK_IDEAS=[
+  ['water','去裝一杯水，回來先喝幾口','喝水也會記進今天的杯數','w'],
+  ['window','走到窗邊，看遠方 20 秒','順便算一次護眼休息','e'],
+  ['stairs','走一層樓梯，扶著扶手慢慢走','上樓比下樓輕鬆，膝蓋不舒服就搭電梯下來',''],
+  ['hand','去洗手間，順便洗個手','',''],
+  ['cup','把桌上的杯子拿去洗','',''],
+  ['hall','走到走廊另一頭，再走回來','',''],
+  ['hi','去跟同事或家人說聲嗨','',''],
+  ['sky','到門口看看天空，深呼吸三次','',''],
+  ['bin','順手倒個垃圾或回收','',''],
+  ['shoulder','邊走邊轉肩膀，前後各 5 圈','',''],
+  ['tall','抬頭挺胸，步伐放大一點','',''],
+  ['mail','去拿個信件、包裹或印好的文件','','']];
+const WALK_LINES=['起來走一走吧，順便完成小任務。','走了一半囉，可以慢慢往回走。','時間到了，慢慢走回座位吧。','走得好，盆栽長出一片新葉子。'];
+let WK=null,wkPick=[];
+const wkMin=()=>{const v=+(S.settings.walkMin);return WALK_DUR.some(x=>x[0]===v)?v:3};
+function wkShuffle(){const a=WALK_IDEAS.map((x,i)=>i).sort(()=>Math.random()-.5);wkPick=a.slice(0,3);renderWalk()}
+function renderWalk(){if(!$('wkDur'))return;const v=wkMin();
+  $('wkDur').innerHTML=WALK_DUR.map(([n,l])=>`<button type="button" class="wk-c" role="radio" aria-checked="${n===v}" data-v="${n}"><b>${n}<small>分</small></b><span>${l}</span></button>`).join('');
+  if(!wkPick.length)wkPick=[0,1,5];
+  $('wkIdeas').innerHTML=wkPick.map(i=>{const x=WALK_IDEAS[i];return `<li><span class="ic">${WI[x[0]]}</span><span>${x[1]}${x[2]?`<small>${x[2]}</small>`:''}</span></li>`}).join('');
+  document.querySelectorAll('#walkCard .stop').forEach(g=>g.classList.toggle('on',wkPick.some(i=>WALK_IDEAS[i][0]===g.dataset.k)));
+  $('wkEst').innerHTML=`約 <b>${Math.max(1,Math.round(kpm('walk')*v))}</b> 大卡・算一次起身`}
+$('wkDur').onclick=e=>{const b=e.target.closest('.wk-c');if(!b)return;unlockAudio();S.settings.walkMin=+b.dataset.v;save();renderWalk();chime('tick')};
+$('wkShuffle').onclick=()=>{unlockAudio();wkShuffle();chime('tick')};
+$('wkGo').onclick=()=>openWalk();
+$('aWalk').onclick=()=>{clearAlert();openWalk()};
+const wkFmt=s=>{s=Math.max(0,Math.ceil(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+function wkElapsed(){if(!WK)return 0;return WK.acc+(WK.paused?0:(Date.now()-WK.t0)/1000)}
+function wkMotion(e){const a=e.accelerationIncludingGravity;if(!a||a.x==null)return;const m=Math.hypot(a.x,a.y,a.z);WK.lp=WK.lp==null?m:WK.lp*.8+m*.2;const now=Date.now();
+  if(!WK.paused&&WK.lp>WK.hi&&now-WK.lastStep>320){WK.steps++;WK.lastStep=now}
+  WK.hi=Math.max(10.6,(WK.base=WK.base==null?m:WK.base*.98+m*.02)+1.2)}
+function openWalk(min){unlockAudio();hush();min=min||wkMin();
+  if(run.on){run.on=false}
+  WK={total:min*60,acc:0,t0:Date.now(),paused:false,steps:0,lastStep:0,lp:null,base:null,hi:11,half:false,up:false,done:new Set(),motion:false,timer:null};
+  $('wkRun').hidden=false;$('wkDone').hidden=true;$('wkRun').classList.remove('timeup','paused');$('wkPause').textContent='暫停';
+  $('wkTitle').textContent='出發囉，慢慢走';
+  const ideas=wkPick.length?wkPick:[0,1,5];
+  $('wkTodo').innerHTML=ideas.map(i=>{const x=WALK_IDEAS[i];return `<li><button type="button" aria-pressed="false" data-i="${i}"><span class="bx"><svg viewBox="0 0 20 20" width="14" height="14"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="tx">${x[1]}</span></button></li>`}).join('');
+  /* 有走路插圖就用插圖（img/frames/walk-a.webp／walk-b.webp），沒有就用腳印 */
+  const box=$('wkIn'),boy=S.settings.char==='boy',dir=boy&&window.SG_BOY&&SG_BOY.moves&&SG_BOY.moves.walk?'img/frames/boy/':'img/frames/';
+  box.classList.remove('anim');box.querySelectorAll('img').forEach(i=>i.remove());
+  const ia=new Image();ia.className='fa';ia.alt='走路中';ia.onload=()=>{const ib=new Image();ib.className='fb';ib.alt='';ib.src=dir+'walk-b.webp?v=1125';box.append(ia,ib);box.classList.add('anim');$('wkFeet').hidden=true};
+  ia.onerror=()=>{$('wkFeet').hidden=false};ia.src=dir+'walk-a.webp?v=1125';
+  $('wkFeet').innerHTML=[...Array(8)].map((_,i)=>`<i style="left:${i%2?52:38}%;top:${78-i*9}%;transform:rotate(${i%2?8:-8}deg);animation-delay:${i*.3}s"></i>`).join('');
+  $('ovWalk').hidden=false;$('wkBack').focus();
+  Music.start();setTimeout(()=>say(WALK_LINES[0]),400);
+  try{if(window.DeviceMotionEvent&&('ontouchstart' in window)){const go=()=>{WK.motion=true;addEventListener('devicemotion',wkMotion)};
+    if(typeof DeviceMotionEvent.requestPermission==='function')DeviceMotionEvent.requestPermission().then(r=>{if(r==='granted')go()}).catch(()=>{});else go()}}catch(e){}
+  if(!('ontouchstart' in window))$('wkSteps').textContent='把手機帶在身上的話，用手機開這頁會幫你數步數';
+  WK.timer=setInterval(wkTick,250);wkTick()}
+function wkTick(){if(!WK)return;const el=wkElapsed(),left=WK.total-el,f=Math.min(1,el/WK.total);
+  $('wkClock').textContent=left>0?wkFmt(left):'+'+wkFmt(-left);
+  $('wkRing').style.strokeDashoffset=String(339.3*f);
+  if(WK.motion)$('wkSteps').textContent=WK.steps?'大約走了 '+WK.steps+' 步':'開始走，步數會跳出來';
+  if(!WK.half&&f>=.5){WK.half=true;if(WK.total>=120)say(WALK_LINES[1])}
+  if(!WK.up&&left<=0){WK.up=true;$('wkRun').classList.add('timeup');$('wkTitle').textContent='時間到，慢慢走回座位吧';chime('done');say(WALK_LINES[2]);$('wkBack').classList.add('pulse')}
+  if(el>WK.total+15*60)finishWalk()}
+$('wkTodo').onclick=e=>{const b=e.target.closest('button');if(!b||!WK)return;const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(on));const i=+b.dataset.i;on?WK.done.add(i):WK.done.delete(i);chime(on?'soft':'tick')};
+$('wkPause').onclick=()=>{if(!WK)return;if(WK.paused){WK.paused=false;WK.t0=Date.now();$('wkPause').textContent='暫停';Music.start()}else{WK.acc=wkElapsed();WK.paused=true;$('wkPause').textContent='繼續';Music.stop()}$('wkRun').classList.toggle('paused',WK.paused)};
+function wkStop(){if(!WK)return;clearInterval(WK.timer);try{removeEventListener('devicemotion',wkMotion)}catch(e){}$('wkBack').classList.remove('pulse');hush()}
+function finishWalk(){if(!WK)return;const sec=Math.min(wkElapsed(),WK.total+15*60);wkStop();
+  if(sec<45){closeWalkNow();return}
+  const d=today();if(d.k==null)d.k=d.m/60*3.5;d.b++;d.m+=Math.round(sec);const kc=kpm('walk')*sec/60;d.k+=kc;d.km=d.km||{};d.km.walk=(d.km.walk||0)+kc;d.wk=(d.wk||0)+1;
+  let extra=[];WK.done.forEach(i=>{const t=WALK_IDEAS[i][3];if(t==='w'){d.w++;extra.push('喝水 +1 杯')}if(t==='e'){d.e++;extra.push('護眼 +1 次')}});
+  if(WK.steps>20)d.st=(d.st||0)+WK.steps;
+  save();chime('done');setTimeout(()=>say(d.b>=S.settings.goal?'太棒了，今天的盆栽開花了。':WALK_LINES[3]),500);
+  $('wkRun').hidden=true;$('wkDone').hidden=false;$('wkPot').src=POT(potStage(d.b,S.settings.goal));
+  $('wkDoneEy').textContent='今天第 '+d.b+' 次';
+  $('wkDoneTitle').textContent=d.b===S.settings.goal?'盆栽開花了':'走完一圈，長出新葉子';
+  const n=WK.done.size;
+  $('wkDoneText').textContent='走了 '+Math.max(1,Math.round(sec/60))+' 分鐘'+(WK.steps>20?'、大約 '+WK.steps+' 步':'')+'，約消耗 '+Math.max(1,Math.round(kc))+' 大卡。'+(n?'完成 '+n+' 個小任務'+(extra.length?'（'+extra.join('、')+'）':'')+'。':'')+'計時器會重新開始。';
+  $('wkOk').focus();WK=null;renderAll()}
+function closeWalkNow(){wkStop();WK=null;$('ovWalk').hidden=true;resetTimer(true)}
+function closeWalk(){if($('ovWalk').hidden)return;if(!WK){closeWalkNow();return}if(wkElapsed()>=45)finishWalk();else closeWalkNow()}
+$('wkBack').onclick=finishWalk;$('wkX').onclick=closeWalk;$('wkOk').onclick=()=>{$('ovWalk').hidden=true;resetTimer(true)};
+$('ovWalk').addEventListener('click',e=>{if(e.target===$('ovWalk'))closeWalk()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('ovWalk').hidden)closeWalk()});
+document.addEventListener('visibilitychange',()=>{if(WK&&!document.hidden)wkTick()});
+renderWalk();
+
 $('aGo').onclick=()=>openPlayer(ROUTINES[S.next%ROUTINES.length].id);
 $('aMini').onclick=()=>openPlayer('mini');
 $('aSnooze').onclick=()=>{clearAlert();run.left=5*60000;start()};
@@ -1570,7 +1776,7 @@ function renderStats(){
   $('sMin').innerHTML=Math.round(d.m/60)+'<small>分鐘</small>';
   $('sKcal').innerHTML=Math.round(dayKcal(d))+'<small>大卡</small>';renderKcalLog();
   {const top=Object.entries(d.km||{}).sort((a,b)=>b[1]-a[1]).slice(0,3).filter(x=>x[1]>=.5);
-   $('kcalTop').innerHTML=top.length?'今天最多：'+top.map(([k,v])=>`${MOVES[k]?MOVES[k].name:k} ${Math.round(v)}`).join('、'):'依每個動作強度計算';
+   $('kcalTop').innerHTML=top.length?'今天最多：'+top.map(([k,v])=>`${MOVES[k]?MOVES[k].name:k==='walk'?'走走':k} ${Math.round(v)}`).join('、'):'依每個動作強度計算';
    if(document.activeElement!==$('inKg'))$('inKg').value=KG()}
   $('sEye').innerHTML=d.e+'<small>次</small>';
   $('sWater').textContent=d.w;
@@ -1687,7 +1893,7 @@ function renderNotes(){
   $('notes').innerHTML=N.map(n=>`<div class="card note-c"><span class="ic" style="background:${n.bg}">${VI[n.ic]}</span><h3>${n.h}</h3><h4>可以這樣做</h4><ul>${n.do.map(x=>'<li>'+x+'</li>').join('')}</ul><div class="warn"><b>出現這些情況，先就醫</b>${n.warn}</div></div>`).join('');
 }
 
-const SUB={today:[['計時器','.today'],['今日統計','.stats'],['運動組合','#routines'],['坐著動','#seatHead'],['怎麼使用','#howto']],
+const SUB={today:[['計時器','.today'],['今日統計','.stats'],['運動組合','#routines'],['走走','#walkHead'],['坐著動','#seatHead'],['怎麼使用','#howto']],
   library:[['身體地圖','.x-map'],['抽一個','.x-gacha'],['全部動作','#lib']],
   plan:[['四週闖關','.x-quest'],['一天節奏','#rhythm'],['一週安排','#weekTable']],
   body:[['今天感覺','.x-diary'],['熱量紀錄','.x-kcal'],['小測驗','.x-quiz'],['飲料換算','.x-drink'],['翻翻卡','#flips'],['保健筆記','#notes']]};
@@ -1714,7 +1920,7 @@ function renderAll(){renderStats();renderGarden();renderRoutines();renderTimer()
 /* 訪客計數器：每次開網站 +1（本機預覽不計）。服務常常很慢或沒回應，
    所以先顯示上次存下的數字，讀到新數字再更新；讀不到就維持原數字，不會消失 */
 (()=>{const local=/^(localhost|127\.|\[::1\])/.test(location.hostname)||location.protocol==='file:',CK=KEY+'-visits';
-  const show=n=>{$('visitN').textContent=n.toLocaleString('zh-TW');$('siteFoot').hidden=false};
+  const show=n=>{$('visitN').textContent=n.toLocaleString('zh-TW');$('sfVisit').hidden=false};
   let last=0;try{last=+localStorage.getItem(CK)||0}catch(e){}
   if(last)show(local?last:last+1);
   const url='https://abacus.jasoncameron.dev/'+(local?'get':'hit')+'/cute-capstone-standup-garden/visits';
